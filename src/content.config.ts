@@ -20,7 +20,8 @@ export const collections = {
   home: defineCollection({ loader: single('home.json', 'pages'), schema: homeSchema }),
   about: defineCollection({ loader: single('about.json', 'pages'), schema: aboutSchema }),
   customPages: defineCollection({
-    loader: glob({ pattern: '*.json', base: './src/content/custom-pages' }),
+    // id = nama file (bukan field `slug`), supaya slug bentrok terdeteksi di lib/content.ts alih-alih digabung diam-diam.
+    loader: glob({ pattern: '*.json', base: './src/content/custom-pages', generateId: ({ entry }) => entry.replace(/\.json$/, '') }),
     schema: customPageSchema,
   }),
   projects: defineCollection({
