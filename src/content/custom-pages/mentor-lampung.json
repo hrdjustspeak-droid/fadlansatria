@@ -1,0 +1,109 @@
+{
+  "title": "Mentor Lampung",
+  "slug": "mentor-lampung",
+  "pageHeader": {
+    "enabled": true,
+    "eyebrow": "Project",
+    "subtitle": "Connecting young people in Lampung with mentors who have walked the path before them.",
+    "image": "/uploads/sample/project-3.webp",
+    "imageAlt": "Placeholder photo for Mentor Lampung",
+    "imageEdge": "frame",
+    "edgeIntensity": "medium"
+  },
+  "sections": [
+    {
+      "type": "richText",
+      "enabled": true,
+      "variant": "two-column",
+      "title": "The problem",
+      "body": "Talented students in Lampung often have the grades but not the guidance. They do not know anyone who has applied for a scholarship abroad, switched careers, or started a business, so they guess, and often give up.\n\nMentor Lampung matches them with mentors who share honest, practical advice."
+    },
+    {
+      "type": "services",
+      "enabled": true,
+      "variant": "numbered",
+      "eyebrow": "What we do",
+      "title": "Key activities",
+      "items": [
+        {
+          "title": "Mentor matching",
+          "description": "Pairing mentees with volunteer mentors based on goals: scholarships, careers, or entrepreneurship."
+        },
+        {
+          "title": "Group mentoring sessions",
+          "description": "Monthly themed sessions where several mentors answer questions openly."
+        },
+        {
+          "title": "Application reviews",
+          "description": "Feedback on essays, CVs, and study plans before deadlines."
+        }
+      ]
+    },
+    {
+      "type": "stats",
+      "enabled": true,
+      "variant": "cards",
+      "title": "Key results",
+      "items": [
+        {
+          "value": "300+",
+          "label": "Mentees supported"
+        },
+        {
+          "value": "50+",
+          "label": "Volunteer mentors"
+        },
+        {
+          "value": "40+",
+          "label": "Scholarship and job offers"
+        }
+      ]
+    },
+    {
+      "type": "richText",
+      "enabled": true,
+      "variant": "narrow",
+      "body": "The strongest result is a network: mentees who succeed come back as mentors for the next group."
+    },
+    {
+      "type": "gallery",
+      "enabled": true,
+      "variant": "grid",
+      "title": "In pictures",
+      "items": [
+        {
+          "image": "/uploads/sample/gallery-1.webp",
+          "alt": "Placeholder photo 1 for Mentor Lampung",
+          "caption": "Photo placeholder"
+        },
+        {
+          "image": "/uploads/sample/gallery-2.webp",
+          "alt": "Placeholder photo 2 for Mentor Lampung",
+          "caption": "Photo placeholder"
+        },
+        {
+          "image": "/uploads/sample/gallery-3.webp",
+          "alt": "Placeholder photo 3 for Mentor Lampung",
+          "caption": "Photo placeholder"
+        }
+      ]
+    },
+    {
+      "type": "ctaBanner",
+      "enabled": true,
+      "variant": "default",
+      "headline": "Want to join or support Mentor Lampung?",
+      "button": {
+        "label": "Chat on WhatsApp",
+        "linkType": "external",
+        "url": "https://wa.me/6281377587711"
+      }
+    }
+  ],
+  "seo": {
+    "description": "Connecting young people in Lampung with mentors who have walked the path before them.",
+    "ogImage": "",
+    "noindex": false
+  },
+  "draft": false
+}

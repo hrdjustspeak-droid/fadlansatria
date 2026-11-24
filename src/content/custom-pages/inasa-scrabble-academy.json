@@ -1,0 +1,109 @@
+{
+  "title": "INASA Scrabble Academy",
+  "slug": "inasa-scrabble-academy",
+  "pageHeader": {
+    "enabled": true,
+    "eyebrow": "Project",
+    "subtitle": "Using competitive English Scrabble to grow vocabulary, strategy, and sportsmanship.",
+    "image": "/uploads/sample/project-4.webp",
+    "imageAlt": "Placeholder photo for INASA Scrabble Academy",
+    "imageEdge": "frame",
+    "edgeIntensity": "medium"
+  },
+  "sections": [
+    {
+      "type": "richText",
+      "enabled": true,
+      "variant": "two-column",
+      "title": "The problem",
+      "body": "English vocabulary is often taught as lists to memorise, which bores students quickly. Meanwhile, mind sports that train focus and strategic thinking get little support outside a few clubs.\n\nINASA Scrabble Academy turns English Scrabble into a structured training path, from first game to tournament play."
+    },
+    {
+      "type": "services",
+      "enabled": true,
+      "variant": "numbered",
+      "eyebrow": "What we do",
+      "title": "Key activities",
+      "items": [
+        {
+          "title": "Weekly training sessions",
+          "description": "Word study, board strategy, and timed games for beginner to advanced players."
+        },
+        {
+          "title": "School programs",
+          "description": "Introductory Scrabble clubs that help schools build English enrichment activities."
+        },
+        {
+          "title": "Tournament preparation",
+          "description": "Coaching and practice games for regional and national competitions."
+        }
+      ]
+    },
+    {
+      "type": "stats",
+      "enabled": true,
+      "variant": "cards",
+      "title": "Key results",
+      "items": [
+        {
+          "value": "200+",
+          "label": "Players trained"
+        },
+        {
+          "value": "15+",
+          "label": "Tournament medals"
+        },
+        {
+          "value": "10",
+          "label": "School partners"
+        }
+      ]
+    },
+    {
+      "type": "richText",
+      "enabled": true,
+      "variant": "narrow",
+      "body": "Players report larger vocabularies and better focus, and the academy has helped grow a friendly, competitive Scrabble community."
+    },
+    {
+      "type": "gallery",
+      "enabled": true,
+      "variant": "grid",
+      "title": "In pictures",
+      "items": [
+        {
+          "image": "/uploads/sample/gallery-4.webp",
+          "alt": "Placeholder photo 1 for INASA Scrabble Academy",
+          "caption": "Photo placeholder"
+        },
+        {
+          "image": "/uploads/sample/gallery-5.webp",
+          "alt": "Placeholder photo 2 for INASA Scrabble Academy",
+          "caption": "Photo placeholder"
+        },
+        {
+          "image": "/uploads/sample/gallery-6.webp",
+          "alt": "Placeholder photo 3 for INASA Scrabble Academy",
+          "caption": "Photo placeholder"
+        }
+      ]
+    },
+    {
+      "type": "ctaBanner",
+      "enabled": true,
+      "variant": "default",
+      "headline": "Want to join or support INASA Scrabble Academy?",
+      "button": {
+        "label": "Chat on WhatsApp",
+        "linkType": "external",
+        "url": "https://wa.me/6281377587711"
+      }
+    }
+  ],
+  "seo": {
+    "description": "Using competitive English Scrabble to grow vocabulary, strategy, and sportsmanship.",
+    "ogImage": "",
+    "noindex": false
+  },
+  "draft": false
+}

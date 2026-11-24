@@ -1,20 +1,27 @@
 {
-  "ownerName": "Raka Pratama",
-  "role": "Brand & UI/UX Designer",
+  "ownerName": "Fadlan Satria",
+  "role": "Human Empowerer",
   "logo": "",
   "favicon": "",
-  "email": "halo@namaweb.com",
-  "whatsapp": "6281234567890",
+  "email": "fadscrab@gmail.com",
+  "whatsapp": "6281377587711",
   "socials": [
-    { "platform": "LinkedIn", "url": "https://www.linkedin.com/in/username" },
-    { "platform": "Instagram", "url": "https://www.instagram.com/username" },
-    { "platform": "Behance", "url": "https://www.behance.net/username" },
-    { "platform": "Dribbble", "url": "https://dribbble.com/username" }
+    {
+      "platform": "LinkedIn",
+      "url": "https://www.linkedin.com/search/results/people/?keywords=Fadlan%20Satria"
+    }
   ],
   "cvFile": "",
   "seo": {
-    "description": "Portfolio Raka Pratama, desainer brand dan UI/UX di Yogyakarta. Identitas visual, aplikasi, dan website untuk UMKM sampai startup.",
+    "description": "Fadlan Satria builds practical, affordable training programs so talented people in Indonesia can grow, speak up, and lead.",
     "ogImage": "/uploads/sample/og.webp"
   },
-  "footerText": "Dibuat dengan teliti di Yogyakarta."
+  "footerText": "Empowering people through practical, accessible training.",
+  "nameSuffix": "none",
+  "language": "en",
+  "address": "Jl. Danau Maninjau No. 39, Bandar Lampung, Lampung, Indonesia",
+  "availability": {
+    "enabled": true,
+    "label": "Open to collaborate"
+  }
 }

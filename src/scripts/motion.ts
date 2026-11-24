@@ -160,7 +160,10 @@ function setup() {
         duration: 1.2,
         ease: 'power2.out',
         scrollTrigger: { trigger: el, start: 'top 90%', once: true },
-        onUpdate: () => (el.textContent = String(Math.round(obj.v))),
+        onUpdate: () => {
+          const n = String(Math.round(obj.v));
+          el.textContent = el.dataset.sep ? n.replace(/\B(?=(\d{3})+(?!\d))/g, el.dataset.sep) : n;
+        },
       });
     });
   });

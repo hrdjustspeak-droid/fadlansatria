@@ -4,6 +4,7 @@ import { getProjects } from '../../lib/content';
 import SectionHeading from '../ui/SectionHeading.astro';
 import ProjectCard from '../ui/ProjectCard.astro';
 import Img from '../ui/Img.astro';
+import { getStrings } from '../../lib/i18n';
 
 interface Props {
   data: Extract<Section, { type: 'featuredProjects' }>;
@@ -18,15 +19,16 @@ let list =
       : [...all].sort((a, b) => b.data.year - a.data.year);
 if (data.source === 'featured' && list.length === 0) list = all; // belum ada yang ditandai unggulan
 list = list.slice(0, data.count);
+const t = await getStrings(Astro.locals);
 ---
 
 <section class="section">
   <div class="container-x">
     <div class="flex flex-wrap items-end justify-between gap-x-8">
       <SectionHeading eyebrow={data.eyebrow} title={data.title} />
-      <a href="/projects" class="link mb-10 font-semibold md:mb-14">Semua proyek →</a>
+      <a href="/projects" class="link mb-10 font-semibold md:mb-14">{t.allProjects} →</a>
     </div>
-    {list.length === 0 && <p class="meta">Belum ada proyek untuk ditampilkan.</p>}
+    {list.length === 0 && <p class="meta">{t.noProjects}</p>}
     {
       data.variant === 'grid' && (
         <ul class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3" role="list">

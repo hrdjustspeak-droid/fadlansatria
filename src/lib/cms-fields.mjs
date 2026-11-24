@@ -32,7 +32,7 @@ const BUILTIN = [
 
 /** Field link: jenis + 3 kemungkinan tujuan. Sveltia belum punya field kondisional, jadi dijelaskan lewat hint. */
 const linkFields = () => [
-  select('linkType', 'Jenis Link', [['builtin', 'Halaman bawaan'], ['custom', 'Halaman custom'], ['external', 'Link luar (URL)']], 'builtin', 'Pilih jenisnya, lalu isi SATU field tujuan di bawah yang sesuai.'),
+  select('linkType', 'Jenis Link', [['builtin', 'Halaman bawaan'], ['custom', 'Halaman custom'], ['external', 'Link luar (URL)'], ['none', 'Tanpa link (hanya membuka dropdown)']], 'builtin', 'Pilih jenisnya, lalu isi SATU field tujuan di bawah yang sesuai. "Tanpa link" hanya untuk item menu navbar yang punya submenu.'),
   select('builtinPage', 'Halaman Bawaan', BUILTIN, undefined, 'Isi bila Jenis Link = Halaman bawaan.', false),
   {
     name: 'customPage',
@@ -302,6 +302,8 @@ export const collections = [
           { name: 'cvFile', label: 'File CV (PDF)', widget: 'file', required: false, accept: 'application/pdf', hint: 'Opsional. Memunculkan tombol "Download CV" di footer.' },
           seoFields(false),
           optString('footerText', 'Teks Footer', 'Maks. 160 karakter', { max: 160 }),
+          select('language', 'Bahasa Situs', [['id', 'Bahasa Indonesia'], ['en', 'English']], 'id', 'Bahasa teks tombol, label form, dan menu bawaan di situs. Konten tetap Anda tulis sendiri.', false),
+          text('address', 'Alamat', 'Tampil di footer. Maks. 200 karakter', { max: 200, required: false }),
           select('nameSuffix', 'Simbol di Belakang Nama', [['none', 'Tanpa simbol'], ['®', '®'], ['™', '™'], ['*', '*']], 'none', 'Tampil kecil di belakang nama (navbar Pill, hero Spotlight & Cutout).', false),
           object('availability', 'Status Ketersediaan', 'Badge berisi titik hijau, mis. "Available" atau "Terima proyek".', [bool('enabled', 'Tampilkan', false), optString('label', 'Teks Status', 'Maks. 24 karakter', { max: 24 })], true),
         ],
@@ -324,7 +326,7 @@ export const collections = [
         file: 'src/content/settings/navigation.json',
         fields: [
           select('navStyle', 'Gaya Navbar', [['default', 'Standar: nama, menu, tombol'], ['pill', 'Pill: nama + status, tombol Menu'], ['glass-center', 'Kaca tengah: menu di pill kaca (cocok dengan hero Showcase)']], 'default', 'Tampilan navbar di semua halaman.', false),
-          list('mainMenu', 'Menu Navbar', 'Maks. 6 item. Seret untuk mengubah urutan. Menautkan halaman custom: buat halamannya dulu di menu Halaman Custom.', [string('label', 'Teks Menu', 'Maks. 30 karakter', { max: 30 }), ...linkFields(), bool('openNewTab', 'Buka di Tab Baru', false)], { max: 6, summary: '{{label}}' }),
+          list('mainMenu', 'Menu Navbar', 'Maks. 6 item. Seret untuk mengubah urutan. Menautkan halaman custom: buat halamannya dulu di menu Halaman Custom.', [string('label', 'Teks Menu', 'Maks. 30 karakter', { max: 30 }), ...linkFields(), bool('openNewTab', 'Buka di Tab Baru', false), list('children', 'Submenu (dropdown)', 'Opsional. Bila diisi, item ini membuka daftar dropdown. Maks. 12 item.', [string('label', 'Teks Submenu', 'Maks. 40 karakter', { max: 40 }), ...linkFields()], { max: 12, summary: '{{label}}' })], { max: 6, summary: '{{label}}' }),
           object('ctaButton', 'Tombol CTA Navbar', 'Tombol menonjol di kanan navbar, contoh "Hubungi Saya".', [bool('enabled', 'Tampilkan', false), optString('label', 'Teks Tombol', 'Maks. 30 karakter', { max: 30 }), ...linkFields()], true),
           list('footerMenu', 'Menu Footer', 'Maks. 10 item, untuk halaman sekunder seperti FAQ.', [string('label', 'Teks Menu', 'Maks. 30 karakter', { max: 30 }), ...linkFields()], { max: 10, summary: '{{label}}' }),
         ],

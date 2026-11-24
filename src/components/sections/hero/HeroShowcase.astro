@@ -10,6 +10,7 @@ import { ed } from '../../../lib/edit';
 import Img from '../../ui/Img.astro';
 import VideoModal from '../../ui/VideoModal.astro';
 import ServiceColumns from './ServiceColumns.astro';
+import { getStrings } from '../../../lib/i18n';
 
 interface Props {
   data: Extract<Section, { type: 'hero' }>;
@@ -37,6 +38,7 @@ const primary = data.primaryCta ? { ...data.primaryCta, href: await ctaHref(data
 const secondary = !data.heroVideoUrl && data.secondaryCta ? { ...data.secondaryCta, href: await ctaHref(data.secondaryCta, 'Hero', l) } : undefined;
 const modalId = `hero-video-${index}`;
 const arrow = 'M7 17 17 7M8 7h9v9';
+const t = await getStrings(Astro.locals);
 ---
 
 <section class="showcase" data-hero data-scroll-scale>
@@ -80,7 +82,7 @@ const arrow = 'M7 17 17 7M8 7h9v9';
           data.heroVideoUrl ? (
             <button type="button" class="btn sc-ghost sc-pill" data-video-open={modalId}>
               <svg class="i-play" viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" /></svg>
-              Tonton Video
+              {t.watchVideo}
             </button>
           ) : (
             secondary && (
@@ -254,6 +256,9 @@ const arrow = 'M7 17 17 7M8 7h9v9';
     }
     .sc-content {
       margin-top: 0;
+    }
+    .sc-sub {
+      -webkit-line-clamp: unset; /* di HP jangan potong isi */
     }
     .sc-panel-wrap {
       position: static;

@@ -7,6 +7,7 @@ import { isCutout } from '../../../lib/image';
 import { ed } from '../../../lib/edit';
 import Img from '../../ui/Img.astro';
 import BigName from './BigName.astro';
+import { getStrings } from '../../../lib/i18n';
 
 interface Props {
   data: Extract<Section, { type: 'hero' }>;
@@ -22,6 +23,7 @@ const src = data.cutoutImage || data.image!;
 const transparent = data.cutoutImage ? await isCutout(data.cutoutImage, l) : false;
 const cta = data.textCta ? { ...data.textCta, href: await ctaHref(data.textCta, 'Hero', l) } : undefined;
 const services = data.rotatingServices;
+const t = await getStrings(Astro.locals);
 ---
 
 <section class:list={['cutout', `layer-${data.nameLayer}`]} data-hero style={`--chars:${[...name].length + 1}`}>
@@ -55,7 +57,7 @@ const services = data.rotatingServices;
     }
     {
       services.length > 0 && (
-        <ul class="co-services" data-rotate aria-label="Layanan" aria-live="off" data-rise>
+        <ul class="co-services" data-rotate aria-label={t.services} aria-live="off" data-rise>
           {services.map((s, i) => (
             <li class:list={[i === 0 && 'is-active']} {...ed(l, `rotatingServices.${i}`)}>
               {s}

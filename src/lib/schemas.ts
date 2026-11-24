@@ -25,7 +25,8 @@ const hex = z.string().regex(/^#[0-9a-fA-F]{6}$/, 'Warna harus format hex 6 digi
 const slugRule = z.string().regex(/^[a-z0-9]+(-[a-z0-9]+)*$/, 'Slug hanya boleh huruf kecil, angka, dan tanda hubung');
 
 const linkFields = {
-  linkType: z.enum(['builtin', 'custom', 'external']),
+  // none = tanpa link (khusus item menu yang hanya membuka dropdown)
+  linkType: z.enum(['builtin', 'custom', 'external', 'none']),
   builtinPage: opt(z.enum(BUILTIN_PAGES)),
   customPage: opt(slugRule),
   url: opt(z.string().trim()),
@@ -35,6 +36,8 @@ function checkLink(l: LinkFields, ctx: z.RefinementCtx) {
   if (l.linkType === 'builtin' && !l.builtinPage) ctx.addIssue({ code: 'custom', message: 'Pilih Halaman Bawaan untuk link jenis "builtin"' });
   if (l.linkType === 'custom' && !l.customPage) ctx.addIssue({ code: 'custom', message: 'Pilih Halaman Custom untuk link jenis "custom"' });
   if (l.linkType === 'external' && !l.url) ctx.addIssue({ code: 'custom', message: 'Isi URL untuk link jenis "external"' });
+  // "Tanpa link" hanya sah untuk item menu navbar (yang punya field children).
+  if (l.linkType === 'none' && !('children' in l)) ctx.addIssue({ code: 'custom', message: 'Pilih tujuan link' });
 }
 
 const labeledLink = z.object({ label: text(30), ...linkFields }).superRefine(checkLink);
@@ -229,6 +232,8 @@ export const siteSchema = z.object({
   seo: z.object({ description: text(160), ogImage: image }),
   footerText: optText(160),
   nameSuffix: z.enum(NAME_SUFFIXES).default('none'),
+  language: z.enum(['id', 'en']).default('id'),
+  address: optText(200),
   availability: z.object({ enabled: z.boolean().default(false), label: optText(24) }).default({ enabled: false }),
 });
 
@@ -242,7 +247,21 @@ export const themeSchema = z.object({
 
 export const navigationSchema = z.object({
   navStyle: z.enum(NAV_STYLES).default('default'),
-  mainMenu: z.array(z.object({ label: text(30), ...linkFields, openNewTab: z.boolean().default(false) }).superRefine(checkLink)).max(6, 'Menu navbar maks. 6 item'),
+  mainMenu: z
+    .array(
+      z
+        .object({
+          label: text(30),
+          ...linkFields,
+          openNewTab: z.boolean().default(false),
+          children: z.array(z.object({ label: text(40), ...linkFields }).superRefine(checkLink)).max(12, 'Submenu maks. 12 item').default([]),
+        })
+        .superRefine((m, ctx) => {
+          checkLink(m, ctx);
+          if (m.linkType === 'none' && !m.children.length) ctx.addIssue({ code: 'custom', message: 'Item tanpa link harus punya submenu' });
+        }),
+    )
+    .max(6, 'Menu navbar maks. 6 item'),
   ctaButton: z
     .object({
       enabled: z.boolean().default(false),

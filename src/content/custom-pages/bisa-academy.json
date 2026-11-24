@@ -1,0 +1,109 @@
+{
+  "title": "BISA Academy",
+  "slug": "bisa-academy",
+  "pageHeader": {
+    "enabled": true,
+    "eyebrow": "Project",
+    "subtitle": "A self-development academy built on one belief: with the right training, everyone can.",
+    "image": "/uploads/sample/project-2.webp",
+    "imageAlt": "Placeholder photo for BISA Academy",
+    "imageEdge": "frame",
+    "edgeIntensity": "medium"
+  },
+  "sections": [
+    {
+      "type": "richText",
+      "enabled": true,
+      "variant": "two-column",
+      "title": "The problem",
+      "body": "Soft skills such as communication, leadership, and career readiness decide who gets ahead, yet most young people only meet them as one-off seminars. Quality, structured programs are rare and often priced out of reach.\n\nBISA Academy (*bisa* means \"can\" in Indonesian) packages these skills into short, hands-on programs with real practice and follow-up."
+    },
+    {
+      "type": "services",
+      "enabled": true,
+      "variant": "numbered",
+      "eyebrow": "What we do",
+      "title": "Key activities",
+      "items": [
+        {
+          "title": "Career readiness bootcamps",
+          "description": "CV writing, interview practice, and personal branding in intensive weekend formats."
+        },
+        {
+          "title": "Leadership classes",
+          "description": "Practical sessions on running teams, meetings, and projects for student leaders and young professionals."
+        },
+        {
+          "title": "Affordable pricing tiers",
+          "description": "Scholarship seats and community pricing so cost is not the reason someone misses out."
+        }
+      ]
+    },
+    {
+      "type": "stats",
+      "enabled": true,
+      "variant": "cards",
+      "title": "Key results",
+      "items": [
+        {
+          "value": "800+",
+          "label": "Program participants"
+        },
+        {
+          "value": "25",
+          "label": "Bootcamp cohorts"
+        },
+        {
+          "value": "4.8/5",
+          "label": "Average participant rating"
+        }
+      ]
+    },
+    {
+      "type": "richText",
+      "enabled": true,
+      "variant": "narrow",
+      "body": "Alumni use what they practiced right away: updated CVs, stronger interviews, and more confident leadership in their organizations."
+    },
+    {
+      "type": "gallery",
+      "enabled": true,
+      "variant": "grid",
+      "title": "In pictures",
+      "items": [
+        {
+          "image": "/uploads/sample/gallery-4.webp",
+          "alt": "Placeholder photo 1 for BISA Academy",
+          "caption": "Photo placeholder"
+        },
+        {
+          "image": "/uploads/sample/gallery-5.webp",
+          "alt": "Placeholder photo 2 for BISA Academy",
+          "caption": "Photo placeholder"
+        },
+        {
+          "image": "/uploads/sample/gallery-6.webp",
+          "alt": "Placeholder photo 3 for BISA Academy",
+          "caption": "Photo placeholder"
+        }
+      ]
+    },
+    {
+      "type": "ctaBanner",
+      "enabled": true,
+      "variant": "default",
+      "headline": "Want to join or support BISA Academy?",
+      "button": {
+        "label": "Chat on WhatsApp",
+        "linkType": "external",
+        "url": "https://wa.me/6281377587711"
+      }
+    }
+  ],
+  "seo": {
+    "description": "A self-development academy built on one belief: with the right training, everyone can.",
+    "ogImage": "",
+    "noindex": false
+  },
+  "draft": false
+}

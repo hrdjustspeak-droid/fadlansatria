@@ -10,8 +10,10 @@
     labelDef?: Field;
     /** Label boleh kosong = tombol disembunyikan (CTA di section). */
     optional?: boolean;
+    /** item menu navbar dengan submenu boleh tanpa link */
+    allowNone?: boolean;
   }
-  let { value, path, withLabel = false, labelDef, optional = false }: Props = $props();
+  let { value, path, withLabel = false, labelDef, optional = false, allowNone = false }: Props = $props();
 
   const BUILTIN = [
     ['home', 'Beranda'],
@@ -23,12 +25,12 @@
   const shown = $derived(!optional || !!value.label);
 
   const current = $derived(
-    value.linkType === 'builtin' ? `builtin:${value.builtinPage ?? 'home'}` : value.linkType === 'custom' ? `custom:${value.customPage ?? ''}` : value.linkType === 'external' ? 'external' : 'builtin:home',
+    value.linkType === 'builtin' ? `builtin:${value.builtinPage ?? 'home'}` : value.linkType === 'custom' ? `custom:${value.customPage ?? ''}` : value.linkType === 'external' ? 'external' : value.linkType === 'none' ? 'none' : 'builtin:home',
   );
 
   function pick(v: string) {
     ed.mutate(() => {
-      const [kind, target] = v.split(':');
+      const [kind, target = ''] = v.split(':');
       value.linkType = kind;
       value.builtinPage = kind === 'builtin' ? target : '';
       value.customPage = kind === 'custom' ? target : '';
@@ -75,6 +77,7 @@
         </optgroup>
       {/if}
       <option value="external">Link luar (URL)…</option>
+      {#if allowNone}<option value="none">Tanpa link (hanya membuka dropdown)</option>{/if}
     </select>
     {#if value.linkType === 'external'}
       <input class="e-input" type="url" placeholder="https://…" aria-label="URL tujuan" value={value.url ?? ''} oninput={(e) => setUrl(e.currentTarget.value)} />

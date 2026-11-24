@@ -1,19 +1,21 @@
 ---
 import Icon from './Icon.astro';
+import { getStrings } from '../../lib/i18n';
 // Satu <dialog> per halaman. Tombol pemicu: [data-lightbox="grup"] dengan data-src/data-alt/data-caption.
 // <dialog> modal memberi focus trap & tutup dengan Esc secara native.
+const t = await getStrings(Astro.locals);
 ---
 
-<dialog id="lightbox" class="lightbox" aria-label="Galeri gambar">
+<dialog id="lightbox" class="lightbox" aria-label={t.gallery}>
   <div class="lb-inner">
     <figure class="lb-figure">
       <img class="lb-img" alt="" />
       <figcaption class="lb-caption meta"></figcaption>
     </figure>
     <p class="lb-count meta" aria-live="polite"></p>
-    <button type="button" class="lb-btn lb-close" data-lb="close" aria-label="Tutup galeri"><Icon name="x" /></button>
-    <button type="button" class="lb-btn lb-prev" data-lb="prev" aria-label="Gambar sebelumnya"><Icon name="chevron-left" /></button>
-    <button type="button" class="lb-btn lb-next" data-lb="next" aria-label="Gambar berikutnya"><Icon name="chevron-right" /></button>
+    <button type="button" class="lb-btn lb-close" data-lb="close" aria-label={t.closeGallery}><Icon name="x" /></button>
+    <button type="button" class="lb-btn lb-prev" data-lb="prev" aria-label={t.prevImage}><Icon name="chevron-left" /></button>
+    <button type="button" class="lb-btn lb-next" data-lb="next" aria-label={t.nextImage}><Icon name="chevron-right" /></button>
   </div>
 </dialog>
 

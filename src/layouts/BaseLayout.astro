@@ -9,6 +9,7 @@ import { getColors } from '../lib/theme-colors';
 import { PRESET_IDS, type PresetId } from '../lib/themes';
 import { PRESET_FONTS, fontCss } from '../lib/fonts';
 import { absolute } from '../lib/seo';
+import { getStrings } from '../lib/i18n';
 
 interface Props {
   title?: string;
@@ -33,10 +34,11 @@ const canonical = new URL(Astro.url.pathname, Astro.site).href;
 const og = absolute(ogImage || site.seo.ogImage, Astro.site);
 const headingFont = PRESET_FONTS[theme.preset].heading.url;
 const ld = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
+const t = await getStrings(Astro.locals);
 ---
 
 <!doctype html>
-<html lang="id" data-theme={theme.preset} data-card={colors.cardMode} data-motion={preview ? 'off' : theme.motion} data-preview={preview ? 'true' : undefined} id="top">
+<html lang={t.lang} data-theme={theme.preset} data-card={colors.cardMode} data-motion={preview ? 'off' : theme.motion} data-preview={preview ? 'true' : undefined} id="top">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -54,7 +56,7 @@ const ld = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={desc} />
     <meta property="og:url" content={canonical} />
-    <meta property="og:locale" content="id_ID" />
+    <meta property="og:locale" content={t.lang === 'en' ? 'en_US' : 'id_ID'} />
     {og && <meta property="og:image" content={og} />}
     {og && <meta property="og:image:width" content="1200" />}
     {og && <meta property="og:image:height" content="630" />}
@@ -66,7 +68,7 @@ const ld = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
     {!preview && <ClientRouter fallback="swap" />}
   </head>
   <body>
-    <a href="#main" class="skip-link">Langsung ke konten</a>
+    <a href="#main" class="skip-link">{t.skip}</a>
     <Navbar />
     <main id="main" tabindex="-1">
       <slot />

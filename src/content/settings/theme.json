@@ -1,7 +1,7 @@
 {
-  "preset": "editorial",
+  "preset": "nusantara",
   "backgroundColor": "",
   "textColor": "",
-  "accentColor": "",
+  "accentColor": "auto",
   "motion": "full"
 }

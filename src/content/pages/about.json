@@ -1,38 +1,82 @@
 {
   "photo": "/uploads/sample/about.webp",
-  "photoAlt": "Ilustrasi potret abstrak Raka Pratama",
-  "imageEdge": "vignette",
-  "edgeIntensity": "soft",
-  "headline": "Halo, saya Raka. Saya membantu brand bicara dengan jelas",
-  "bio": "Saya desainer brand dan UI/UX yang tinggal di Yogyakarta. Selama tujuh tahun terakhir saya bekerja dengan kedai kopi, koperasi tani, museum, sampai startup teknologi.\n\nCara kerja saya sederhana: **dengarkan dulu, gambar kemudian**. Setiap proyek dimulai dengan riset singkat bersama pengguna asli, lalu saya uji ide sedini mungkin supaya tidak ada kejutan di akhir.\n\nDi luar pekerjaan, saya mengajar kelas tipografi akhir pekan dan mengoleksi kemasan jadul dari pasar loak.",
+  "photoAlt": "Placeholder portrait of Fadlan Satria",
+  "imageEdge": "frame",
+  "edgeIntensity": "medium",
+  "headline": "Hi, I'm Fadlan. I help people grow through practical training",
+  "bio": "I call myself a **human empowerer**: my work is helping people discover what they are capable of, then giving them the practice and support to get there.\n\nBased in Bandar Lampung, I build education programs in public speaking, English, Scrabble, leadership, and mentoring. I also serve in non-profit communities, including the Indonesia Marketing Association chapter in Bandar Lampung, Mata Garuda Lampung, and Women4women.\n\nThe thread connecting all of it is simple: good people deserve good training, wherever they live.",
   "experience": [
-    { "period": "2023 — sekarang", "title": "Desainer Independen", "org": "Studio Raka", "description": "Branding dan desain produk untuk 35+ klien di Indonesia dan Singapura." },
-    { "period": "2020 — 2023", "title": "Lead Product Designer", "org": "Kirimin (startup logistik)", "description": "Memimpin 4 desainer, membangun design system, dan menaikkan konversi checkout 18%." },
-    { "period": "2018 — 2020", "title": "Desainer Grafis", "org": "Arunika Creative", "description": "Identitas visual, kemasan, dan kampanye untuk merek FMCG lokal." },
-    { "period": "2019 — sekarang", "title": "Dosen Tamu Tipografi", "org": "Institut Seni Yogyakarta" }
-  ],
-  "skills": ["Brand identity", "UI/UX design", "Design system", "Riset pengguna", "Prototyping", "Tipografi", "Kemasan", "Figma", "Motion dasar"],
-  "sections": [
     {
-      "type": "gallery",
-      "enabled": true,
-      "variant": "masonry",
-      "title": "Di balik layar",
-      "items": [
-        { "image": "/uploads/sample/gallery-1.webp", "alt": "Sketsa logo di buku catatan", "caption": "Sketsa awal logo Arunika" },
-        { "image": "/uploads/sample/gallery-2.webp", "alt": "Papan moodboard di dinding studio" },
-        { "image": "/uploads/sample/gallery-3.webp", "alt": "Workshop tipografi bersama mahasiswa", "caption": "Kelas tipografi, Maret 2026" },
-        { "image": "/uploads/sample/gallery-4.webp", "alt": "Contoh cetak kemasan kopi" },
-        { "image": "/uploads/sample/gallery-5.webp", "alt": "Pengujian aplikasi bersama petani" },
-        { "image": "/uploads/sample/gallery-6.webp", "alt": "Meja kerja dengan laptop dan sampel kertas" }
-      ]
+      "period": "Ongoing",
+      "title": "Initiator",
+      "org": "Just Speak Indonesia",
+      "description": "Public speaking and English communication training that helps people say what they mean, with confidence."
     },
+    {
+      "period": "Ongoing",
+      "title": "Initiator",
+      "org": "BISA Academy",
+      "description": "A self-development academy built on one belief: with the right training, everyone can."
+    },
+    {
+      "period": "Ongoing",
+      "title": "Initiator",
+      "org": "Mentor Lampung",
+      "description": "Connecting young people in Lampung with mentors who have walked the path before them."
+    },
+    {
+      "period": "Ongoing",
+      "title": "Initiator",
+      "org": "INASA Scrabble Academy",
+      "description": "Using competitive English Scrabble to grow vocabulary, strategy, and sportsmanship."
+    },
+    {
+      "period": "Ongoing",
+      "title": "Initiator",
+      "org": "Bloomly English for Kids",
+      "description": "English for children through play, songs, and stories, so they grow up unafraid of the language."
+    },
+    {
+      "period": "Ongoing",
+      "title": "Initiator",
+      "org": "Manggala Academy",
+      "description": "Leadership and character development for young people preparing to lead their communities."
+    },
+    {
+      "period": "Ongoing",
+      "title": "Initiator",
+      "org": "IMA Chapter Bandar Lampung",
+      "description": "Growing the marketing community in Bandar Lampung through the Indonesia Marketing Association."
+    },
+    {
+      "period": "Ongoing",
+      "title": "Initiator",
+      "org": "Mata Garuda Lampung",
+      "description": "The Lampung chapter of Mata Garuda, the LPDP scholarship awardee and alumni community."
+    },
+    {
+      "period": "Ongoing",
+      "title": "Initiator",
+      "org": "Women4women",
+      "description": "A community where women support women to learn, earn, and lead."
+    }
+  ],
+  "skills": [
+    "Public speaking",
+    "Training design",
+    "Mentoring",
+    "Leadership development",
+    "English education",
+    "Community building",
+    "Program management"
+  ],
+  "sections": [
     {
       "type": "contact",
       "enabled": true,
       "variant": "simple",
-      "title": "Ngobrol yuk",
-      "text": "Terbuka untuk proyek freelance, kolaborasi, dan undangan mengisi kelas.",
+      "title": "Let's talk",
+      "text": "Open to collaborations, speaking invitations, and training partnerships.",
       "showForm": false,
       "showDirect": true
     }

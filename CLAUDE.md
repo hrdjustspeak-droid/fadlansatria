@@ -69,6 +69,12 @@ Astro 7 (`output: static`) + TypeScript strict, Tailwind CSS 4 (lewat `@tailwind
 - Contoh beranda: `examples/home-{spotlight,showcase,cutout}.json`, pratinjau di `/dev/examples/<nama>` (lewat `Astro.locals.preview` tanpa flag `canvas`), terapkan dengan `npm run example <nama>`.
 - `Astro.locals.preview.canvas = true` hanya dari `/edit/render`: penanda edit, tanpa ClientRouter/motion, section tersembunyi tampil, link rusak jadi `#`.
 
+## Menu dropdown & bahasa situs
+
+- Item `mainMenu` boleh punya `children` (submenu, maks. 12) dan `linkType: 'none'` (hanya membuka dropdown). PRD v1 mengecualikan dropdown; ditambahkan atas permintaan pemilik. `none` hanya sah untuk item menu yang punya field `children` (dicek `checkLink`). Desktop: `NavItems.astro` (hover/fokus/klik, Esc, klik luar); HP: grup bertingkat di menu layar penuh.
+- `site.language` (`id`/`en`) memilih kamus teks UI publik di `lib/i18n-strings.ts` (diambil lewat `getStrings(Astro.locals)`). Teks UI baru di komponen publik **wajib** lewat kamus ini, dengan kedua bahasa diisi (dicek `i18n.test.ts`). Editor `/edit` & `/admin` tetap berbahasa Indonesia.
+- `site.address` tampil di footer bersama email, WhatsApp, dan tautan sosial.
+
 ## Aturan motion (PRD Bagian 8)
 
 - Hanya `transform` dan `opacity` (plus clip-path reveal galeri detail proyek sesuai PRD).

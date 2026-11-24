@@ -1,5 +1,6 @@
 ---
 import { parseYouTube, watchUrl } from '../../lib/youtube';
+import { getStrings } from '../../lib/i18n';
 
 interface Props {
   url: string;
@@ -11,6 +12,7 @@ const yt = parseYouTube(url);
 const params = new URLSearchParams({ rel: '0' });
 if (yt.start) params.set('start', String(yt.start));
 const watch = watchUrl(yt);
+const t = await getStrings(Astro.locals);
 ---
 
 <figure class:list={['yt', yt.isShort && 'yt-short', cls]}>
@@ -18,17 +20,17 @@ const watch = watchUrl(yt);
     videoid={yt.id}
     params={params.toString()}
     title={title}
-    playlabel={`Putar video: ${title}`}
+    playlabel={`${t.play}: ${title}`}
     data-yt-id={yt.id}
     style={`background-image:url("https://i.ytimg.com/vi/${yt.id}/hqdefault.jpg")`}
   >
-    <a href={watch} class="lyt-playbtn" title={`Putar video: ${title}`}>
-      <span class="lyt-visually-hidden">Putar video: {title}</span>
+    <a href={watch} class="lyt-playbtn" title={`${t.play}: ${title}`}>
+      <span class="lyt-visually-hidden">{t.play}: {title}</span>
     </a>
   </lite-youtube>
   <figcaption class="meta mt-3 flex flex-wrap items-center justify-between gap-x-4 gap-y-1">
     <span>{title}</span>
-    <a class="link" href={watch} target="_blank" rel="noopener">Tonton di YouTube ↗</a>
+    <a class="link" href={watch} target="_blank" rel="noopener">{t.watchYoutube} ↗</a>
   </figcaption>
 </figure>
 

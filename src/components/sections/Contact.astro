@@ -3,6 +3,7 @@ import type { Section } from '../../lib/schemas';
 import { getSite } from '../../lib/content';
 
 import { ed } from '../../lib/edit';
+import { getStrings } from '../../lib/i18n';
 interface Props {
   data: Extract<Section, { type: 'contact' }>;
   /** posisi section di halaman: untuk id unik. Section kontak pertama mendapat anchor #kontak. */
@@ -15,6 +16,7 @@ const site = await getSite(Astro.locals);
 const wa = site.whatsapp ? `https://wa.me/${site.whatsapp}` : undefined;
 const split = data.variant === 'split';
 const formId = `kontak-${index}`;
+const t = await getStrings(Astro.locals);
 ---
 
 <section class="section" id={anchor ? 'kontak' : undefined} aria-labelledby={`${formId}-title`}>
@@ -29,14 +31,14 @@ const formId = `kontak-${index}`;
               <a class="link text-[length:var(--fs-lead)] font-semibold" href={`mailto:${site.email}`}>
                 {site.email}
               </a>
-              <button type="button" class="copy-btn" data-copy={site.email}>
-                <span data-label>Salin email</span>
+              <button type="button" class="copy-btn" data-copy={site.email} data-copied={t.copied} data-failed={t.copyFailed} data-idle={t.copyEmail}>
+                <span data-label>{t.copyEmail}</span>
               </button>
             </li>
             {wa && (
               <li>
                 <a class="btn btn-secondary" href={wa} target="_blank" rel="noopener">
-                  Chat WhatsApp ↗
+                  {t.chatWa} ↗
                 </a>
               </li>
             )}
@@ -49,7 +51,7 @@ const formId = `kontak-${index}`;
       data.showForm && (
         <div class:list={[split ? 'md:col-span-7' : '']} data-reveal>
           <p class="form-success card mb-6 p-6 font-semibold" role="status" hidden>
-            Terima kasih, pesan Anda sudah terkirim. Saya akan membalas secepatnya.
+            {t.formThanks}
           </p>
           <form
             name="kontak"
@@ -62,31 +64,31 @@ const formId = `kontak-${index}`;
             <input type="hidden" name="form-name" value="kontak" />
             <p class="hidden">
               <label>
-                Jangan isi kolom ini: <input name="bot-field" tabindex="-1" autocomplete="off" />
+                {t.honeypot} <input name="bot-field" tabindex="-1" autocomplete="off" />
               </label>
             </p>
             <div class="grid gap-5 sm:grid-cols-2">
               <div class="grid gap-2">
                 <label for={`${formId}-name`} class="font-semibold">
-                  Nama
+                  {t.formName}
                 </label>
                 <input id={`${formId}-name`} name="nama" class="field" required autocomplete="name" />
               </div>
               <div class="grid gap-2">
                 <label for={`${formId}-email`} class="font-semibold">
-                  Email
+                  {t.formEmail}
                 </label>
                 <input id={`${formId}-email`} name="email" type="email" class="field" required autocomplete="email" />
               </div>
             </div>
             <div class="grid gap-2">
               <label for={`${formId}-msg`} class="font-semibold">
-                Ceritakan proyek Anda
+                {t.formMessage}
               </label>
               <textarea id={`${formId}-msg`} name="pesan" rows="5" class="field" required />
             </div>
             <button type="submit" class="btn btn-primary justify-self-start">
-              Kirim pesan
+              {t.formSend}
             </button>
           </form>
         </div>
@@ -105,11 +107,11 @@ const formId = `kontak-${index}`;
         const label = b.querySelector<HTMLElement>('[data-label]')!;
         try {
           await navigator.clipboard.writeText(b.dataset.copy!);
-          label.textContent = 'Tersalin ✓';
+          label.textContent = b.dataset.copied!;
         } catch {
-          label.textContent = 'Gagal menyalin';
+          label.textContent = b.dataset.failed!;
         }
-        setTimeout(() => (label.textContent = 'Salin email'), 2000);
+        setTimeout(() => (label.textContent = b.dataset.idle!), 2000);
       });
     });
   }

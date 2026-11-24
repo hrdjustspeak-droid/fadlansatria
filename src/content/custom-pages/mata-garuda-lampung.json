@@ -1,0 +1,109 @@
+{
+  "title": "Mata Garuda Lampung",
+  "slug": "mata-garuda-lampung",
+  "pageHeader": {
+    "enabled": true,
+    "eyebrow": "Non-profit",
+    "subtitle": "The Lampung chapter of Mata Garuda, the LPDP scholarship awardee and alumni community.",
+    "image": "/uploads/sample/project-8.webp",
+    "imageAlt": "Placeholder photo for Mata Garuda Lampung",
+    "imageEdge": "frame",
+    "edgeIntensity": "medium"
+  },
+  "sections": [
+    {
+      "type": "richText",
+      "enabled": true,
+      "variant": "two-column",
+      "title": "The problem",
+      "body": "Many young people in Lampung believe fully funded scholarships are out of reach, simply because they have never met anyone who received one. At the same time, scholarship alumni want to give back but lack a structured way to do it.\n\nMata Garuda Lampung connects the two."
+    },
+    {
+      "type": "services",
+      "enabled": true,
+      "variant": "numbered",
+      "eyebrow": "What we do",
+      "title": "Key activities",
+      "items": [
+        {
+          "title": "Scholarship information sessions",
+          "description": "Free talks and clinics on LPDP and other scholarships, from documents to interviews."
+        },
+        {
+          "title": "Community service",
+          "description": "Alumni-led programs in education and community development across Lampung."
+        },
+        {
+          "title": "Alumni collaboration",
+          "description": "A network for awardees and alumni to work on regional development ideas together."
+        }
+      ]
+    },
+    {
+      "type": "stats",
+      "enabled": true,
+      "variant": "cards",
+      "title": "Key results",
+      "items": [
+        {
+          "value": "2,000+",
+          "label": "People reached by info sessions"
+        },
+        {
+          "value": "25+",
+          "label": "Programs and events"
+        },
+        {
+          "value": "150+",
+          "label": "Members in the network"
+        }
+      ]
+    },
+    {
+      "type": "richText",
+      "enabled": true,
+      "variant": "narrow",
+      "body": "Each year more applicants from Lampung reach the interview stage, and many come back to help the next cohort."
+    },
+    {
+      "type": "gallery",
+      "enabled": true,
+      "variant": "grid",
+      "title": "In pictures",
+      "items": [
+        {
+          "image": "/uploads/sample/gallery-4.webp",
+          "alt": "Placeholder photo 1 for Mata Garuda Lampung",
+          "caption": "Photo placeholder"
+        },
+        {
+          "image": "/uploads/sample/gallery-5.webp",
+          "alt": "Placeholder photo 2 for Mata Garuda Lampung",
+          "caption": "Photo placeholder"
+        },
+        {
+          "image": "/uploads/sample/gallery-6.webp",
+          "alt": "Placeholder photo 3 for Mata Garuda Lampung",
+          "caption": "Photo placeholder"
+        }
+      ]
+    },
+    {
+      "type": "ctaBanner",
+      "enabled": true,
+      "variant": "default",
+      "headline": "Want to join or support Mata Garuda Lampung?",
+      "button": {
+        "label": "Chat on WhatsApp",
+        "linkType": "external",
+        "url": "https://wa.me/6281377587711"
+      }
+    }
+  ],
+  "seo": {
+    "description": "The Lampung chapter of Mata Garuda, the LPDP scholarship awardee and alumni community.",
+    "ogImage": "",
+    "noindex": false
+  },
+  "draft": false
+}

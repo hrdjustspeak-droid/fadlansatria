@@ -1,15 +1,129 @@
 {
+  "navStyle": "glass-center",
   "mainMenu": [
-    { "label": "Proyek", "linkType": "builtin", "builtinPage": "projects", "openNewTab": false },
-    { "label": "Layanan", "linkType": "custom", "customPage": "layanan", "openNewTab": false },
-    { "label": "About", "linkType": "builtin", "builtinPage": "about", "openNewTab": false },
-    { "label": "FAQ", "linkType": "custom", "customPage": "faq", "openNewTab": false }
+    {
+      "label": "Projects",
+      "linkType": "none",
+      "openNewTab": false,
+      "children": [
+        {
+          "label": "Just Speak Indonesia",
+          "linkType": "custom",
+          "customPage": "just-speak-indonesia"
+        },
+        {
+          "label": "BISA Academy",
+          "linkType": "custom",
+          "customPage": "bisa-academy"
+        },
+        {
+          "label": "Mentor Lampung",
+          "linkType": "custom",
+          "customPage": "mentor-lampung"
+        },
+        {
+          "label": "INASA Scrabble Academy",
+          "linkType": "custom",
+          "customPage": "inasa-scrabble-academy"
+        },
+        {
+          "label": "Bloomly English for Kids",
+          "linkType": "custom",
+          "customPage": "bloomly-english-for-kids"
+        },
+        {
+          "label": "Manggala Academy",
+          "linkType": "custom",
+          "customPage": "manggala-academy"
+        }
+      ]
+    },
+    {
+      "label": "Non-profits",
+      "linkType": "none",
+      "openNewTab": false,
+      "children": [
+        {
+          "label": "IMA Chapter Bandar Lampung",
+          "linkType": "custom",
+          "customPage": "ima-bandar-lampung"
+        },
+        {
+          "label": "Mata Garuda Lampung",
+          "linkType": "custom",
+          "customPage": "mata-garuda-lampung"
+        },
+        {
+          "label": "Women4women",
+          "linkType": "custom",
+          "customPage": "women4women"
+        }
+      ]
+    },
+    {
+      "label": "About",
+      "linkType": "builtin",
+      "builtinPage": "about",
+      "openNewTab": false,
+      "children": []
+    }
   ],
-  "ctaButton": { "enabled": true, "label": "Hubungi Saya", "linkType": "builtin", "builtinPage": "#kontak" },
+  "ctaButton": {
+    "enabled": true,
+    "label": "Contact me",
+    "linkType": "external",
+    "url": "https://wa.me/6281377587711"
+  },
   "footerMenu": [
-    { "label": "Proyek", "linkType": "builtin", "builtinPage": "projects" },
-    { "label": "Layanan", "linkType": "custom", "customPage": "layanan" },
-    { "label": "FAQ", "linkType": "custom", "customPage": "faq" },
-    { "label": "Kontak", "linkType": "builtin", "builtinPage": "#kontak" }
+    {
+      "label": "Just Speak Indonesia",
+      "linkType": "custom",
+      "customPage": "just-speak-indonesia"
+    },
+    {
+      "label": "BISA Academy",
+      "linkType": "custom",
+      "customPage": "bisa-academy"
+    },
+    {
+      "label": "Mentor Lampung",
+      "linkType": "custom",
+      "customPage": "mentor-lampung"
+    },
+    {
+      "label": "INASA Scrabble Academy",
+      "linkType": "custom",
+      "customPage": "inasa-scrabble-academy"
+    },
+    {
+      "label": "Bloomly English for Kids",
+      "linkType": "custom",
+      "customPage": "bloomly-english-for-kids"
+    },
+    {
+      "label": "Manggala Academy",
+      "linkType": "custom",
+      "customPage": "manggala-academy"
+    },
+    {
+      "label": "IMA Chapter Bandar Lampung",
+      "linkType": "custom",
+      "customPage": "ima-bandar-lampung"
+    },
+    {
+      "label": "Mata Garuda Lampung",
+      "linkType": "custom",
+      "customPage": "mata-garuda-lampung"
+    },
+    {
+      "label": "Women4women",
+      "linkType": "custom",
+      "customPage": "women4women"
+    },
+    {
+      "label": "About",
+      "linkType": "builtin",
+      "builtinPage": "about"
+    }
   ]
 }

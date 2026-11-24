@@ -82,6 +82,9 @@
   h4 {
     line-height: 1.08;
     text-wrap: balance;
+    /* Satu kata panjang (mis. nama program) tidak boleh melebar keluar layar HP. */
+    overflow-wrap: break-word;
+    hyphens: auto;
   }
   p {
     text-wrap: pretty;
@@ -114,6 +117,14 @@
   }
   .section {
     padding-block: var(--section-y);
+  }
+  /* Section berurutan berbagi satu jarak (bukan bawah + atas = dua kali). */
+  .section + .section,
+  [data-section] + [data-section] > .section {
+    padding-top: 0;
+  }
+  .section.pb-0 + .section {
+    padding-top: clamp(48px, 6vw, 80px);
   }
   .h1 {
     font-size: var(--fs-h1);

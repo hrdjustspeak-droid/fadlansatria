@@ -4,6 +4,7 @@ import Img from '../ui/Img.astro';
 import { cdnUrl } from '../../lib/image';
 
 import { ed } from '../../lib/edit';
+import { getStrings } from '../../lib/i18n';
 interface Props {
   data: Extract<Section, { type: 'gallery' }>;
   group?: string;
@@ -11,6 +12,7 @@ interface Props {
 const l = Astro.locals;
 const { data, group = 'galeri' } = Astro.props;
 const masonry = data.variant === 'masonry';
+const t = await getStrings(Astro.locals);
 ---
 
 <section class="section">
@@ -28,7 +30,7 @@ const masonry = data.variant === 'masonry';
                 data-src={cdnUrl(g.image, 2000, undefined, 75, Astro.locals)}
                 data-alt={g.alt}
                 data-caption={g.caption ?? ''}
-                aria-label={`Perbesar gambar: ${g.alt}`}
+                aria-label={`${t.enlarge}: ${g.alt}`}
               >
                 <Img src={g.image} alt={g.alt} ratio={masonry ? undefined : 4 / 3} sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw" />
               </button>

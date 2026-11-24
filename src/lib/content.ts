@@ -31,7 +31,7 @@ type Locals = { preview?: Preview } | undefined;
 
 export interface LinkLike {
   label?: string;
-  linkType?: 'builtin' | 'custom' | 'external';
+  linkType?: 'builtin' | 'custom' | 'external' | 'none';
   builtinPage?: string;
   customPage?: string;
   url?: string;
@@ -108,6 +108,8 @@ export function resolveHref(link: LinkLike, publishedSlugs: Set<string>, where: 
       return `/${link.customPage}`;
     case 'external':
       return link.url ?? '#';
+    case 'none':
+      return '';
     default:
       return '#';
   }
@@ -120,7 +122,12 @@ async function buildNav(l?: Locals) {
   const nav = p?.navigation ?? (await one('navigation'));
   const slugs = new Set(p?.customPages ? p.customPages.filter((c) => !c.draft).map((c) => c.slug) : (await getCustomPages()).map((c) => c.data.slug));
   const lenient = !!p?.canvas;
-  const main = nav.mainMenu.map((m) => ({ label: m.label, href: resolveHref(m, slugs, 'Menu Navbar', lenient), newTab: m.openNewTab }));
+  const main = nav.mainMenu.map((m) => ({
+    label: m.label,
+    href: resolveHref(m, slugs, 'Menu Navbar', lenient),
+    newTab: m.openNewTab,
+    children: (m.children ?? []).map((c) => ({ label: c.label, href: resolveHref(c, slugs, `Submenu ${m.label}`, lenient) })),
+  }));
   const footer = nav.footerMenu.map((m) => ({ label: m.label, href: resolveHref(m, slugs, 'Menu Footer', lenient) }));
   const cta = nav.ctaButton.enabled
     ? { label: nav.ctaButton.label ?? '', href: resolveHref({ ...nav.ctaButton, linkType: nav.ctaButton.linkType }, slugs, 'Tombol CTA Navbar', lenient) }

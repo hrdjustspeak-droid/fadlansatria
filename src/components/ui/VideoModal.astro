@@ -2,6 +2,7 @@
 // Modal video YouTube (dipakai tombol "Tonton Video" hero Showcase). <dialog> modal: focus trap & Esc bawaan.
 // Player dibuat saat dibuka dan dihapus saat ditutup supaya video berhenti.
 import { parseYouTube } from '../../lib/youtube';
+import { getStrings } from '../../lib/i18n';
 
 interface Props {
   id: string;
@@ -12,10 +13,11 @@ const { id, url, title } = Astro.props;
 const yt = parseYouTube(url);
 const params = new URLSearchParams({ rel: '0' });
 if (yt.start) params.set('start', String(yt.start));
+const t = await getStrings(Astro.locals);
 ---
 
 <dialog class="video-modal" id={id} aria-label={`Video: ${title}`} data-yt-id={yt.id} data-yt-params={params.toString()} data-yt-title={title}>
-  <button type="button" class="vm-close" data-vm-close aria-label="Tutup video">
+  <button type="button" class="vm-close" data-vm-close aria-label={t.closeVideo}>
     <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"></path></svg>
   </button>
   <div class="vm-frame" data-vm-frame></div>

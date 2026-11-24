@@ -44,6 +44,7 @@
     withLabel={fields.some((f) => f.name === 'label')}
     labelDef={fields.find((f) => f.name === 'label')}
     optional={fields.find((f) => f.name === 'label')?.required === false && !fields.some((f) => f.name === 'enabled')}
+    allowNone={fields.some((f) => f.name === 'children')}
   />
 {/if}
 

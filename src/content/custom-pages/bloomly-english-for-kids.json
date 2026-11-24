@@ -1,0 +1,109 @@
+{
+  "title": "Bloomly English for Kids",
+  "slug": "bloomly-english-for-kids",
+  "pageHeader": {
+    "enabled": true,
+    "eyebrow": "Project",
+    "subtitle": "English for children through play, songs, and stories, so they grow up unafraid of the language.",
+    "image": "/uploads/sample/project-5.webp",
+    "imageAlt": "Placeholder photo for Bloomly English for Kids",
+    "imageEdge": "frame",
+    "edgeIntensity": "medium"
+  },
+  "sections": [
+    {
+      "type": "richText",
+      "enabled": true,
+      "variant": "two-column",
+      "title": "The problem",
+      "body": "Many children start English with grammar drills and grow up associating it with fear of mistakes. Parents want early English exposure, but good, warm, play-based classes are hard to find and expensive.\n\nBloomly makes the first years of English joyful."
+    },
+    {
+      "type": "services",
+      "enabled": true,
+      "variant": "numbered",
+      "eyebrow": "What we do",
+      "title": "Key activities",
+      "items": [
+        {
+          "title": "Play-based classes",
+          "description": "Games, songs, and storytelling for children, grouped by age."
+        },
+        {
+          "title": "Parent guides",
+          "description": "Simple activities parents can do at home to keep English alive between classes."
+        },
+        {
+          "title": "Holiday programs",
+          "description": "Short themed English camps during school holidays."
+        }
+      ]
+    },
+    {
+      "type": "stats",
+      "enabled": true,
+      "variant": "cards",
+      "title": "Key results",
+      "items": [
+        {
+          "value": "350+",
+          "label": "Children taught"
+        },
+        {
+          "value": "95%",
+          "label": "Parents who re-enrol"
+        },
+        {
+          "value": "12",
+          "label": "Holiday camps held"
+        }
+      ]
+    },
+    {
+      "type": "richText",
+      "enabled": true,
+      "variant": "narrow",
+      "body": "Children who join Bloomly speak up in English earlier and with less hesitation, which is exactly the habit we want to build."
+    },
+    {
+      "type": "gallery",
+      "enabled": true,
+      "variant": "grid",
+      "title": "In pictures",
+      "items": [
+        {
+          "image": "/uploads/sample/gallery-1.webp",
+          "alt": "Placeholder photo 1 for Bloomly English for Kids",
+          "caption": "Photo placeholder"
+        },
+        {
+          "image": "/uploads/sample/gallery-2.webp",
+          "alt": "Placeholder photo 2 for Bloomly English for Kids",
+          "caption": "Photo placeholder"
+        },
+        {
+          "image": "/uploads/sample/gallery-3.webp",
+          "alt": "Placeholder photo 3 for Bloomly English for Kids",
+          "caption": "Photo placeholder"
+        }
+      ]
+    },
+    {
+      "type": "ctaBanner",
+      "enabled": true,
+      "variant": "default",
+      "headline": "Want to join or support Bloomly English for Kids?",
+      "button": {
+        "label": "Chat on WhatsApp",
+        "linkType": "external",
+        "url": "https://wa.me/6281377587711"
+      }
+    }
+  ],
+  "seo": {
+    "description": "English for children through play, songs, and stories, so they grow up unafraid of the language.",
+    "ogImage": "",
+    "noindex": false
+  },
+  "draft": false
+}

@@ -1,0 +1,109 @@
+{
+  "title": "Women4women",
+  "slug": "women4women",
+  "pageHeader": {
+    "enabled": true,
+    "eyebrow": "Non-profit",
+    "subtitle": "A community where women support women to learn, earn, and lead.",
+    "image": "/uploads/sample/project-1.webp",
+    "imageAlt": "Placeholder photo for Women4women",
+    "imageEdge": "frame",
+    "edgeIntensity": "medium"
+  },
+  "sections": [
+    {
+      "type": "richText",
+      "enabled": true,
+      "variant": "two-column",
+      "title": "The problem",
+      "body": "Women often face extra barriers to training and career growth: time, cost, confidence, and access to role models. Programs that fit around their responsibilities are rare.\n\nWomen4women creates practical, supportive spaces for women to build skills together."
+    },
+    {
+      "type": "services",
+      "enabled": true,
+      "variant": "numbered",
+      "eyebrow": "What we do",
+      "title": "Key activities",
+      "items": [
+        {
+          "title": "Skills workshops",
+          "description": "Practical sessions on communication, digital skills, and personal finance."
+        },
+        {
+          "title": "Peer mentoring circles",
+          "description": "Small groups where women share experience and hold each other accountable."
+        },
+        {
+          "title": "Entrepreneurship support",
+          "description": "Guidance for women starting or growing small businesses."
+        }
+      ]
+    },
+    {
+      "type": "stats",
+      "enabled": true,
+      "variant": "cards",
+      "title": "Key results",
+      "items": [
+        {
+          "value": "400+",
+          "label": "Women in the community"
+        },
+        {
+          "value": "30+",
+          "label": "Workshops held"
+        },
+        {
+          "value": "50+",
+          "label": "Small businesses supported"
+        }
+      ]
+    },
+    {
+      "type": "richText",
+      "enabled": true,
+      "variant": "narrow",
+      "body": "Members leave with new skills and, just as important, a network of women cheering them on."
+    },
+    {
+      "type": "gallery",
+      "enabled": true,
+      "variant": "grid",
+      "title": "In pictures",
+      "items": [
+        {
+          "image": "/uploads/sample/gallery-1.webp",
+          "alt": "Placeholder photo 1 for Women4women",
+          "caption": "Photo placeholder"
+        },
+        {
+          "image": "/uploads/sample/gallery-2.webp",
+          "alt": "Placeholder photo 2 for Women4women",
+          "caption": "Photo placeholder"
+        },
+        {
+          "image": "/uploads/sample/gallery-3.webp",
+          "alt": "Placeholder photo 3 for Women4women",
+          "caption": "Photo placeholder"
+        }
+      ]
+    },
+    {
+      "type": "ctaBanner",
+      "enabled": true,
+      "variant": "default",
+      "headline": "Want to join or support Women4women?",
+      "button": {
+        "label": "Chat on WhatsApp",
+        "linkType": "external",
+        "url": "https://wa.me/6281377587711"
+      }
+    }
+  ],
+  "seo": {
+    "description": "A community where women support women to learn, earn, and lead.",
+    "ogImage": "",
+    "noindex": false
+  },
+  "draft": false
+}

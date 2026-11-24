@@ -3,97 +3,181 @@
     {
       "type": "hero",
       "enabled": true,
-      "variant": "split",
-      "eyebrow": "Brand & UI/UX Designer · Yogyakarta",
-      "headline": "Saya merancang brand dan produk digital yang mudah dipahami orang",
-      "subheadline": "Tujuh tahun membantu UMKM, startup, dan lembaga budaya tampil jelas: dari logo dan kemasan sampai aplikasi yang dipakai ribuan orang tiap hari.",
-      "image": "/uploads/sample/hero.webp",
-      "imageAlt": "Komposisi bentuk geometris berwarna oranye bata dan krem",
-      "imageEdge": "vignette",
-      "edgeIntensity": "medium",
-      "primaryCta": { "label": "Lihat proyek", "linkType": "builtin", "builtinPage": "projects" },
-      "secondaryCta": { "label": "Hubungi saya", "linkType": "builtin", "builtinPage": "#kontak" }
-    },
-    {
-      "type": "logos",
-      "enabled": true,
-      "variant": "marquee",
-      "title": "Dipercaya oleh",
-      "items": [
-        { "logo": "/uploads/sample/logo-1.svg", "name": "Kopi Senja" },
-        { "logo": "/uploads/sample/logo-2.svg", "name": "Arunika" },
-        { "logo": "/uploads/sample/logo-3.svg", "name": "Lumbung" },
-        { "logo": "/uploads/sample/logo-4.svg", "name": "Teduh Studio" },
-        { "logo": "/uploads/sample/logo-5.svg", "name": "Pasar Rakyat" },
-        { "logo": "/uploads/sample/logo-6.svg", "name": "Nusa Labs" }
+      "variant": "showcase",
+      "eyebrow": "Human Empowerer · Bandar Lampung",
+      "headline": "Training that turns potential into progress",
+      "subheadline": "I build practical, affordable programs so talented people in Indonesia can grow, speak up, and lead.",
+      "image": "/uploads/sample/showcase-subject.webp",
+      "imageAlt": "Placeholder portrait of Fadlan Satria",
+      "focusX": 75,
+      "primaryCta": {
+        "label": "Get to know me",
+        "linkType": "builtin",
+        "builtinPage": "about"
+      },
+      "secondaryCta": {
+        "label": "Contact me",
+        "linkType": "external",
+        "url": "https://wa.me/6281377587711"
+      },
+      "serviceColumns": [
+        {
+          "title": "Education",
+          "description": "Public speaking, English, and soft-skill programs."
+        },
+        {
+          "title": "Mentoring",
+          "description": "Guidance for scholarships, careers, and leadership."
+        },
+        {
+          "title": "Community",
+          "description": "Non-profit networks that give back across Lampung."
+        }
       ]
     },
     {
-      "type": "featuredProjects",
+      "type": "richText",
       "enabled": true,
-      "variant": "grid",
-      "eyebrow": "Karya pilihan",
-      "title": "Proyek yang paling saya banggakan",
-      "count": 6,
-      "source": "featured"
-    },
-    {
-      "type": "aboutShort",
-      "enabled": true,
-      "variant": "split",
-      "eyebrow": "Tentang saya",
-      "title": "Desain yang bekerja, bukan sekadar cantik",
-      "text": "Saya mulai dari pertanyaan sederhana: siapa yang akan memakai ini, dan apa yang mereka butuhkan? Dari situ baru muncul warna, huruf, dan layar.\n\nSebelum freelance, saya memimpin tim desain di sebuah startup logistik dan mengajar tipografi di kampus seni.",
-      "image": "/uploads/sample/about.webp",
-      "imageAlt": "Ilustrasi potret abstrak Raka Pratama",
-      "imageEdge": "frame",
-      "edgeIntensity": "medium",
-      "cta": { "label": "Kenalan lebih jauh", "linkType": "builtin", "builtinPage": "about" }
+      "variant": "two-column",
+      "title": "The problem I want to solve",
+      "body": "Indonesia has no shortage of talented people. What many of them lack is **access**: to training that is practical rather than theoretical, affordable rather than exclusive, and available outside a few big cities.\n\nWithout it, capable people miss scholarships, jobs, and leadership roles they could have earned. My work is about closing that gap, one program and one community at a time."
     },
     {
       "type": "stats",
       "enabled": true,
-      "variant": "cards",
-      "title": "Dalam angka",
+      "variant": "inline",
       "items": [
-        { "value": "7+", "label": "Tahun pengalaman" },
-        { "value": "60", "label": "Proyek selesai" },
-        { "value": "35", "label": "Klien dari 9 kota" },
-        { "value": "4", "label": "Penghargaan desain" }
+        {
+          "value": "9",
+          "label": "Initiatives"
+        },
+        {
+          "value": "6",
+          "label": "Training programs"
+        },
+        {
+          "value": "3",
+          "label": "Non-profit communities"
+        }
       ]
     },
     {
-      "type": "video",
+      "type": "services",
       "enabled": true,
-      "variant": "framed",
-      "youtubeUrl": "https://www.youtube.com/watch?v=aqz-KE-bpKQ",
-      "title": "Showreel motion 2026",
-      "caption": "Kumpulan animasi logo dan UI yang saya kerjakan tahun ini."
+      "variant": "cards",
+      "eyebrow": "Projects",
+      "title": "Programs I have built",
+      "intro": "Each program targets one gap in access to practical self-development.",
+      "items": [
+        {
+          "title": "Just Speak Indonesia",
+          "description": "Public speaking and English communication training that helps people say what they mean, with confidence.",
+          "cta": {
+            "label": "Read more",
+            "linkType": "custom",
+            "customPage": "just-speak-indonesia"
+          }
+        },
+        {
+          "title": "BISA Academy",
+          "description": "A self-development academy built on one belief: with the right training, everyone can.",
+          "cta": {
+            "label": "Read more",
+            "linkType": "custom",
+            "customPage": "bisa-academy"
+          }
+        },
+        {
+          "title": "Mentor Lampung",
+          "description": "Connecting young people in Lampung with mentors who have walked the path before them.",
+          "cta": {
+            "label": "Read more",
+            "linkType": "custom",
+            "customPage": "mentor-lampung"
+          }
+        },
+        {
+          "title": "INASA Scrabble Academy",
+          "description": "Using competitive English Scrabble to grow vocabulary, strategy, and sportsmanship.",
+          "cta": {
+            "label": "Read more",
+            "linkType": "custom",
+            "customPage": "inasa-scrabble-academy"
+          }
+        },
+        {
+          "title": "Bloomly English for Kids",
+          "description": "English for children through play, songs, and stories, so they grow up unafraid of the language.",
+          "cta": {
+            "label": "Read more",
+            "linkType": "custom",
+            "customPage": "bloomly-english-for-kids"
+          }
+        },
+        {
+          "title": "Manggala Academy",
+          "description": "Leadership and character development for young people preparing to lead their communities.",
+          "cta": {
+            "label": "Read more",
+            "linkType": "custom",
+            "customPage": "manggala-academy"
+          }
+        }
+      ]
     },
     {
-      "type": "testimonials",
+      "type": "services",
       "enabled": true,
-      "variant": "carousel",
-      "title": "Kata mereka",
+      "variant": "cards",
+      "eyebrow": "Non-profits",
+      "title": "Communities I serve",
       "items": [
-        { "quote": "Raka paham bisnis kami lebih cepat dari agensi mana pun. Logo barunya langsung bikin kedai terasa naik kelas, dan penjualan kemasan naik 30% dalam tiga bulan.", "name": "Dewi Lestari", "role": "Pemilik, Kopi Senja", "photo": "/uploads/sample/avatar-1.webp" },
-        { "quote": "Prosesnya rapi dan terukur. Setiap keputusan desain ada alasannya, jadi tim kami gampang setuju.", "name": "Bima Santoso", "role": "Product Lead, Nusa Labs", "photo": "/uploads/sample/avatar-2.webp" },
-        { "quote": "Aplikasi kami jadi jauh lebih mudah dipakai petani. Keluhan di CS turun drastis setelah redesign.", "name": "Sari Wulandari", "role": "COO, Lumbung", "photo": "/uploads/sample/avatar-3.webp" }
+        {
+          "title": "IMA Chapter Bandar Lampung",
+          "description": "Growing the marketing community in Bandar Lampung through the Indonesia Marketing Association.",
+          "cta": {
+            "label": "Read more",
+            "linkType": "custom",
+            "customPage": "ima-bandar-lampung"
+          }
+        },
+        {
+          "title": "Mata Garuda Lampung",
+          "description": "The Lampung chapter of Mata Garuda, the LPDP scholarship awardee and alumni community.",
+          "cta": {
+            "label": "Read more",
+            "linkType": "custom",
+            "customPage": "mata-garuda-lampung"
+          }
+        },
+        {
+          "title": "Women4women",
+          "description": "A community where women support women to learn, earn, and lead.",
+          "cta": {
+            "label": "Read more",
+            "linkType": "custom",
+            "customPage": "women4women"
+          }
+        }
       ]
     },
     {
       "type": "ctaBanner",
       "enabled": true,
       "variant": "default",
-      "headline": "Punya proyek yang ingin diwujudkan? Ayo ngobrol dulu, gratis",
-      "button": { "label": "Lihat layanan", "linkType": "custom", "customPage": "layanan" }
+      "headline": "Want to build a program or partner on training?",
+      "button": {
+        "label": "Chat on WhatsApp",
+        "linkType": "external",
+        "url": "https://wa.me/6281377587711"
+      }
     },
     {
       "type": "contact",
       "enabled": true,
       "variant": "split",
-      "title": "Mari bekerja sama",
-      "text": "Ceritakan proyek Anda: tujuan, tenggat, dan anggaran kasar. Saya balas dalam 1×24 jam kerja.",
+      "title": "Let's work together",
+      "text": "Tell me about your school, organization, or idea. I usually reply within a day.",
       "showForm": true,
       "showDirect": true
     }

@@ -7,6 +7,7 @@ import { getSite, type Project } from '../../lib/content';
 import { cdnUrl } from '../../lib/image';
 import { absolute, creativeWorkJsonLd } from '../../lib/seo';
 import { ed } from '../../lib/edit';
+import { getStrings } from '../../lib/i18n';
 
 interface Props {
   project: Project;
@@ -17,13 +18,14 @@ const { project, prev, next } = Astro.props;
 const l = Astro.locals;
 const p = project.data;
 const site = await getSite(l);
+const t = await getStrings(l);
 const url = new URL(`/projects/${project.id}`, Astro.site).href;
 const ld = creativeWorkJsonLd(p, url, absolute(p.cover, Astro.site)!, site.ownerName);
 const meta = [
-  ['Tahun', String(p.year)],
-  ['Kategori', p.category],
-  ['Peran', p.role],
-  ['Klien', p.client],
+  [t.year, String(p.year)],
+  [t.category, p.category],
+  [t.role, p.role],
+  [t.client, p.client],
 ].filter((m): m is [string, string] => !!m[1]);
 ---
 
@@ -31,7 +33,7 @@ const meta = [
   <article>
     <header class="section pb-0 pt-12 md:pt-20">
       <div class="container-x">
-        <a href="/projects" class="link meta mb-8 inline-block font-semibold">← Semua proyek</a>
+        <a href="/projects" class="link meta mb-8 inline-block font-semibold">← {t.allProjects}</a>
         <p class="eyebrow mb-4" data-hero-line>{p.category}</p>
         <h1 class="h1 max-w-5xl" data-hero-line {...ed(l, 'page.title')}>{p.title}</h1>
         <p class="lead mt-6 max-w-2xl" data-hero-line {...ed(l, 'page.summary')}>{p.summary}</p>
@@ -58,7 +60,7 @@ const meta = [
         {
           p.externalUrl && (
             <a href={p.externalUrl} class="btn btn-primary mt-8" target="_blank" rel="noopener">
-              Lihat live ↗
+              {t.viewLive} ↗
             </a>
           )
         }
@@ -81,7 +83,7 @@ const meta = [
 
     {
       p.gallery.length > 0 && (
-        <section class="section pt-0" aria-label="Galeri proyek">
+        <section class="section pt-0" aria-label={t.gallery}>
           <div class="container-x grid gap-6 md:grid-cols-2">
             {p.gallery.map((g, i) => (
               <figure class:list={[i % 3 === 0 && 'md:col-span-2']}>
@@ -92,7 +94,7 @@ const meta = [
                   data-src={cdnUrl(g.image, 2000, undefined, 75, l)}
                   data-alt={g.alt}
                   data-caption={g.caption ?? ''}
-                  aria-label={`Perbesar gambar: ${g.alt}`}
+                  aria-label={`${t.enlarge}: ${g.alt}`}
                   data-clip
                 >
                   <Img src={g.image} alt={g.alt} ratio={i % 3 === 0 ? 16 / 9 : 4 / 3} sizes={i % 3 === 0 ? '100vw' : '50vw'} />
@@ -107,7 +109,7 @@ const meta = [
 
     {
       p.videos.length > 0 && (
-        <section class="section pt-0" aria-label="Video proyek">
+        <section class="section pt-0" aria-label={t.videos}>
           <div class="container-x mx-auto grid max-w-5xl gap-12">
             {p.videos.map((v) => (
               <YouTube url={v.youtubeUrl} title={v.title} />
@@ -118,11 +120,11 @@ const meta = [
     }
   </article>
 
-  <nav class="container-x divider-t grid gap-6 py-12 sm:grid-cols-2" aria-label="Proyek lain">
+  <nav class="container-x divider-t grid gap-6 py-12 sm:grid-cols-2" aria-label={t.otherProjects}>
     {
       prev ? (
         <a href={`/projects/${prev.id}`} class="pager">
-          <span class="meta">← Sebelumnya</span>
+          <span class="meta">← {t.prev}</span>
           <span class="h3">{prev.data.title}</span>
         </a>
       ) : (
@@ -132,7 +134,7 @@ const meta = [
     {
       next && (
         <a href={`/projects/${next.id}`} class="pager sm:text-right">
-          <span class="meta">Berikutnya →</span>
+          <span class="meta">{t.next} →</span>
           <span class="h3">{next.data.title}</span>
         </a>
       )

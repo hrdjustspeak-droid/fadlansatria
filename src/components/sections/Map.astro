@@ -2,12 +2,14 @@
 import type { Section } from '../../lib/schemas';
 
 import { ed } from '../../lib/edit';
+import { getStrings } from '../../lib/i18n';
 interface Props {
   data: Extract<Section, { type: 'map' }>;
 }
 const l = Astro.locals;
 const { data } = Astro.props;
-const frameTitle = `Peta lokasi${data.address ? `: ${data.address}` : ''}`;
+const t = await getStrings(Astro.locals);
+const frameTitle = `${t.mapOf}${data.address ? `: ${data.address}` : ''}`;
 ---
 
 <section class="section">
@@ -19,13 +21,13 @@ const frameTitle = `Peta lokasi${data.address ? `: ${data.address}` : ''}`;
             {data.title && <h2 class="h2" {...ed(l, 'title')}>{data.title}</h2>}
             {data.address && (
               <div>
-                <h3 class="meta mb-1 font-semibold">Alamat</h3>
+                <h3 class="meta mb-1 font-semibold">{t.address}</h3>
                 <p {...ed(l, 'address')}>{data.address}</p>
               </div>
             )}
             {data.hours && (
               <div>
-                <h3 class="meta mb-1 font-semibold">Jam buka</h3>
+                <h3 class="meta mb-1 font-semibold">{t.hours}</h3>
                 <p class="whitespace-pre-line" {...ed(l, 'hours')}>{data.hours}</p>
               </div>
             )}

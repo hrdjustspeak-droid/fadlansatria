@@ -5,12 +5,14 @@ import SectionRenderer from '../SectionRenderer.astro';
 import EdgeImage from '../ui/EdgeImage.astro';
 import Markdown from '../ui/Markdown.astro';
 import { ed } from '../../lib/edit';
+import { getStrings } from '../../lib/i18n';
 
 interface Props {
   about: CollectionEntry<'about'>['data'];
 }
 const { about } = Astro.props;
 const l = Astro.locals;
+const t = await getStrings(Astro.locals);
 ---
 
 <BaseLayout title="About" description={about.headline}>
@@ -26,7 +28,7 @@ const l = Astro.locals;
         {
           about.experience.length > 0 && (
             <div class="mt-16">
-              <h2 class="h3 mb-6">Pengalaman</h2>
+              <h2 class="h3 mb-6">{t.experience}</h2>
               <ol class="timeline" role="list">
                 {about.experience.map((e, i) => (
                   <li class="relative pb-10 pl-8" data-reveal>
@@ -45,7 +47,7 @@ const l = Astro.locals;
         {
           about.skills.length > 0 && (
             <div class="mt-6" data-reveal>
-              <h2 class="h3 mb-6">Keahlian</h2>
+              <h2 class="h3 mb-6">{t.skills}</h2>
               <ul class="flex flex-wrap gap-2" role="list">
                 {about.skills.map((s) => (
                   <li class="badge">{s}</li>
