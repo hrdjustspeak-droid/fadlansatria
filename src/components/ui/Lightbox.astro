@@ -1,4 +1,5 @@
 ---
+import Icon from './Icon.astro';
 // Satu <dialog> per halaman. Tombol pemicu: [data-lightbox="grup"] dengan data-src/data-alt/data-caption.
 // <dialog> modal memberi focus trap & tutup dengan Esc secara native.
 ---
@@ -10,9 +11,9 @@
       <figcaption class="lb-caption meta"></figcaption>
     </figure>
     <p class="lb-count meta" aria-live="polite"></p>
-    <button type="button" class="lb-btn lb-close" data-lb="close" aria-label="Tutup galeri">✕</button>
-    <button type="button" class="lb-btn lb-prev" data-lb="prev" aria-label="Gambar sebelumnya">←</button>
-    <button type="button" class="lb-btn lb-next" data-lb="next" aria-label="Gambar berikutnya">→</button>
+    <button type="button" class="lb-btn lb-close" data-lb="close" aria-label="Tutup galeri"><Icon name="x" /></button>
+    <button type="button" class="lb-btn lb-prev" data-lb="prev" aria-label="Gambar sebelumnya"><Icon name="chevron-left" /></button>
+    <button type="button" class="lb-btn lb-next" data-lb="next" aria-label="Gambar berikutnya"><Icon name="chevron-right" /></button>
   </div>
 </dialog>
 
@@ -117,8 +118,14 @@
     background: var(--surface);
     color: var(--text);
     border: 1px solid var(--border);
-    font-size: 1.25rem;
+    display: grid;
+    place-items: center;
     cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+  }
+  .lb-btn:hover {
+    background: var(--text);
+    color: var(--bg);
   }
   .lb-close {
     top: 12px;

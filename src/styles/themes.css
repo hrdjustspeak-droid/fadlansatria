@@ -84,7 +84,7 @@
   --radius: 12px;
   --radius-card: 16px;
   --radius-button: 9999px;
-  --heading-weight: 700;
+  --heading-weight: 600;
   --heading-tracking: -0.025em;
   --shadow-card: 0 4px 16px color-mix(in srgb, var(--text) 8%, transparent);
   --shadow-card-hover: 0 12px 32px color-mix(in srgb, var(--text) 16%, transparent);

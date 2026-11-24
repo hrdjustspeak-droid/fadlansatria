@@ -1,6 +1,7 @@
 ---
 import type { Section } from '../../lib/schemas';
 import Img from '../ui/Img.astro';
+import Icon from '../ui/Icon.astro';
 
 interface Props {
   data: Extract<Section, { type: 'testimonials' }>;
@@ -16,8 +17,8 @@ const carousel = data.variant === 'carousel' && data.items.length > 1;
       {
         carousel && (
           <div class="flex gap-3" data-carousel-controls>
-            <button type="button" class="carousel-btn" data-dir="-1" aria-label="Testimoni sebelumnya">←</button>
-            <button type="button" class="carousel-btn" data-dir="1" aria-label="Testimoni berikutnya">→</button>
+            <button type="button" class="carousel-btn" data-dir="-1" aria-label="Testimoni sebelumnya"><Icon name="chevron-left" /></button>
+            <button type="button" class="carousel-btn" data-dir="1" aria-label="Testimoni berikutnya"><Icon name="chevron-right" /></button>
           </div>
         )
       }
@@ -93,7 +94,8 @@ const carousel = data.variant === 'carousel' && data.items.length > 1;
     border: 1px solid var(--border);
     color: var(--text);
     background: var(--surface);
-    font-size: 1.1rem;
+    display: grid;
+    place-items: center;
     cursor: pointer;
     transition:
       background-color 0.2s,

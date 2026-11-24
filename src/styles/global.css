@@ -69,6 +69,16 @@
     font-family: var(--font-heading);
     font-weight: var(--heading-weight);
     letter-spacing: var(--heading-tracking);
+  }
+  /* Teks kecil tidak memakai tracking negatif. */
+  h3,
+  h4 {
+    letter-spacing: 0;
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
     line-height: 1.08;
     text-wrap: balance;
   }

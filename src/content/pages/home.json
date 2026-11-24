@@ -5,7 +5,7 @@
       "enabled": true,
       "variant": "split",
       "eyebrow": "Brand & UI/UX Designer · Yogyakarta",
-      "headline": "Saya merancang brand dan produk digital yang mudah dipahami orang.",
+      "headline": "Saya merancang brand dan produk digital yang mudah dipahami orang",
       "subheadline": "Tujuh tahun membantu UMKM, startup, dan lembaga budaya tampil jelas: dari logo dan kemasan sampai aplikasi yang dipakai ribuan orang tiap hari.",
       "image": "/uploads/sample/hero.webp",
       "imageAlt": "Komposisi bentuk geometris berwarna oranye bata dan krem",
@@ -85,7 +85,7 @@
       "type": "ctaBanner",
       "enabled": true,
       "variant": "default",
-      "headline": "Punya proyek yang ingin diwujudkan? Ayo ngobrol dulu, gratis.",
+      "headline": "Punya proyek yang ingin diwujudkan? Ayo ngobrol dulu, gratis",
       "button": { "label": "Lihat layanan", "linkType": "custom", "customPage": "layanan" }
     },
     {
