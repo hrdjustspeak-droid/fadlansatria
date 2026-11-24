@@ -42,27 +42,37 @@ const COMPONENTS = {
   contact: Contact,
 } as const;
 
-const visible = sections.filter((s) => s.enabled);
-for (const s of visible) {
+const preview = !!Astro.locals.preview;
+for (const s of sections) {
   if (!(s.type in COMPONENTS)) throw new Error(`[SectionRenderer] Jenis section tidak dikenal: "${(s as { type: string }).type}".`);
 }
-const firstHero = visible.findIndex((s) => s.type === 'hero');
-const firstContact = visible.findIndex((s) => s.type === 'contact');
-const faqs = visible.flatMap((s) => (s.type === 'faq' ? s.items : []));
+// Indeks asli dipertahankan supaya editor visual bisa memetakan elemen ke data.
+const items = sections.map((s, index) => ({ s, index })).filter(({ s }) => s.enabled || preview);
+const visible = items.filter(({ s }) => s.enabled);
+const firstHero = visible.find(({ s }) => s.type === 'hero')?.index;
+const firstContact = visible.find(({ s }) => s.type === 'contact')?.index;
+const firstIndex = visible[0]?.index;
+const faqs = visible.flatMap(({ s }) => (s.type === 'faq' ? s.items : []));
 ---
 
 {
-  visible.map((s, i) => {
+  items.map(({ s, index: i }) => {
     const C = COMPONENTS[s.type] as any;
-    return (
+    const el = (
       <C
         data={s}
         first={s.type === 'hero' && i === firstHero && heroIsH1}
-        eager={eagerFirst && i === 0}
+        eager={eagerFirst && i === firstIndex}
         index={i}
         anchor={i === firstContact}
         group={`galeri-${i}`}
       />
+    );
+    if (!preview) return el;
+    return (
+      <div data-section={i} data-section-type={s.type} data-hidden={s.enabled ? undefined : 'true'}>
+        {s.enabled ? el : <p class="pb-hidden-section">Section tersembunyi</p>}
+      </div>
     );
   })
 }

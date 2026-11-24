@@ -3,9 +3,11 @@ import type { Section } from '../../lib/schemas';
 import Img from '../ui/Img.astro';
 import Icon from '../ui/Icon.astro';
 
+import { ed } from '../../lib/edit';
 interface Props {
   data: Extract<Section, { type: 'testimonials' }>;
 }
+const l = Astro.locals;
 const { data } = Astro.props;
 const carousel = data.variant === 'carousel' && data.items.length > 1;
 ---
@@ -13,7 +15,7 @@ const carousel = data.variant === 'carousel' && data.items.length > 1;
 <section class="section">
   <div class="container-x">
     <div class="mb-10 flex items-end justify-between gap-6 md:mb-14">
-      {data.title && <h2 class="h2" data-reveal>{data.title}</h2>}
+      {data.title && <h2 class="h2" data-reveal {...ed(l, 'title')}>{data.title}</h2>}
       {
         carousel && (
           <div class="flex gap-3" data-carousel-controls>
@@ -30,10 +32,10 @@ const carousel = data.variant === 'carousel' && data.items.length > 1;
       aria-label={carousel ? 'Testimoni, geser untuk melihat lainnya' : undefined}
     >
       {
-        data.items.map((t) => (
+        data.items.map((t, i) => (
           <li class="card flex flex-col justify-between gap-8 p-8" data-reveal>
             <blockquote class="font-head text-[1.3rem] leading-snug" style="font-weight:var(--heading-weight)">
-              <p>“{t.quote}”</p>
+              <p>“<span {...ed(l, `items.${i}.quote`)}>{t.quote}</span>”</p>
             </blockquote>
             <div class="flex items-center gap-4">
               {t.photo && (
@@ -42,8 +44,8 @@ const carousel = data.variant === 'carousel' && data.items.length > 1;
                 </div>
               )}
               <p>
-                <span class="block font-semibold">{t.name}</span>
-                {t.role && <span class="meta">{t.role}</span>}
+                <span class="block font-semibold" {...ed(l, `items.${i}.name`)}>{t.name}</span>
+                {t.role && <span class="meta" {...ed(l, `items.${i}.role`)}>{t.role}</span>}
               </p>
             </div>
           </li>

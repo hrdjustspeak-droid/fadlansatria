@@ -4,9 +4,11 @@ import EdgeImage from '../ui/EdgeImage.astro';
 import Markdown from '../ui/Markdown.astro';
 import CtaLink from '../ui/CtaLink.astro';
 
+import { ed } from '../../lib/edit';
 interface Props {
   data: Extract<Section, { type: 'aboutShort' }>;
 }
+const l = Astro.locals;
 const { data } = Astro.props;
 const split = data.variant === 'split' && !!data.image;
 ---
@@ -28,10 +30,10 @@ const split = data.variant === 'split' && !!data.image;
       )
     }
     <div data-reveal class:list={[!split && 'mx-auto max-w-2xl text-center']}>
-      {data.eyebrow && <p class="eyebrow mb-4">{data.eyebrow}</p>}
-      {data.title && <h2 class="h2 mb-6">{data.title}</h2>}
+      {data.eyebrow && <p class="eyebrow mb-4" {...ed(l, 'eyebrow')}>{data.eyebrow}</p>}
+      {data.title && <h2 class="h2 mb-6" {...ed(l, 'title')}>{data.title}</h2>}
       <Markdown content={data.text} class={split ? '' : 'mx-auto'} />
-      {data.cta && <CtaLink link={data.cta} variant="secondary" where="About singkat" class="mt-8" />}
+      {data.cta && <CtaLink link={data.cta} editPath="cta" variant="secondary" where="About singkat" class="mt-8" />}
     </div>
   </div>
 </section>

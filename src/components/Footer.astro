@@ -1,7 +1,7 @@
 ---
 import { getNavigation, getSite, isExternal } from '../lib/content';
 
-const [site, nav] = await Promise.all([getSite(), getNavigation()]);
+const [site, nav] = await Promise.all([getSite(Astro.locals), getNavigation(Astro.locals)]);
 const year = new Date().getFullYear();
 ---
 

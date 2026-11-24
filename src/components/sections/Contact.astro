@@ -2,14 +2,16 @@
 import type { Section } from '../../lib/schemas';
 import { getSite } from '../../lib/content';
 
+import { ed } from '../../lib/edit';
 interface Props {
   data: Extract<Section, { type: 'contact' }>;
   /** posisi section di halaman: untuk id unik. Section kontak pertama mendapat anchor #kontak. */
   index?: number;
   anchor?: boolean;
 }
+const l = Astro.locals;
 const { data, index = 0, anchor = true } = Astro.props;
-const site = await getSite();
+const site = await getSite(Astro.locals);
 const wa = site.whatsapp ? `https://wa.me/${site.whatsapp}` : undefined;
 const split = data.variant === 'split';
 const formId = `kontak-${index}`;
@@ -18,8 +20,8 @@ const formId = `kontak-${index}`;
 <section class="section" id={anchor ? 'kontak' : undefined} aria-labelledby={`${formId}-title`}>
   <div class:list={['container-x grid gap-10', split && data.showForm ? 'md:grid-cols-12 md:gap-16' : 'max-w-3xl']}>
     <div class:list={[split && data.showForm ? 'md:col-span-5' : 'text-center']} data-reveal>
-      <h2 class="h2" id={`${formId}-title`}>{data.title}</h2>
-      {data.text && <p class="lead mt-5">{data.text}</p>}
+      <h2 class="h2" id={`${formId}-title`} {...ed(l, 'title')}>{data.title}</h2>
+      {data.text && <p class="lead mt-5" {...ed(l, 'text')}>{data.text}</p>}
       {
         data.showDirect && (
           <ul class:list={['mt-8 flex flex-col gap-4', !(split && data.showForm) && 'items-center']} role="list">

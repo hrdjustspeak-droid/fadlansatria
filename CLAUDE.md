@@ -1,6 +1,6 @@
 # Portobuilder — panduan untuk Claude Code
 
-Website portfolio statis yang seluruh kontennya diedit lewat Sveltia CMS di `/admin`. Spesifikasi lengkap: `PRD.md`. Panduan editor non-tech: `PANDUAN-EDITOR.md`.
+Website portfolio statis. Konten diedit lewat **editor visual `/edit`** (utama, ala Google Sites) atau Sveltia CMS di `/admin` (cadangan, berbasis form). Spesifikasi lengkap: `PRD.md`. Panduan editor non-tech: `PANDUAN-EDITOR.md`.
 
 ## Perintah
 
@@ -18,11 +18,22 @@ Windows: jalankan Vitest dari path berhuruf besar (`C:\laragon\...`). Path `c:\`
 
 Astro 7 (`output: static`) + TypeScript strict, Tailwind CSS 4 (lewat `@tailwindcss/vite`), Sveltia CMS (CDN), GSAP + ScrollTrigger + Lenis, Astro View Transitions (`ClientRouter`), `lite-youtube-embed`, Fontsource (self-host), Netlify (hosting, Forms, Image CDN), `@astrojs/sitemap`, `marked` untuk markdown di field JSON. Zod dari `astro/zod` (Zod 4).
 
+## Editor visual (`/edit`)
+
+- `src/pages/edit/index.astro` memuat `src/editor/Editor.svelte` (Svelte 5, `client:only`). UI editor netral, terpisah dari tema situs.
+- **Kanvas = komponen situs asli.** `src/pages/edit/render.astro` (on-demand, `prerender = false`, jadi Netlify Function) menerima POST JSON konten draft, memvalidasinya (`lib/preview.ts`), mengisi `Astro.locals.preview`, lalu merender view halaman yang sama dengan situs publik (`src/components/pages/*View.astro`). Wajib header `x-portobuilder-preview: 1`.
+- Semua getter konten (`getSite`, `getTheme`, `getNavigation`, `getProjects`, `ctaHref`) dan helper gambar menerima `Astro.locals` supaya override preview berlaku. **Setiap komponen baru yang membaca konten wajib meneruskan `Astro.locals`.**
+- Teks yang bisa diedit langsung di kanvas ditandai `{...ed(Astro.locals, 'path')}` (`lib/edit.ts`; hanya muncul di preview). Path relatif terhadap section, atau `page.xxx` untuk field halaman. `SectionRenderer` membungkus section dengan `data-section={indeksAsli}` di preview.
+- Form panel kanan dibangun otomatis dari `src/lib/cms-fields.mjs` (sumber yang sama dengan config Sveltia). Field baru cukup ditambah di sana + `schemas.ts`.
+- Simpan: mode lokal (`npm run dev`) menulis file lewat `src/pages/edit/api/files.ts` (hanya aktif di DEV, path di-whitelist `isWritableContent`/`isWritableUpload`). Produksi: login GitHub via OAuth Netlify (popup), publish = satu commit via Git Data API (`src/editor/storage.ts`), menolak bila file yang sama berubah sejak dimuat.
+- Draft otomatis di localStorage (+ file upload di IndexedDB), undo/redo 100 langkah, validasi lintas-file sebelum publish (`lib/validate.ts`, aturan sama dengan build).
+- Gambar di-upload dikompres di browser ke WebP maks. 2400 px (`src/editor/media.ts`).
+
 ## Struktur
 
 - `src/content/` — konten (diedit CMS). `settings/{site,theme,navigation}.json`, `pages/{home,about}.json`, `custom-pages/*.json`, `projects/*.md`.
 - `src/lib/schemas.ts` — **semua skema Zod**. `src/content.config.ts` hanya memasang skema ke koleksi.
-- `scripts/cms-config.mjs` — **sumber tunggal** `public/admin/config.yml`. Jangan edit `config.yml` langsung. Definisi section (`sectionTypes`) ditulis sekali dan dipakai Beranda, About, dan Halaman Custom.
+- `src/lib/cms-fields.mjs` — **definisi field tunggal** (label, hint, batas) untuk editor visual dan Sveltia. `scripts/cms-config.mjs` menulis `public/admin/config.yml` darinya; jangan edit `config.yml` langsung.
 - `src/lib/cms-sync.test.ts` — gagal bila field/varian di CMS dan Zod tidak sama. Setiap mengubah salah satu, ubah juga yang lain.
 - `src/lib/content.ts` — akses konten + validasi lintas-file (slug bentrok/dicadangkan, link menu ke halaman yang tidak ada/draft → build gagal dengan pesan jelas).
 - `src/lib/color.ts` — engine kontras WCAG; `src/lib/themes.ts` — data 6 preset + `resolveTheme()`; `src/lib/fonts.ts` — `@font-face` per preset.
@@ -55,6 +66,8 @@ Astro 7 (`output: static`) + TypeScript strict, Tailwind CSS 4 (lewat `@tailwind
 
 - **Gambar responsif: Netlify Image CDN**, bukan `astro:assets`. Alasan: gambar CMS ada di `public/uploads` (tidak diproses `astro:assets`), dan CDN membuat ukuran + format (AVIF/WebP) on-the-fly tanpa memperlambat build. Aktif bila `NETLIFY=true` (otomatis di Netlify) atau `IMAGE_CDN=true`; di lokal URL asli dipakai. `width`/`height` selalu dari sharp.
 - Overlay teks di atas foto (hero fullbleed): sharp menghitung luminans persentil-95 area teks saat build → `overlayAlpha()`.
+- Adapter `@astrojs/netlify` dengan `devFeatures: false` (tanpa emulasi Deno/Edge di dev) dan `imageCDN: false` (srcset dibuat `lib/image.ts`). Semua halaman tetap statis di `dist/`.
+- Markdown body proyek dirender dengan `marked` (bukan pipeline Astro) supaya kanvas editor dan situs identik.
 - Mobile menu & lightbox memakai `<dialog>` native (focus trap + Esc bawaan). FAQ memakai `<details>`.
 - `backend.repo` di config CMS diambil dari `REPOSITORY_URL` (Netlify) atau `CMS_REPO`; tanpa `base_url` sehingga Sveltia memakai OAuth Netlify.
 - Kategori proyek (placeholder PRD): Branding, UI/UX, Ilustrasi, Video — ada di `schemas.ts` dan `cms-config.mjs`.

@@ -1,5 +1,6 @@
 ---
 import EdgeImage from './ui/EdgeImage.astro';
+import { ed } from '../lib/edit';
 
 interface Props {
   title: string;
@@ -16,9 +17,9 @@ const { title, eyebrow, subtitle, image, imageAlt, imageEdge = 'frame', edgeInte
 <header class="section pb-0 pt-12 md:pt-20">
   <div class="container-x">
     <div class="max-w-4xl">
-      {eyebrow && <p class="eyebrow mb-4" data-hero-line>{eyebrow}</p>}
-      <h1 class="h1" data-hero-line>{title}</h1>
-      {subtitle && <p class="lead mt-6 max-w-2xl" data-hero-line>{subtitle}</p>}
+      {eyebrow && <p class="eyebrow mb-4" data-hero-line {...ed(Astro.locals, "page.pageHeader.eyebrow")}>{eyebrow}</p>}
+      <h1 class="h1" data-hero-line {...ed(Astro.locals, "page.title")}>{title}</h1>
+      {subtitle && <p class="lead mt-6 max-w-2xl" data-hero-line {...ed(Astro.locals, "page.pageHeader.subtitle")}>{subtitle}</p>}
     </div>
     {
       image && (

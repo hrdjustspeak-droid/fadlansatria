@@ -12,7 +12,7 @@ interface Props {
   maxWidth?: number;
 }
 const { src, alt, ratio, sizes = '100vw', eager = false, class: cls, maxWidth } = Astro.props;
-const img = await responsive(src, ratio, maxWidth);
+const img = await responsive(src, ratio, maxWidth, Astro.locals);
 ---
 
 <img

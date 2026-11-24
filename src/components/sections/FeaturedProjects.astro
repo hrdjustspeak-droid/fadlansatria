@@ -9,7 +9,7 @@ interface Props {
   data: Extract<Section, { type: 'featuredProjects' }>;
 }
 const { data } = Astro.props;
-const all = await getProjects();
+const all = await getProjects(Astro.locals);
 let list =
   data.source === 'featured'
     ? all.filter((p) => p.data.featured)

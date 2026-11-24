@@ -1,9 +1,11 @@
 ---
 import type { Section } from '../../lib/schemas';
 
+import { ed } from '../../lib/edit';
 interface Props {
   data: Extract<Section, { type: 'stats' }>;
 }
+const l = Astro.locals;
 const { data } = Astro.props;
 // "98%" -> angka 98 + sufiks "%", untuk animasi hitung naik.
 const items = data.items.map((it) => {
@@ -15,13 +17,13 @@ const cols = ['', '', 'sm:grid-cols-2', 'sm:grid-cols-3', 'sm:grid-cols-2 lg:gri
 
 <section class="section">
   <div class="container-x">
-    {data.title && <h2 class="h2 mb-10 md:mb-14" data-reveal>{data.title}</h2>}
+    {data.title && <h2 class="h2 mb-10 md:mb-14" data-reveal {...ed(l, 'title')}>{data.title}</h2>}
     <dl class:list={['grid gap-6', cols]}>
       {
-        items.map((it) => (
+        items.map((it, i) => (
           <div data-reveal class:list={['flex flex-col-reverse gap-3', data.variant === 'cards' ? 'card p-8' : 'divider-t pt-6']}>
-            <dt class="meta text-base">{it.label}</dt>
-            <dd class="stat-num">
+            <dt class="meta text-base" {...ed(l, `items.${i}.label`)}>{it.label}</dt>
+            <dd class="stat-num" {...ed(l, `items.${i}.value`)}>
               {it.num !== undefined ? (
                 <>
                   <span data-count={it.num}>{it.num}</span>

@@ -2,6 +2,8 @@
 import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
 import sitemap from '@astrojs/sitemap';
+import svelte from '@astrojs/svelte';
+import netlify from '@astrojs/netlify';
 import { readdirSync, readFileSync } from 'node:fs';
 
 // Netlify mengisi URL saat build. SITE_URL menimpa (mis. setelah domain custom terpasang).
@@ -16,13 +18,18 @@ const hidden = readdirSync('src/content/custom-pages')
 
 export default defineConfig({
   site,
+  // Semua halaman statis; hanya /edit/render (kanvas editor) & /edit/api (lokal) yang on-demand.
   output: 'static',
+  // devFeatures off: tidak butuh emulasi Netlify (Deno / Edge Functions) saat npm run dev. imageCDN off: gambar CMS ada di public/, srcset dibuat lib/image.ts.
+  adapter: netlify({ devFeatures: false, imageCDN: false }),
   trailingSlash: 'ignore',
+  devToolbar: { enabled: false },
   integrations: [
+    svelte(),
     sitemap({
       filter: (page) => {
         const path = new URL(page).pathname.replace(/\/$/, '') || '/';
-        return !path.startsWith('/dev') && path !== '/404' && !hidden.includes(path);
+        return !path.startsWith('/dev') && !path.startsWith('/edit') && path !== '/404' && !hidden.includes(path);
       },
     }),
   ],
@@ -30,3 +37,4 @@ export default defineConfig({
     plugins: [tailwindcss()],
   },
 });
+

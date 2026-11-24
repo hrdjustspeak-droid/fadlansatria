@@ -1,153 +1,100 @@
 # Panduan Editor
 
-Panduan ini untuk mengubah isi website tanpa menyentuh kode. Semua dilakukan dari panel admin, dan bisa dari HP.
+Website ini diedit langsung di halamannya, mirip Google Sites. Anda melihat situs persis seperti pengunjung melihatnya, lalu klik bagian yang ingin diubah.
 
-> **Screenshot:** tempat gambar ditandai `📷`. Ambil screenshot dari panel admin setelah situs online, simpan di folder `docs/panduan/`, lalu ganti tanda tersebut dengan gambarnya.
+> **Screenshot:** tempat gambar ditandai `📷`. Ambil screenshot setelah situs online, simpan di `docs/panduan/`, lalu ganti tandanya.
 
 ## Cara masuk
 
-1. Buka `namaweb.com/admin`.
-2. Klik **Login with GitHub**, lalu izinkan aksesnya. Akun GitHub Anda harus sudah diundang oleh developer.
-3. Anda akan melihat empat menu di kiri: **Pengaturan Situs**, **Halaman**, **Halaman Custom**, dan **Proyek**.
+1. Buka `namaweb.com/edit`.
+2. Klik **Masuk dengan GitHub** dan izinkan aksesnya. Akun GitHub Anda harus sudah diundang developer.
+3. Halaman Beranda terbuka di tengah. Panel di kanan punya empat tab: **Sisipkan**, **Halaman**, **Tema**, dan **Situs**.
 
-📷 *Halaman login dan menu utama*
+📷 *Tampilan editor*
 
-## Cara menyimpan
+## Cara kerja dasar
 
-- Setelah mengubah apa pun, klik **Save** (Simpan) di kanan atas.
-- Website diperbarui otomatis dalam **1–3 menit**. Muat ulang halaman website untuk melihat hasilnya.
-- Kalau ada isian yang salah (misalnya terlalu panjang), kolomnya ditandai merah dan perubahan belum tersimpan. Baca pesan di bawah kolom tersebut.
-- Salah simpan? Tenang, semua versi lama tersimpan. Minta developer mengembalikannya.
+| Ingin… | Caranya |
+| --- | --- |
+| Mengubah teks | Klik teksnya di halaman, lalu ketik. Angka di atas teks menunjukkan batas karakter. Tekan Enter atau klik di luar untuk selesai. |
+| Mengubah gambar, gaya, tombol, atau daftar item | Klik section-nya. Pengaturannya muncul di panel kanan. |
+| Memindah section | Arahkan kursor ke section, lalu seret ikon ⠿ di toolbar hitam, atau pakai tombol ↑ ↓. |
+| Menambah section | Klik tombol **+** biru di bawah section, atau buka tab **Sisipkan** lalu klik jenis section. |
+| Menyembunyikan sementara | Ikon mata di toolbar section. Section tersembunyi tampil bergaris di editor dan tidak tampil di situs. |
+| Membatalkan | Tombol ↶ di atas, atau Ctrl+Z. Ulangi dengan ↷ atau Ctrl+Shift+Z. |
+| Melihat versi HP | Tombol **HP** / **Tablet** / **Desktop** di atas. |
+| Pindah halaman | Pilihan halaman di kiri atas, atau tab **Halaman**. |
 
-## 1. Mengganti judul besar di beranda (hero)
+Semua perubahan tersimpan otomatis sebagai **draft** di browser Anda. Kalau tab tertutup, draft muncul lagi saat editor dibuka.
 
-1. Buka **Halaman → Beranda**.
-2. Klik section **Hero** di daftar Section.
-3. Ubah **Judul Besar** (maks. 80 karakter) dan **Sub-judul** (maks. 160 karakter).
-4. Untuk mengganti foto: klik **Gambar → Ganti**, pilih foto dari HP/komputer. Foto otomatis dikompres.
-5. Isi **Deskripsi Gambar (alt)**, misalnya "Raka sedang sketsa logo di studio".
-6. Klik **Save**.
+## Mempublikasikan
 
-📷 *Form section Hero*
+1. Klik **Publikasikan** di kanan atas.
+2. Editor menampilkan daftar halaman yang berubah.
+3. Kalau ada isian yang belum benar (misalnya judul terlalu panjang atau link ke halaman yang dihapus), editor menampilkan daftarnya. Klik salah satu untuk langsung menuju tempatnya, perbaiki, lalu klik Publikasikan lagi.
+4. Klik **Publikasikan**. Situs ter-update dalam 1–3 menit.
 
-**Gaya Tampilan hero:**
-- **Split**: teks di kiri, foto di kanan (paling aman).
-- **Tengah**: judul besar di tengah, foto lebar di bawahnya.
-- **Layar penuh**: foto memenuhi layar dan teks putih di atasnya. Sistem otomatis menambah lapisan gelap supaya teks tetap terbaca.
+## 1. Mengganti judul besar di beranda
 
-## 2. Menambah proyek baru (dengan 3 gambar dan 1 video)
+1. Klik judul besar di halaman, lalu ketik judul baru (maks. 80 karakter).
+2. Untuk mengganti foto: klik area hero → panel kanan → **Ganti gambar** → pilih foto. Foto otomatis dikecilkan dan dikompres.
+3. Isi **Deskripsi Gambar (alt)**, misalnya "Raka sedang membuat sketsa logo di studio".
+4. **Gaya Tampilan** di panel kanan mengubah tata letak: Split, Tengah, atau Layar penuh.
 
-1. Buka **Proyek → New Proyek** (Tambah).
-2. Isi **Judul**, **Kategori**, **Tahun**, dan **Ringkasan** (tampil di kartu, maks. 160 karakter).
-3. Upload **Gambar Cover** (sebaiknya rasio 4:3, misalnya 1600×1200) dan isi deskripsinya.
-4. Nyalakan **Unggulan** kalau ingin proyek ini muncul di beranda.
-5. Di **Galeri**, klik **Add** tiga kali. Untuk tiap gambar: upload, isi deskripsi, dan (opsional) keterangan.
-6. Di **Video YouTube**, klik **Add**, tempel link video, dan beri judul.
-7. Tulis cerita proyeknya di **Isi Studi Kasus**: masalah, proses, hasil.
-8. Klik **Save**.
+## 2. Menambah proyek (3 gambar + 1 video)
 
-📷 *Form proyek baru*
+1. Tab **Halaman** → bagian Proyek → **+ Proyek baru**. Proyek baru dibuat sebagai draft.
+2. Klik judul dan ringkasan di halaman untuk mengubahnya, atau isi lewat panel kanan.
+3. Panel kanan: pilih **Kategori** dan **Tahun**, ganti **Gambar Cover**, nyalakan **Unggulan** bila perlu tampil di beranda.
+4. **Galeri** → **+ Tambah galeri** tiga kali, lalu ganti gambar tiap item dan isi deskripsinya.
+5. **Video YouTube** → **+ Tambah**, tempel link YouTube.
+6. Tulis ceritanya di **Isi Studi Kasus**. Tombol B, I, H2, dan • Daftar membantu format.
+7. Matikan **Sembunyikan (draft)**, lalu **Publikasikan**.
 
-Tips:
-- **Urutan** opsional. Isi angka kecil (1, 2, 3) untuk proyek yang ingin tampil paling depan. Kalau kosong, proyek diurutkan dari tahun terbaru.
-- Nyalakan **Sembunyikan (draft)** untuk menyimpan proyek yang belum siap tampil.
+## 3. Menambah video YouTube di halaman
 
-## 3. Menambah video YouTube
-
-Bisa di proyek (lihat di atas) atau sebagai section di halaman mana pun:
-
-1. Buka halaman yang ingin diberi video (misalnya **Halaman → Beranda**).
-2. Di **Section**, klik **Add → Video YouTube**.
-3. Tempel link dari YouTube. Semua bentuk link diterima: `youtube.com/watch?v=...`, `youtu.be/...`, `youtube.com/shorts/...`. Link yang memakai waktu mulai (`?t=30`) juga didukung.
-4. Isi judul, lalu **Save**.
-
-Catatan:
-- Video harus **Public** atau **Unlisted**. Video Private tidak bisa diputar.
-- Kalau pemilik video mematikan izin sematan, akan muncul pesan error di player. Di bawah setiap video selalu ada link **Tonton di YouTube** sebagai cadangan.
-- Link selain YouTube (Vimeo, Instagram) ditolak.
+Tab **Sisipkan** → **Video YouTube** → panel kanan → tempel link. Semua bentuk link diterima (watch, youtu.be, shorts, dengan waktu mulai). Video harus Public atau Unlisted. Di bawah video selalu ada link **Tonton di YouTube** sebagai cadangan.
 
 ## 4. Mengubah urutan section
 
-1. Buka halaman (misalnya **Halaman → Beranda**).
-2. Di daftar **Section**, tekan dan seret ikon ⠿ di samping section ke posisi baru.
-3. Untuk menyembunyikan section sementara tanpa menghapusnya, matikan **Tampilkan**.
-4. Klik **Save**.
-
-📷 *Menyeret section*
+Seret ikon ⠿ pada toolbar section ke posisi baru (garis biru menunjukkan tujuannya), atau klik ↑ / ↓.
 
 ## 5. Mengganti tema dan warna
 
-1. Buka **Pengaturan Situs → Tema & Animasi**.
-2. Pilih **Preset Tema**:
+Tab **Tema**:
+- Klik salah satu dari enam **Preset**. Hasilnya langsung terlihat di halaman.
+- **Warna** latar, teks, dan aksen boleh diganti. Kalau kurang kontras, warna digeser sedikit otomatis, dan panel memberi tahu hasil akhirnya.
+- **Animasi**: Penuh, Halus, atau Mati. Animasi tidak diputar di editor; lihat di situs setelah dipublikasikan.
 
-| Preset | Kesan |
-| --- | --- |
-| Editorial | Majalah, hangat, elegan |
-| Minimal Mono | Bersih, banyak ruang kosong |
-| Dark Studio | Gelap, kontras, teknis |
-| Soft Pastel | Lembut, ramah |
-| Bold Brutalist | Berani, grafis |
-| Jakarta Modern | Modern, lokal |
+## 6. Efek tepi gambar (vignette)
 
-3. (Opsional) Ganti **Warna Latar**, **Warna Teks**, atau **Warna Aksen**. Kosongkan untuk memakai warna preset.
-4. **Animasi**: Penuh, Halus (hanya memudar), atau Mati.
-5. Klik **Save**.
-
-Warna apa pun yang Anda pilih akan **digeser sedikit secara otomatis** bila kurang kontras, supaya teks selalu mudah dibaca (standar WCAG AA). Jadi warna di website bisa sedikit lebih gelap atau terang dari yang dipilih. Ini disengaja.
-
-## 6. Mengatur efek tepi gambar (vignette)
-
-Tersedia di Hero, About Singkat, foto halaman About, dan header halaman custom.
-
-1. Buka section yang punya gambar.
-2. Pilih **Efek Tepi Gambar**:
-   - **Tanpa efek**: gambar tampil penuh.
-   - **Bingkai**: sudut membulat dan garis tipis.
-   - **Vignette**: tepi memudar halus menyatu dengan latar.
-   - **Pudar bawah**: bagian bawah memudar ke latar.
-   - **Vignette gelap**: tepi menggelap seperti lensa kamera.
-3. Pilih **Intensitas**: Halus, Sedang, atau Kuat.
-4. Klik **Save**.
+Klik section yang punya gambar (Hero, About Singkat, header halaman) → **Efek Tepi Gambar** (Tanpa efek, Bingkai, Vignette, Pudar bawah, Vignette gelap) dan **Intensitas**.
 
 ## 7. Membuat halaman baru dan memasukkannya ke menu
 
-**Langkah A: buat halamannya**
+1. Tab **Halaman** → **+ Halaman baru** → ketik judul (misalnya "Layanan") → **Buat**. Alamatnya dibuat otomatis (`/layanan`).
+2. Tambahkan section dari tab **Sisipkan** (misalnya Layanan, FAQ, Kontak).
+3. Klik **Pengaturan halaman** di atas → **Masukkan ke menu navbar**.
+4. **Publikasikan**.
 
-1. Buka **Halaman Custom → New Halaman**.
-2. Isi **Judul Halaman**, misalnya "Layanan".
-3. Isi **Alamat URL**, misalnya `layanan` (hasilnya `namaweb.com/layanan`). Hanya huruf kecil, angka, dan tanda hubung. Alamat `admin`, `projects`, `about`, `dev`, `uploads`, dan `404` tidak boleh dipakai.
-4. (Opsional) Atur **Header Halaman**: teks kecil, sub-judul, dan gambar.
-5. Di **Section**, klik **Add** dan pilih section yang dibutuhkan, misalnya Layanan, FAQ, lalu Kontak. Minimal satu section.
-6. Pastikan **Sembunyikan (draft)** dalam keadaan mati.
-7. Klik **Save**.
+Di Pengaturan halaman Anda juga bisa mengganti alamat URL (link di menu ikut berubah), menjadikan halaman draft, menduplikat, atau menghapusnya. Menghapus atau men-draft halaman otomatis mengeluarkannya dari menu.
 
-📷 *Form halaman custom*
-
-**Langkah B: masukkan ke menu**
-
-1. Buka **Pengaturan Situs → Navigasi (Menu)**.
-2. Di **Menu Navbar** (maks. 6 item) atau **Menu Footer** (maks. 10 item), klik **Add**.
-3. Isi **Teks Menu**, misalnya "Layanan".
-4. Pilih **Jenis Link → Halaman custom**, lalu pilih halamannya di **Halaman Custom**.
-5. Seret untuk mengatur urutan, lalu klik **Save**.
-
-📷 *Menambah item menu*
-
-Jenis link lain:
-- **Halaman bawaan**: Beranda, Daftar Proyek, About, atau Bagian Kontak.
-- **Link luar**: alamat lengkap seperti `https://instagram.com/nama`.
-
-**Penting:** sebelum menghapus halaman atau menjadikannya draft, **hapus dulu link-nya dari menu**. Kalau tidak, website tidak akan diperbarui dan perubahan Anda tertahan sampai link tersebut dihapus.
+Urutan menu, tombol CTA navbar ("Hubungi Saya"), dan menu footer diatur di tab **Halaman** → **Menu navigasi**. Pilih tujuan tiap item dari satu daftar: halaman bawaan, halaman custom, atau link luar.
 
 ## Batas teks
 
-Kolom teks dibatasi supaya tampilan tidak rusak. Angka maksimal tertulis di bawah setiap kolom. Contoh: judul hero 80 karakter, ringkasan proyek 160 karakter, teks tombol 30 karakter.
+Batas karakter tampil saat mengetik, baik di halaman maupun di panel. Contoh: judul hero 80, ringkasan proyek 160, teks tombol 30.
 
 ## Kalau ada masalah
 
 | Masalah | Yang dicek |
 | --- | --- |
-| Perubahan tidak muncul setelah 5 menit | Muat ulang dengan Ctrl+Shift+R. Kalau masih belum, hubungi developer: kemungkinan ada isian yang membuat build gagal. |
+| Muncul kotak merah "Tampilan belum diperbarui" | Ada isian yang belum valid. Baca pesannya dan perbaiki di panel kanan. |
+| Perubahan tidak muncul di situs setelah 5 menit | Muat ulang dengan Ctrl+Shift+R. Kalau masih belum, hubungi developer. |
+| "Ada perubahan lain di … sejak editor dibuka" | Orang lain baru saja mempublikasikan. Catat perubahan Anda, muat ulang editor, lalu ulangi. |
 | Video tidak bisa diputar | Pastikan video Public/Unlisted dan izin sematan aktif di YouTube Studio. |
-| Tidak bisa login | Pastikan akun GitHub Anda sudah diundang ke repo. |
-| Halaman baru tidak ada di pilihan menu | Pastikan halaman sudah disimpan dan tidak dalam mode draft. |
+| Tidak bisa login | Izinkan popup untuk situs ini, dan pastikan akun GitHub Anda sudah diundang ke repo. |
+
+## Untuk developer: mengedit di laptop
+
+Jalankan `npm run dev`, buka http://localhost:4321/edit. Editor otomatis memakai mode lokal: tombol **Simpan ke file** menulis langsung ke `src/content` dan `public/uploads` tanpa login. Commit hasilnya dengan git seperti biasa. Panel lama berbasis form tetap tersedia di `/admin`.
