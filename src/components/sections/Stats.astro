@@ -1,0 +1,50 @@
+---
+import type { Section } from '../../lib/schemas';
+
+interface Props {
+  data: Extract<Section, { type: 'stats' }>;
+}
+const { data } = Astro.props;
+// "98%" -> angka 98 + sufiks "%", untuk animasi hitung naik.
+const items = data.items.map((it) => {
+  const m = it.value.match(/^(\d+)(.*)$/);
+  return { ...it, num: m ? Number(m[1]) : undefined, suffix: m ? m[2] : '' };
+});
+const cols = ['', '', 'sm:grid-cols-2', 'sm:grid-cols-3', 'sm:grid-cols-2 lg:grid-cols-4'][items.length];
+---
+
+<section class="section">
+  <div class="container-x">
+    {data.title && <h2 class="h2 mb-10 md:mb-14" data-reveal>{data.title}</h2>}
+    <dl class:list={['grid gap-6', cols]}>
+      {
+        items.map((it) => (
+          <div data-reveal class:list={['flex flex-col-reverse gap-3', data.variant === 'cards' ? 'card p-8' : 'divider-t pt-6']}>
+            <dt class="meta text-base">{it.label}</dt>
+            <dd class="stat-num">
+              {it.num !== undefined ? (
+                <>
+                  <span data-count={it.num}>{it.num}</span>
+                  {it.suffix}
+                </>
+              ) : (
+                it.value
+              )}
+            </dd>
+          </div>
+        ))
+      }
+    </dl>
+  </div>
+</section>
+
+<style>
+  .stat-num {
+    font-family: var(--font-heading);
+    font-weight: var(--heading-weight);
+    letter-spacing: var(--heading-tracking);
+    font-size: clamp(2.75rem, 2rem + 3vw, 4.5rem);
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+  }
+</style>

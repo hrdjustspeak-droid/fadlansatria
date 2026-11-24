@@ -1,0 +1,42 @@
+---
+import type { GetStaticPaths } from 'astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionRenderer from '../components/SectionRenderer.astro';
+import PageHeader from '../components/PageHeader.astro';
+import { getCustomPages, type CustomPage } from '../lib/content';
+
+export const getStaticPaths = (async () => {
+  const pages = await getCustomPages(); // gagal build bila slug bentrok/dicadangkan
+  return pages.map((page) => ({ params: { slug: page.data.slug }, props: { page } }));
+}) satisfies GetStaticPaths;
+
+const { page } = Astro.props as { page: CustomPage };
+const p = page.data;
+const header = p.pageHeader?.enabled ? p.pageHeader : undefined;
+const firstVisible = p.sections.find((s) => s.enabled);
+// H1: page header, atau Hero pertama, atau judul tersembunyi.
+const heroFirst = !header && firstVisible?.type === 'hero';
+---
+
+<BaseLayout title={p.title} description={p.seo.description} ogImage={p.seo.ogImage} noindex={p.seo.noindex}>
+  {
+    header ? (
+      <PageHeader
+        title={p.title}
+        eyebrow={header.eyebrow}
+        subtitle={header.subtitle}
+        image={header.image}
+        imageAlt={header.imageAlt}
+        imageEdge={header.imageEdge}
+        edgeIntensity={header.edgeIntensity}
+      />
+    ) : (
+      !heroFirst && (
+        <div class="container-x pt-12 md:pt-20">
+          <h1 class="h1">{p.title}</h1>
+        </div>
+      )
+    )
+  }
+  <SectionRenderer sections={p.sections} heroIsH1={heroFirst} eagerFirst={!header} />
+</BaseLayout>

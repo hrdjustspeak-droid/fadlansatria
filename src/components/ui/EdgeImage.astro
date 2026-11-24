@@ -1,0 +1,20 @@
+---
+// Gambar dengan perlakuan tepi (Bagian 9). Tidak dipakai di dalam kartu.
+import Img from './Img.astro';
+
+interface Props {
+  src: string;
+  alt: string;
+  ratio?: number;
+  edge?: 'none' | 'frame' | 'vignette' | 'fade-bottom' | 'dark-vignette';
+  intensity?: 'soft' | 'medium' | 'strong';
+  sizes?: string;
+  eager?: boolean;
+  class?: string;
+}
+const { edge = 'frame', intensity = 'medium', class: cls, ...img } = Astro.props;
+---
+
+<div class:list={[edge !== 'none' && `edge-${edge}`, `edge-${intensity}`, cls]}>
+  <Img {...img} />
+</div>

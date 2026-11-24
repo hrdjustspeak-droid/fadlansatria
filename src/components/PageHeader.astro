@@ -1,0 +1,31 @@
+---
+import EdgeImage from './ui/EdgeImage.astro';
+
+interface Props {
+  title: string;
+  eyebrow?: string;
+  subtitle?: string;
+  image?: string;
+  imageAlt?: string;
+  imageEdge?: 'none' | 'frame' | 'vignette' | 'fade-bottom' | 'dark-vignette';
+  edgeIntensity?: 'soft' | 'medium' | 'strong';
+}
+const { title, eyebrow, subtitle, image, imageAlt, imageEdge = 'frame', edgeIntensity = 'medium' } = Astro.props;
+---
+
+<header class="section pb-0 pt-12 md:pt-20">
+  <div class="container-x">
+    <div class="max-w-4xl">
+      {eyebrow && <p class="eyebrow mb-4" data-hero-line>{eyebrow}</p>}
+      <h1 class="h1" data-hero-line>{title}</h1>
+      {subtitle && <p class="lead mt-6 max-w-2xl" data-hero-line>{subtitle}</p>}
+    </div>
+    {
+      image && (
+        <div class="mt-12 md:mt-16" data-hero-line>
+          <EdgeImage src={image} alt={imageAlt ?? ''} ratio={12 / 5} edge={imageEdge} intensity={edgeIntensity} eager />
+        </div>
+      )
+    }
+  </div>
+</header>

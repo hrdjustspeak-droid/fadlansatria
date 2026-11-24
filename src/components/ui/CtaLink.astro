@@ -1,0 +1,22 @@
+---
+import { ctaHref, isExternal, type LinkLike } from '../../lib/content';
+
+interface Props {
+  link: LinkLike & { label: string };
+  variant?: 'primary' | 'secondary' | 'link';
+  where?: string;
+  class?: string;
+}
+const { link, variant = 'primary', where = 'Section', class: cls } = Astro.props;
+const href = await ctaHref(link, where);
+const ext = isExternal(href);
+---
+
+<a
+  href={href}
+  class:list={[variant === 'link' ? 'link inline-flex items-center gap-1 font-semibold' : ['btn', `btn-${variant}`], cls]}
+  target={ext ? '_blank' : undefined}
+  rel={ext ? 'noopener' : undefined}
+>
+  {link.label}<span aria-hidden="true">{ext ? '↗' : '→'}</span>
+</a>

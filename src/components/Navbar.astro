@@ -1,0 +1,188 @@
+---
+import { getNavigation, getSite, isExternal } from '../lib/content';
+
+const [site, nav] = await Promise.all([getSite(), getNavigation()]);
+const path = Astro.url.pathname.replace(/\/$/, '') || '/';
+const isActive = (href: string) => !href.includes('#') && (href === '/' ? path === '/' : path === href || path.startsWith(`${href}/`));
+---
+
+<header class="site-header sticky top-0 z-40" data-header>
+  <div class="container-x flex h-[72px] items-center justify-between gap-6">
+    <a href="/" class="brand flex items-center gap-3 font-head text-xl no-underline" aria-label={`${site.ownerName}, ke beranda`}>
+      {site.logo ? <img src={site.logo} alt="" class="h-9 w-auto" height="36" width="120" /> : <span>{site.ownerName}</span>}
+    </a>
+
+    <nav aria-label="Menu utama" class="hidden items-center gap-1 md:flex">
+      <ul class="flex items-center gap-1" role="list">
+        {
+          nav.main.map((m) => (
+            <li>
+              <a
+                href={m.href}
+                class="nav-link"
+                aria-current={isActive(m.href) ? 'page' : undefined}
+                target={m.newTab ? '_blank' : undefined}
+                rel={m.newTab || isExternal(m.href) ? 'noopener' : undefined}
+              >
+                {m.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      {nav.cta && <a href={nav.cta.href} class="btn btn-primary ml-4 min-h-11 px-5 py-2">{nav.cta.label}</a>}
+    </nav>
+
+    <button type="button" class="menu-btn md:hidden" aria-haspopup="dialog" aria-controls="mobile-menu" data-menu-open>
+      <span class="sr-only">Buka menu</span>
+      <span class="burger" aria-hidden="true"></span>
+    </button>
+  </div>
+</header>
+
+<dialog id="mobile-menu" class="mobile-menu" aria-label="Menu">
+  <div class="container-x flex h-full flex-col">
+    <div class="flex h-[72px] items-center justify-between">
+      <span class="font-head text-xl">{site.ownerName}</span>
+      <button type="button" class="menu-btn" data-menu-close>
+        <span class="sr-only">Tutup menu</span>
+        <span aria-hidden="true" class="text-2xl leading-none">✕</span>
+      </button>
+    </div>
+    <nav aria-label="Menu utama (HP)" class="flex flex-1 flex-col justify-center gap-10 pb-16">
+      <ul class="flex flex-col gap-2" role="list">
+        <li><a href="/" class="mobile-link" aria-current={path === '/' ? 'page' : undefined}>Beranda</a></li>
+        {
+          nav.main.map((m) => (
+            <li>
+              <a href={m.href} class="mobile-link" aria-current={isActive(m.href) ? 'page' : undefined} target={m.newTab ? '_blank' : undefined} rel={m.newTab ? 'noopener' : undefined}>
+                {m.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      {nav.cta && <a href={nav.cta.href} class="btn btn-primary self-start">{nav.cta.label}</a>}
+    </nav>
+  </div>
+</dialog>
+
+<script>
+  function initMenu() {
+    const dlg = document.getElementById('mobile-menu') as HTMLDialogElement | null;
+    const open = document.querySelector<HTMLButtonElement>('[data-menu-open]');
+    if (!dlg || !open) return;
+    open.addEventListener('click', () => dlg.showModal());
+    dlg.querySelector('[data-menu-close]')?.addEventListener('click', () => dlg.close());
+    // Klik link (termasuk #kontak) menutup menu.
+    dlg.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => dlg.close()));
+    dlg.addEventListener('close', () => open.focus());
+
+    const header = document.querySelector<HTMLElement>('[data-header]');
+    const onScroll = () => header?.toggleAttribute('data-scrolled', scrollY > 8);
+    onScroll();
+    addEventListener('scroll', onScroll, { passive: true });
+    document.addEventListener('astro:before-swap', () => removeEventListener('scroll', onScroll), { once: true });
+  }
+  document.addEventListener('astro:page-load', initMenu);
+</script>
+
+<style>
+  .site-header {
+    background: color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter: saturate(1.4) blur(12px);
+    -webkit-backdrop-filter: saturate(1.4) blur(12px);
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.2s;
+  }
+  .site-header[data-scrolled] {
+    border-bottom-color: var(--divider);
+  }
+  .brand {
+    font-weight: var(--heading-weight);
+    letter-spacing: var(--heading-tracking);
+  }
+  .nav-link {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 0 14px;
+    border-radius: 9999px;
+    text-decoration: none;
+    font-weight: 500;
+    transition:
+      background-color 0.2s,
+      color 0.2s;
+  }
+  .nav-link:hover {
+    background: var(--surface);
+  }
+  .nav-link[aria-current='page'] {
+    color: var(--accent);
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 6px;
+  }
+  .menu-btn {
+    display: grid;
+    place-items: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 9999px;
+    color: var(--text);
+    cursor: pointer;
+  }
+  @media (min-width: 768px) {
+    [data-menu-open] {
+      display: none;
+    }
+  }
+  .brand {
+    font-size: 1.375rem;
+  }
+  .burger,
+  .burger::before,
+  .burger::after {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: currentColor;
+    border-radius: 2px;
+    position: relative;
+  }
+  .burger::before,
+  .burger::after {
+    content: '';
+    position: absolute;
+  }
+  .burger::before {
+    top: -7px;
+  }
+  .burger::after {
+    top: 7px;
+  }
+  .mobile-menu {
+    width: 100vw;
+    height: 100dvh;
+    max-width: none;
+    max-height: none;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: var(--bg);
+    color: var(--text);
+  }
+  .mobile-link {
+    display: block;
+    padding: 8px 0;
+    font-family: var(--font-heading);
+    font-weight: var(--heading-weight);
+    letter-spacing: var(--heading-tracking);
+    font-size: clamp(2rem, 8vw, 3rem);
+    line-height: 1.15;
+    text-decoration: none;
+  }
+  .mobile-link[aria-current='page'] {
+    color: var(--accent);
+  }
+</style>

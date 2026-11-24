@@ -1,0 +1,69 @@
+---
+import type { Section } from '../lib/schemas';
+import { faqJsonLd } from '../lib/seo';
+import Hero from './sections/Hero.astro';
+import FeaturedProjects from './sections/FeaturedProjects.astro';
+import RichText from './sections/RichText.astro';
+import Video from './sections/Video.astro';
+import AboutShort from './sections/AboutShort.astro';
+import Stats from './sections/Stats.astro';
+import Logos from './sections/Logos.astro';
+import Testimonials from './sections/Testimonials.astro';
+import Services from './sections/Services.astro';
+import Faq from './sections/Faq.astro';
+import Gallery from './sections/Gallery.astro';
+import Map from './sections/Map.astro';
+import CtaBanner from './sections/CtaBanner.astro';
+import Contact from './sections/Contact.astro';
+
+interface Props {
+  sections: Section[];
+  /** true bila halaman belum punya H1 lain: Hero pertama menjadi H1. */
+  heroIsH1?: boolean;
+  /** Hero pertama memuat gambar eager (LCP). */
+  eagerFirst?: boolean;
+}
+const { sections, heroIsH1 = true, eagerFirst = true } = Astro.props;
+
+const COMPONENTS = {
+  hero: Hero,
+  featuredProjects: FeaturedProjects,
+  richText: RichText,
+  video: Video,
+  aboutShort: AboutShort,
+  stats: Stats,
+  logos: Logos,
+  testimonials: Testimonials,
+  services: Services,
+  faq: Faq,
+  gallery: Gallery,
+  map: Map,
+  ctaBanner: CtaBanner,
+  contact: Contact,
+} as const;
+
+const visible = sections.filter((s) => s.enabled);
+for (const s of visible) {
+  if (!(s.type in COMPONENTS)) throw new Error(`[SectionRenderer] Jenis section tidak dikenal: "${(s as { type: string }).type}".`);
+}
+const firstHero = visible.findIndex((s) => s.type === 'hero');
+const firstContact = visible.findIndex((s) => s.type === 'contact');
+const faqs = visible.flatMap((s) => (s.type === 'faq' ? s.items : []));
+---
+
+{
+  visible.map((s, i) => {
+    const C = COMPONENTS[s.type] as any;
+    return (
+      <C
+        data={s}
+        first={s.type === 'hero' && i === firstHero && heroIsH1}
+        eager={eagerFirst && i === 0}
+        index={i}
+        anchor={i === firstContact}
+        group={`galeri-${i}`}
+      />
+    );
+  })
+}
+{faqs.length > 0 && <script type="application/ld+json" set:html={JSON.stringify(faqJsonLd(faqs))} />}

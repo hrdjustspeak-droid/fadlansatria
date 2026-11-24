@@ -1,0 +1,29 @@
+---
+import type { Section } from '../../lib/schemas';
+import YouTube from '../ui/YouTube.astro';
+
+interface Props {
+  data: Extract<Section, { type: 'video' }>;
+}
+const { data } = Astro.props;
+---
+
+<section class="section">
+  <div class="container-x" data-reveal>
+    {
+      data.variant === 'wide' ? (
+        <>
+          <h2 class="h2 mb-8">{data.title}</h2>
+          <YouTube url={data.youtubeUrl} title={data.title} />
+          {data.caption && <p class="lead mt-4 max-w-2xl">{data.caption}</p>}
+        </>
+      ) : (
+        <div class="card mx-auto max-w-4xl p-4 md:p-8">
+          <h2 class="h3 mb-2">{data.title}</h2>
+          {data.caption && <p class="meta mb-6">{data.caption}</p>}
+          <YouTube url={data.youtubeUrl} title={data.title} />
+        </div>
+      )
+    }
+  </div>
+</section>

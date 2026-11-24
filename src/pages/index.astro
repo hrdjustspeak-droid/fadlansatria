@@ -1,0 +1,16 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionRenderer from '../components/SectionRenderer.astro';
+import { getHome, getSite } from '../lib/content';
+import { absolute, personJsonLd } from '../lib/seo';
+
+const [home, site] = await Promise.all([getHome(), getSite()]);
+const firstVisible = home.sections.find((s) => s.enabled);
+const hasHeroH1 = home.sections.some((s) => s.enabled && s.type === 'hero');
+const ld = personJsonLd(site, new URL('/', Astro.site).href, absolute(site.seo.ogImage, Astro.site));
+---
+
+<BaseLayout jsonLd={ld}>
+  {!hasHeroH1 && <h1 class="sr-only">{site.ownerName} — {site.role}</h1>}
+  <SectionRenderer sections={home.sections} eagerFirst={!!firstVisible} />
+</BaseLayout>

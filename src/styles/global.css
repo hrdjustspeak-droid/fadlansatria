@@ -1,0 +1,454 @@
+@import 'tailwindcss';
+@import './themes.css';
+
+/* Semua warna wajib lewat token tema: palet bawaan Tailwind dimatikan. */
+@theme {
+  --color-*: initial;
+  --font-*: initial;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-text: var(--text);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+  --color-accent: var(--accent);
+  --color-accent-contrast: var(--accent-contrast);
+  --color-accent-hover: var(--accent-hover);
+  --color-transparent: transparent;
+  --font-head: var(--font-heading);
+  --font-sans: var(--font-body);
+  --radius-card: var(--radius-card);
+  --radius-theme: var(--radius);
+}
+
+@layer base {
+  :root {
+    --container: 1280px;
+    --gutter: clamp(20px, 4vw, 48px);
+    --section-y: clamp(64px, 9vw, 128px);
+    --divider: color-mix(in oklab, var(--text) 12%, var(--bg));
+    --fs-body: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+    --fs-small: 0.875rem;
+    --fs-h1: clamp(2.5rem, 1.4rem + 4.6vw, 6rem);
+    --fs-h2: clamp(2rem, 1.4rem + 2.4vw, 3.5rem);
+    --fs-h3: clamp(1.375rem, 1.2rem + 0.6vw, 1.75rem);
+    --fs-lead: clamp(1.125rem, 1rem + 0.5vw, 1.375rem);
+    color-scheme: light;
+  }
+  [data-card='dark'] {
+    color-scheme: dark;
+  }
+
+  html {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 100%;
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    scroll-padding-top: 96px;
+  }
+  body {
+    font-size: var(--fs-body);
+    line-height: 1.6;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: clip;
+  }
+  main {
+    flex: 1;
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-heading);
+    font-weight: var(--heading-weight);
+    letter-spacing: var(--heading-tracking);
+    line-height: 1.08;
+    text-wrap: balance;
+  }
+  p {
+    text-wrap: pretty;
+  }
+  a {
+    color: inherit;
+  }
+  ::selection {
+    background: var(--accent);
+    color: var(--accent-contrast);
+  }
+  :focus-visible {
+    outline: 3px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+  img,
+  video {
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+@layer components {
+  .container-x {
+    width: 100%;
+    max-width: calc(var(--container) + var(--gutter) * 2);
+    margin-inline: auto;
+    padding-inline: var(--gutter);
+  }
+  .section {
+    padding-block: var(--section-y);
+  }
+  .h1 {
+    font-size: var(--fs-h1);
+    text-transform: var(--heading-case);
+  }
+  .h2 {
+    font-size: var(--fs-h2);
+    text-transform: var(--heading-case);
+  }
+  .h3 {
+    font-size: var(--fs-h3);
+    line-height: 1.2;
+  }
+  .lead {
+    font-size: var(--fs-lead);
+    line-height: 1.5;
+    color: var(--muted);
+  }
+  .eyebrow {
+    font-size: var(--fs-small);
+    font-weight: 600;
+    color: var(--accent);
+    letter-spacing: 0.02em;
+  }
+  .meta {
+    font-size: var(--fs-small);
+    color: var(--muted);
+  }
+
+  /* Tombol */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 48px;
+    padding: 12px 24px;
+    border-radius: var(--radius-button);
+    font-weight: 600;
+    font-size: 1rem;
+    line-height: 1.2;
+    text-decoration: none;
+    border: 2px solid transparent;
+    box-shadow: var(--shadow-button);
+    transition:
+      background-color 0.2s,
+      color 0.2s,
+      border-color 0.2s,
+      transform 0.2s,
+      box-shadow 0.2s;
+  }
+  .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-button-hover);
+  }
+  .btn-primary {
+    background: var(--accent);
+    color: var(--accent-contrast);
+  }
+  .btn-primary:hover {
+    background: var(--accent-hover);
+    color: var(--accent-hover-contrast);
+  }
+  .btn-secondary {
+    border-color: var(--text);
+    color: var(--text);
+    background: transparent;
+  }
+  .btn-secondary:hover {
+    background: var(--text);
+    color: var(--bg);
+  }
+  [data-theme='brutal'] .btn {
+    border-color: var(--text);
+  }
+
+  .link {
+    color: var(--accent);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.2em;
+    transition: color 0.2s;
+  }
+  .link:hover {
+    color: var(--accent-hover);
+    text-decoration-thickness: 2px;
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 12px;
+    border-radius: 9999px;
+    font-size: var(--fs-small);
+    border: 1px solid var(--divider);
+    color: var(--text);
+    background: var(--surface);
+  }
+
+  /*
+   * Kartu: radius + shadow wajib. Shadow hover di-fade lewat ::after (opacity),
+   * bukan dengan menganimasikan box-shadow.
+   */
+  .card {
+    position: relative;
+    isolation: isolate;
+    background: var(--surface);
+    border-radius: var(--radius-card);
+    border: var(--card-border);
+    box-shadow: var(--shadow-card);
+    transition:
+      transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+      border-color 0.5s;
+  }
+  .card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    box-shadow: var(--shadow-card-hover);
+    opacity: 0;
+    transition: opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+    pointer-events: none;
+  }
+  .card-media {
+    overflow: hidden;
+    border-radius: calc(var(--radius-card) - 1px) calc(var(--radius-card) - 1px) 0 0;
+  }
+  .card-media img {
+    transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .card-hover:hover,
+  .card-hover:focus-within {
+    transform: translateY(-4px);
+    border: var(--card-border-hover);
+  }
+  .card-hover:hover::after,
+  .card-hover:focus-within::after {
+    opacity: 1;
+  }
+  .card-hover:hover .card-media img,
+  .card-hover:focus-within .card-media img {
+    transform: scale(1.04);
+  }
+  .card-hover:hover .card-title,
+  .card-hover:focus-within .card-title {
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 0.18em;
+  }
+  /* Seluruh kartu bisa diklik: link judul membentang menutupi kartu. */
+  .card-link::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    border-radius: inherit;
+  }
+  .card-link {
+    text-decoration: none;
+  }
+  .card-link:focus-visible {
+    outline: none;
+  }
+  .card:has(.card-link:focus-visible) {
+    outline: 3px solid var(--accent);
+    outline-offset: 3px;
+  }
+
+  /* Perlakuan tepi gambar (Bagian 9). Intensitas diatur lewat --edge. */
+  .edge-soft {
+    --edge: var(--edge-soft);
+  }
+  .edge-medium {
+    --edge: var(--edge-medium);
+  }
+  .edge-strong {
+    --edge: var(--edge-strong);
+  }
+  .edge-frame {
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    overflow: hidden;
+  }
+  .edge-vignette img,
+  .edge-vignette video {
+    -webkit-mask-image: radial-gradient(ellipse at center, #000 var(--edge, 55%), transparent 100%);
+    mask-image: radial-gradient(ellipse at center, #000 var(--edge, 55%), transparent 100%);
+  }
+  .edge-fade-bottom img,
+  .edge-fade-bottom video {
+    -webkit-mask-image: linear-gradient(to bottom, #000 var(--edge, 55%), transparent);
+    mask-image: linear-gradient(to bottom, #000 var(--edge, 55%), transparent);
+  }
+  .edge-dark-vignette {
+    position: relative;
+  }
+  .edge-dark-vignette::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(ellipse at center, transparent var(--edge, 55%), rgb(0 0 0 / 0.65) 100%);
+  }
+
+  .skip-link {
+    position: absolute;
+    left: 16px;
+    top: -100px;
+    z-index: 100;
+    padding: 12px 16px;
+    background: var(--accent);
+    color: var(--accent-contrast);
+    border-radius: var(--radius);
+    font-weight: 600;
+  }
+  .skip-link:focus {
+    top: 16px;
+  }
+
+  /* Form */
+  .field {
+    width: 100%;
+    min-height: 48px;
+    padding: 12px 16px;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    background: var(--bg);
+    color: var(--text);
+    font: inherit;
+  }
+  .field:focus-visible {
+    outline: 3px solid var(--accent);
+    outline-offset: 1px;
+  }
+
+  /* Rich text dari markdown */
+  .prose {
+    max-width: 680px;
+  }
+  .prose > * + * {
+    margin-top: 1.1em;
+  }
+  .prose h2 {
+    font-size: var(--fs-h3);
+    margin-top: 2em;
+    line-height: 1.2;
+  }
+  .prose h3 {
+    font-size: 1.25rem;
+    margin-top: 1.6em;
+    line-height: 1.25;
+  }
+  .prose a {
+    color: var(--accent);
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+  .prose ul {
+    list-style: disc;
+    padding-left: 1.4em;
+  }
+  .prose ol {
+    list-style: decimal;
+    padding-left: 1.4em;
+  }
+  .prose li + li {
+    margin-top: 0.4em;
+  }
+  .prose blockquote {
+    border-left: 3px solid var(--accent);
+    padding-left: 1.2em;
+    font-family: var(--font-heading);
+    font-size: var(--fs-lead);
+    line-height: 1.4;
+  }
+  .prose img {
+    border-radius: var(--radius);
+  }
+  .prose strong {
+    font-weight: 650;
+  }
+  .prose code {
+    font-size: 0.9em;
+    background: var(--surface);
+    padding: 0.1em 0.35em;
+    border-radius: 4px;
+  }
+
+  /* Marquee logo klien: CSS murni, berhenti saat hover */
+  .marquee-track {
+    display: flex;
+    width: max-content;
+    animation: marquee 30s linear infinite;
+  }
+  .marquee:hover .marquee-track {
+    animation-play-state: paused;
+  }
+  @keyframes marquee {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+}
+
+/* Motion level off / reduced motion: matikan animasi non-esensial. */
+[data-motion='off'] *,
+[data-motion='off'] *::before,
+[data-motion='off'] *::after {
+  animation: none !important;
+  transition-duration: 0s !important;
+  scroll-behavior: auto !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition-duration: 0s !important;
+    scroll-behavior: auto !important;
+  }
+}
+[data-motion='subtle'] .card-hover:hover,
+[data-motion='subtle'] .card-hover:focus-within,
+[data-motion='subtle'] .btn:hover {
+  transform: none;
+}
+
+/* View Transitions: fade 0,3 s */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.3s;
+}
+
+@layer components {
+  .divider-t {
+    border-top: 1px solid var(--divider);
+  }
+  .divider-b {
+    border-bottom: 1px solid var(--divider);
+  }
+  /* Dipakai katalog /dev/sections: wrapper ber-tema sendiri. */
+  [data-theme]:not(html) {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+  }
+}

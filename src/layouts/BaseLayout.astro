@@ -1,0 +1,79 @@
+---
+import { ClientRouter } from 'astro:transitions';
+import '../styles/global.css';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import Lightbox from '../components/ui/Lightbox.astro';
+import { getSite, getTheme } from '../lib/content';
+import { resolveTheme, type PresetId } from '../lib/themes';
+import { PRESET_FONTS, fontCss } from '../lib/fonts';
+import { absolute } from '../lib/seo';
+
+interface Props {
+  title?: string;
+  description?: string;
+  ogImage?: string;
+  noindex?: boolean;
+  jsonLd?: object | object[];
+  /** Halaman katalog /dev memuat font semua preset. */
+  allPresets?: PresetId[];
+}
+const { title, description, ogImage, noindex = false, jsonLd, allPresets } = Astro.props;
+const [site, theme] = await Promise.all([getSite(), getTheme()]);
+const colors = resolveTheme(theme);
+const rootVars = Object.entries(colors.vars)
+  .map(([k, v]) => `${k}:${v}`)
+  .join(';');
+const css = fontCss(allPresets ?? [theme.preset]) + `:root{${rootVars}}`;
+
+const fullTitle = title ? `${title} — ${site.ownerName}` : `${site.ownerName} — ${site.role}`;
+const desc = description || site.seo.description;
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const og = absolute(ogImage || site.seo.ogImage, Astro.site);
+const headingFont = PRESET_FONTS[theme.preset].heading.url;
+const ld = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
+---
+
+<!doctype html>
+<html lang="id" data-theme={theme.preset} data-card={colors.cardMode} data-motion={theme.motion} id="top">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={desc} />
+    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+    <meta name="theme-color" content={colors.vars['--bg']} />
+    <link rel="icon" href={site.favicon || '/favicon.svg'} />
+    {site.favicon && <link rel="apple-touch-icon" href={site.favicon} />}
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={site.ownerName} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={desc} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:locale" content="id_ID" />
+    {og && <meta property="og:image" content={og} />}
+    {og && <meta property="og:image:width" content="1200" />}
+    {og && <meta property="og:image:height" content="630" />}
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="preload" href={headingFont} as="font" type="font/woff2" crossorigin />
+    <style set:html={css}></style>
+    {ld.map((d) => <script type="application/ld+json" set:html={JSON.stringify(d)} />)}
+    <ClientRouter fallback="swap" />
+  </head>
+  <body>
+    <a href="#main" class="skip-link">Langsung ke konten</a>
+    <Navbar />
+    <main id="main" tabindex="-1">
+      <slot />
+    </main>
+    <Footer />
+    <Lightbox />
+    <script>
+      import '../scripts/motion';
+    </script>
+  </body>
+</html>
