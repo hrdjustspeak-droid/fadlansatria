@@ -1,12 +1,13 @@
 ---
 // Gambar dengan perlakuan tepi (Bagian 9). Tidak dipakai di dalam kartu.
+import type { IMAGE_EDGES } from '../../lib/schemas';
 import Img from './Img.astro';
 
 interface Props {
   src: string;
   alt: string;
   ratio?: number;
-  edge?: 'none' | 'frame' | 'vignette' | 'fade-bottom' | 'dark-vignette';
+  edge?: (typeof IMAGE_EDGES)[number];
   intensity?: 'soft' | 'medium' | 'strong';
   sizes?: string;
   eager?: boolean;

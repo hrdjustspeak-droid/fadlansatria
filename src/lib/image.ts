@@ -1,6 +1,6 @@
 import { existsSync } from 'node:fs';
 import { join } from 'node:path';
-import { luminance as _l, overlayAlpha } from './color';
+import { luminance as _l, overlayAlpha, pickAccent } from './color';
 import type { Preview } from './content';
 
 type Locals = { preview?: Preview } | undefined;
@@ -98,4 +98,68 @@ export function textOverlayAlpha(src: string, area: 'bottom' | 'center' = 'botto
     overlayCache.set(key, p);
   }
   return p;
+}
+
+const accentCache = new Map<string, Promise<string | null>>();
+
+/** Warna aksen otomatis dari foto (lib/color.ts pickAccent). `null` bila foto monokrom / belum ada di disk. */
+export function imageAccent(src: string, l?: Locals): Promise<string | null> {
+  if (!isLocal(src) || isSvg(src) || pending(src, l)) return Promise.resolve(null);
+  let p = accentCache.get(src);
+  if (!p) {
+    p = (async () => {
+      const sharp = await loadSharp();
+      const { data } = await sharp(localPath(src)).resize(64, 64, { fit: 'inside' }).ensureAlpha().raw().toBuffer({ resolveWithObject: true });
+      const hex = pickAccent(data, 4);
+      console.log(`[tema] Aksen otomatis dari ${src}: ${hex ?? 'tidak ada warna dominan, memakai aksen preset'}`);
+      return hex;
+    })();
+    accentCache.set(src, p);
+  }
+  return p;
+}
+
+const cutoutCache = new Map<string, Promise<boolean>>();
+
+/**
+ * Foto cutout dianggap transparan bila punya alpha dan ≥ 15% piksel hampir tembus pandang (alpha < 10).
+ * Di preview editor, file yang belum ada di disk dianggap transparan bila PNG/WebP.
+ */
+export function isCutout(src: string, l?: Locals): Promise<boolean> {
+  if (pending(src, l) || !isLocal(src)) return Promise.resolve(/\.(png|webp)$/i.test(src));
+  if (isSvg(src)) return Promise.resolve(true);
+  let p = cutoutCache.get(src);
+  if (!p) {
+    p = (async () => {
+      const sharp = await loadSharp();
+      const img = sharp(localPath(src));
+      if (!(await img.metadata()).hasAlpha) return false;
+      const { data, info } = await img.resize(128, 128, { fit: 'inside' }).extractChannel('alpha').raw().toBuffer({ resolveWithObject: true });
+      let clear = 0;
+      for (let i = 0; i < data.length; i++) if (data[i] < 10) clear++;
+      return clear / (info.width * info.height) >= 0.15;
+    })().then((ok) => {
+      if (!ok) console.warn(`[hero cutout] Foto hero cutout belum transparan, memakai fallback vignette: ${src}`);
+      return ok;
+    });
+    cutoutCache.set(src, p);
+  }
+  return p;
+}
+
+/** Luminans persentil-95 area tertentu foto (0–1 relatif). Dipakai overlay teks & kaca. */
+export function regionP95(src: string, box: { x0: number; y0: number; x1: number; y1: number }, l?: Locals): Promise<number> {
+  if (!isLocal(src) || isSvg(src) || pending(src, l)) return Promise.resolve(0.6);
+  return (async () => {
+    const sharp = await loadSharp();
+    const { data, info } = await sharp(localPath(src)).resize(96).removeAlpha().raw().toBuffer({ resolveWithObject: true });
+    const lums: number[] = [];
+    for (let y = Math.floor(info.height * box.y0); y < Math.ceil(info.height * box.y1); y++)
+      for (let x = Math.floor(info.width * box.x0); x < Math.ceil(info.width * box.x1); x++) {
+        const i = (y * info.width + x) * info.channels;
+        lums.push(_l('#' + [data[i], data[i + 1], data[i + 2]].map((v) => v.toString(16).padStart(2, '0')).join('')));
+      }
+    lums.sort((a, b) => a - b);
+    return lums[Math.floor(lums.length * 0.95)] ?? 0.6;
+  })();
 }

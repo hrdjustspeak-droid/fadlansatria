@@ -1,4 +1,5 @@
 ---
+import type { IMAGE_EDGES } from '../lib/schemas';
 import EdgeImage from './ui/EdgeImage.astro';
 import { ed } from '../lib/edit';
 
@@ -8,7 +9,7 @@ interface Props {
   subtitle?: string;
   image?: string;
   imageAlt?: string;
-  imageEdge?: 'none' | 'frame' | 'vignette' | 'fade-bottom' | 'dark-vignette';
+  imageEdge?: (typeof IMAGE_EDGES)[number];
   edgeIntensity?: 'soft' | 'medium' | 'strong';
 }
 const { title, eyebrow, subtitle, image, imageAlt, imageEdge = 'frame', edgeIntensity = 'medium' } = Astro.props;

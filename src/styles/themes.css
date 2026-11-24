@@ -32,8 +32,8 @@
   --radius: 12px;
   --radius-card: 16px;
   --radius-button: 9999px;
-  --heading-weight: 400;
-  --heading-tracking: -0.01em;
+  --heading-weight: 500;
+  --heading-tracking: -0.025em;
   --shadow-card: 0 1px 2px color-mix(in srgb, var(--text) 6%, transparent), 0 8px 24px color-mix(in srgb, var(--text) 8%, transparent);
   --shadow-card-hover: 0 16px 40px color-mix(in srgb, var(--text) 14%, transparent);
 }
@@ -88,6 +88,24 @@
   --heading-tracking: -0.025em;
   --shadow-card: 0 4px 16px color-mix(in srgb, var(--text) 8%, transparent);
   --shadow-card-hover: 0 12px 32px color-mix(in srgb, var(--text) 16%, transparent);
+}
+
+[data-theme='noir'] {
+  --radius: 10px;
+  --radius-card: 12px;
+  --radius-button: 9999px;
+  --heading-weight: 600;
+  --heading-tracking: -0.04em;
+}
+
+[data-theme='rouge'] {
+  --radius: 12px;
+  --radius-card: 16px;
+  --radius-button: 9999px;
+  --heading-weight: 800;
+  --heading-tracking: -0.03em;
+  --shadow-card: 0 10px 30px color-mix(in srgb, var(--accent) 10%, transparent);
+  --shadow-card-hover: 0 18px 44px color-mix(in srgb, var(--accent) 18%, transparent);
 }
 
 /* Latar gelap (luminans < 0,18): shadow gelap + border tipis, apa pun presetnya (Bagian 7 langkah 5). */

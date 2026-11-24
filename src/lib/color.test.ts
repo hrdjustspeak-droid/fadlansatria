@@ -1,6 +1,6 @@
 import fc from 'fast-check';
 import { describe, expect, it } from 'vitest';
-import { CONTRAST_RULES, buildThemeColors, contrast, luminance, overlayAlpha } from './color';
+import { CONTRAST_RULES, buildThemeColors, contrast, darkScheme, glassScrim, luminance, overlayAlpha, pickAccent } from './color';
 import { PRESETS } from './themes';
 
 function assertAllPairs(input: { bg: string; text: string; accent: string }) {
@@ -72,4 +72,52 @@ describe('overlay teks di atas foto', () => {
     expect(contrast('#ffffff', `#${g}${g}${g}`)).toBeGreaterThanOrEqual(4.5);
   });
   it('monoton naik', () => expect(overlayAlpha(0.8)).toBeGreaterThanOrEqual(overlayAlpha(0.4)));
+});
+
+describe('aksen otomatis dari foto (pickAccent)', () => {
+  const pixels = (colors: [string, number][]) => {
+    const out: number[] = [];
+    for (const [hex, n] of colors) {
+      const v = [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16));
+      for (let k = 0; k < n; k++) out.push(...v, 255);
+    }
+    return Uint8Array.from(out);
+  };
+  it('mengabaikan hitam, putih, dan abu', () => expect(pickAccent(pixels([['#000000', 500], ['#ffffff', 500], ['#808080', 500]]), 4)).toBeNull());
+  it('memilih hue dominan, bukan yang paling sedikit', () => {
+    const hex = pickAccent(pixels([['#000000', 800], ['#e0561f', 120], ['#c94a18', 60], ['#2a6fdb', 20]]), 4)!;
+    const o = luminance(hex);
+    expect(o).toBeGreaterThan(0);
+    // oranye/merah, bukan biru
+    expect(parseInt(hex.slice(1, 3), 16)).toBeGreaterThan(parseInt(hex.slice(5, 7), 16));
+  });
+  it('piksel transparan diabaikan', () => {
+    const px = pixels([['#2a9d8f', 50]]);
+    for (let i = 3; i < px.length; i += 4) px[i] = 0;
+    expect(pickAccent(px, 4)).toBeNull();
+  });
+  it('hasilnya tetap lolos engine kontras di latar hitam', () => {
+    const accent = pickAccent(pixels([['#7a1020', 200]]), 4)!;
+    const { vars } = buildThemeColors({ bg: '#000000', text: '#ffffff', accent });
+    expect(contrast(vars['--accent'], '#000000')).toBeGreaterThanOrEqual(4.5);
+  });
+});
+
+describe('kaca & skema gelap lokal', () => {
+  it('kaca di atas foto gelap tidak butuh scrim', () => expect(glassScrim(0.01)).toBe(0));
+  it('kaca di atas foto terang butuh scrim sampai teks putih 4,5:1', () => {
+    for (const p95 of [0.3, 0.6, 1]) {
+      const a = glassScrim(p95);
+      const gray = p95 <= 0.0031308 ? p95 * 12.92 : 1.055 * p95 ** (1 / 2.4) - 0.055;
+      const v = Math.round(255 * (gray * (1 - a) * (1 - 0.06) + 0.06));
+      const hex = '#' + v.toString(16).padStart(2, '0').repeat(3);
+      expect(contrast('#ffffff', hex)).toBeGreaterThanOrEqual(4.5);
+    }
+  });
+  it('tint kaca yang lebih terang butuh scrim lebih kuat', () => expect(glassScrim(0.5, 0.2)).toBeGreaterThan(glassScrim(0.5, 0.06)));
+  it.each(Object.entries(PRESETS))('skema gelap lokal di preset %s lolos AA', (_, p) => {
+    const vars = darkScheme(p.bg, p.accent);
+    expect(luminance(vars['--bg'])).toBeLessThan(0.05);
+    for (const rule of CONTRAST_RULES) for (const b of rule.bg) expect(contrast(vars[rule.fg], vars[b])).toBeGreaterThanOrEqual(rule.target);
+  });
 });

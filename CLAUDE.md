@@ -47,12 +47,13 @@ Astro 7 (`output: static`) + TypeScript strict, Tailwind CSS 4 (lewat `@tailwind
 - **Tidak boleh ada warna hard-coded di komponen.** Palet bawaan Tailwind dimatikan (`--color-*: initial`); pakai token: `bg`, `surface`, `text`, `muted`, `border`, `accent`, `accent-contrast`, `accent-hover` (kelas Tailwind `bg-surface`, `text-muted`, dst.) atau `var(--...)`. Satu-satunya warna literal ada di `styles/themes.css` (`--on-image`, `--scrim`, shadow gelap).
 - Warna final dihitung saat build oleh `resolveTheme()` dan disuntikkan sebagai `:root{...}` di `BaseLayout`. Latar tidak pernah diubah; teks/muted/aksen/border digeser lightness OKLCH-nya seminimal mungkin sampai lolos AA (4,5:1 teks, 3:1 border). Build log menampilkan tabel penyesuaian.
 - Penyesuaian preset bawaan saat ini (aksen gagal 4,5:1 di latar preset): soft `#E07A5F → #B5533A`, brutal `#FF3B00 → #D32F00`, nusantara `#2A9D8F → #007E72`.
-- Font hanya dari preset (`lib/fonts.ts`): maks. 2 keluarga, 1 file variabel latin per keluarga; font heading di-preload.
+- **Semua preset memakai Montserrat** (permintaan pemilik, menggantikan font per preset di PRD Bagian 7). Satu file variabel latin (`lib/fonts.ts`), di-preload. Karakter preset dibedakan lewat `--heading-weight`, `--heading-tracking`, dan `--heading-case` di `themes.css`.
+- Skala tipe disesuaikan untuk Montserrat yang lebar: H1 40→72 px (PRD: 40→96), body 16→17 px. Di 96 px judul hero pecah jadi 5 baris dan keluar layar pertama.
 - Token non-warna per preset (radius, shadow kartu, bobot heading) di `styles/themes.css`. Latar gelap (L < 0,18) → `data-card="dark"`: shadow gelap + border tipis.
 - Semua kartu memakai kelas `.card` (radius + shadow wajib). Kartu yang bisa diklik: `.card.card-hover` + link judul `.card-link` (seluruh kartu bisa diklik). Shadow hover di-fade lewat `::after`, bukan animasi `box-shadow`.
 - Tepi gambar: `EdgeImage.astro` + kelas `.edge-{none,frame,vignette,fade-bottom,dark-vignette}` dan `.edge-{soft,medium,strong}`. Tidak dipakai di dalam kartu.
 - Rasio terkunci per slot: hero 16:9 (split 4:5, keputusan desain agar foto tidak terlalu pendek di kolom), cover 4:3, About 4:5, avatar 1:1, page header 12:5, galeri masonry = rasio asli.
-- Tipografi fluid `clamp()` di `global.css` (`--fs-h1` 40→96 px, body 16→18 px). Kontainer maks. 1280 px, padding 20→48 px.
+- Tipografi fluid `clamp()` di `global.css` (`--fs-h1` 40→72 px, body 16→17 px). Kontainer maks. 1280 px, padding 20→48 px.
 
 ## Aturan motion (PRD Bagian 8)
 

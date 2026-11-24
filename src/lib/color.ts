@@ -103,6 +103,11 @@ export interface ThemeInput {
   bg: string;
   text: string;
   accent: string;
+  /** Titik awal opsional dari preset; tetap melewati pemeriksaan kontras. */
+  surface?: string;
+  muted?: string;
+  /** Warna indikator status (non-teks, target 3:1). */
+  success?: string;
 }
 
 export interface Adjustment {
@@ -127,11 +132,14 @@ export const CONTRAST_RULES: { fg: string; bg: string[]; target: number }[] = [
   { fg: '--accent-contrast', bg: ['--accent'], target: 4.5 },
   { fg: '--accent-hover-contrast', bg: ['--accent-hover'], target: 4.5 },
   { fg: '--border', bg: ['--bg', '--surface'], target: 3 },
+  { fg: '--success', bg: ['--bg', '--surface'], target: 3 },
 ];
 
 export function buildThemeColors(input: ThemeInput): ThemeColors {
   const bg = normalize(input.bg);
-  const surface = deriveSurface(bg);
+  // Surface preset dipakai hanya bila teks ekstrem yang aman tetap lolos di atasnya.
+  const presetSurface = input.surface && contrast(bestExtreme(bg), normalize(input.surface)) >= 4.5 + MARGIN ? normalize(input.surface) : undefined;
+  const surface = presetSurface ?? deriveSurface(bg);
   const pair = [bg, surface];
   const adjustments: Adjustment[] = [];
 
@@ -141,7 +149,8 @@ export function buildThemeColors(input: ThemeInput): ThemeColors {
   };
 
   const text = track('--text', input.text, ensureContrast(input.text, pair, 4.5), pair);
-  const muted = ensureContrast(mixLightness(text, bg, 0.35), pair, 4.5);
+  const mutedRaw = ensureContrast(input.muted ?? mixLightness(text, bg, 0.35), pair, 4.5);
+  const muted = input.muted ? track('--muted', input.muted, mutedRaw, pair) : mutedRaw;
   const border = ensureContrast(mixLightness(text, bg, 0.6), pair, 3);
   const accent = track('--accent', input.accent, ensureContrast(input.accent, pair, 4.5), pair);
   const accentL = lightnessOf(accent);
@@ -159,6 +168,7 @@ export function buildThemeColors(input: ThemeInput): ThemeColors {
       '--accent-contrast': bestExtreme(accent),
       '--accent-hover': accentHover,
       '--accent-hover-contrast': bestExtreme(accentHover),
+      '--success': ensureContrast(input.success ?? '#16A34A', pair, 3),
     },
     cardMode: luminance(bg) < 0.18 ? 'dark' : 'light',
     adjustments,
@@ -185,3 +195,62 @@ export function overlayAlpha(p95Lum: number, target = 4.5): number {
 }
 
 const round2 = (n: number) => Math.round(n * 100) / 100;
+
+/**
+ * Warna aksen dari piksel foto: hue dominan di antara piksel yang cukup berwarna
+ * (abaikan hampir hitam/putih dan abu dengan chroma OKLCH < 0,08), lalu ambil versi yang paling saturasi
+ * dari hue itu (persentil ke-80 chroma). `null` bila foto praktis monokrom.
+ */
+export function pickAccent(px: ArrayLike<number>, channels: number): string | null {
+  const BINS = 24;
+  const weight = new Array<number>(BINS).fill(0);
+  const members: { c: number; hex: string }[][] = Array.from({ length: BINS }, () => []);
+  for (let i = 0; i + 2 < px.length; i += channels) {
+    if (channels === 4 && px[i + 3] < 128) continue;
+    const hex = '#' + [px[i], px[i + 1], px[i + 2]].map((v) => v.toString(16).padStart(2, '0')).join('');
+    const o = toOklch(hex);
+    if (!o || o.l < 0.2 || o.l > 0.95 || (o.c ?? 0) < 0.08 || o.h === undefined) continue;
+    const b = Math.floor(((o.h % 360) / 360) * BINS) % BINS;
+    weight[b] += o.c;
+    members[b].push({ c: o.c, hex });
+  }
+  // Hue bertetangga dijumlah supaya gradasi satu warna tidak terpecah ke dua bin.
+  let best = -1;
+  let bestW = 0;
+  for (let b = 0; b < BINS; b++) {
+    const w = weight[b] + 0.5 * (weight[(b + 1) % BINS] + weight[(b + BINS - 1) % BINS]);
+    if (w > bestW) {
+      bestW = w;
+      best = b;
+    }
+  }
+  const total = members.reduce((n, m) => n + m.length, 0);
+  if (best < 0 || members[best].length < Math.max(3, total * 0.02)) return null;
+  const sorted = members[best].sort((a, b) => a.c - b.c);
+  return normalize(sorted[Math.floor(sorted.length * 0.8)].hex);
+}
+
+/**
+ * Opacity scrim hitam di bawah panel kaca supaya teks putih lolos `target` pada kondisi terburuk:
+ * luminans persentil-95 foto, digelapkan scrim, lalu dicampur tint putih kaca (`tint`).
+ */
+export function glassScrim(p95Lum: number, tint = 0.06, target = 4.5): number {
+  const gray = p95Lum <= 0.0031308 ? p95Lum * 12.92 : 1.055 * p95Lum ** (1 / 2.4) - 0.055;
+  const lumAt = (a: number) => lin(gray * (1 - a) * (1 - tint) + tint);
+  const passes = (a: number) => contrastFromLum(1, lumAt(a)) >= target + MARGIN;
+  if (passes(0)) return 0;
+  let lo = 0;
+  let hi = 1;
+  for (let i = 0; i < 24; i++) {
+    const mid = (lo + hi) / 2;
+    if (passes(mid)) hi = mid;
+    else lo = mid;
+  }
+  return Math.ceil(hi * 100) / 100;
+}
+
+/** Token "skema gelap lokal" untuk satu section (mis. kartu hero showcase) di atas preset terang. */
+export function darkScheme(base: string, accent: string): Record<string, string> {
+  const bg = luminance(base) < 0.05 ? normalize(base) : '#0a0a0a';
+  return buildThemeColors({ bg, text: '#ffffff', accent }).vars;
+}

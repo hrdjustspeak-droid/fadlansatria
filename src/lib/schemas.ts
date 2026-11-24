@@ -1,14 +1,18 @@
 import { z } from 'astro/zod';
 import { YOUTUBE_PATTERN } from './youtube';
+import { PRESET_IDS } from './themes';
 
-// Skema bersama. WAJIB sinkron dengan scripts/cms-config.mjs (dicek oleh src/lib/cms-sync.test.ts).
+// Skema bersama. WAJIB sinkron dengan src/lib/cms-fields.mjs (dicek oleh src/lib/cms-sync.test.ts).
 
 export const CATEGORIES = ['Branding', 'UI/UX', 'Ilustrasi', 'Video'] as const;
 export const BUILTIN_PAGES = ['home', 'projects', 'about', '#kontak'] as const;
 export const RESERVED_SLUGS = ['admin', 'projects', 'about', 'dev', 'uploads', '404', 'index', '_astro'];
 export const SOCIAL_PLATFORMS = ['LinkedIn', 'Instagram', 'Behance', 'Dribbble', 'GitHub', 'YouTube', 'TikTok', 'X'] as const;
 export const MAPS_PATTERN = /^https:\/\/(www\.|maps\.)?google\.[a-z.]+\/maps(\/embed)?\?.+/;
-export const IMAGE_EDGES = ['none', 'frame', 'vignette', 'fade-bottom', 'dark-vignette'] as const;
+// dissolve = vignette + fade-bottom (keempat tepi menyatu dengan latar); fade-left = gradien latar dari kiri + bawah lembut.
+export const IMAGE_EDGES = ['none', 'frame', 'vignette', 'fade-bottom', 'dark-vignette', 'dissolve', 'fade-left'] as const;
+export const NAME_SUFFIXES = ['none', '®', '™', '*'] as const;
+export const NAV_STYLES = ['default', 'pill', 'glass-center'] as const;
 export const EDGE_INTENSITIES = ['soft', 'medium', 'strong'] as const;
 
 /** String opsional: string kosong dari CMS dianggap tidak diisi. */
@@ -54,9 +58,10 @@ export const sectionSchemas = {
   hero: z.object({
     type: z.literal('hero'),
     ...base,
-    variant: z.enum(['split', 'centered', 'fullbleed']).default('split'),
+    variant: z.enum(['split', 'centered', 'fullbleed', 'spotlight', 'showcase', 'cutout']).default('split'),
     eyebrow: optText(40),
-    headline: text(80),
+    // Wajib kecuali spotlight/cutout (yang memakai nama raksasa); lihat superRefine di bawah.
+    headline: optText(80),
     subheadline: optText(160),
     image: opt(image),
     imageAlt: optText(160),
@@ -64,6 +69,30 @@ export const sectionSchemas = {
     ...edge,
     primaryCta: ctaSchema,
     secondaryCta: ctaSchema,
+    // --- spotlight / cutout ---
+    displayName: optText(40),
+    serviceColumns: z.array(z.object({ label: optText(24), title: text(40), description: text(90) })).max(3, 'Maks. 3 kolom').default([]),
+    // --- showcase ---
+    focusX: z.number().int().min(0).max(100).default(70),
+    heroVideoUrl: opt(z.string().regex(YOUTUBE_PATTERN, 'Harus link YouTube')),
+    // --- cutout ---
+    cutoutImage: opt(image),
+    intro: optText(120),
+    textCta: ctaSchema,
+    rotatingServices: z.array(text(28)).max(6, 'Maks. 6 layanan').default([]),
+    watermarkText: optText(16),
+    nameLayer: z.enum(['behind', 'front']).default('behind'),
+  }).superRefine((h, ctx) => {
+    const big = h.variant === 'spotlight' || h.variant === 'cutout';
+    if (!big && !h.headline) ctx.addIssue({ code: 'custom', path: ['headline'], message: 'Judul Besar wajib diisi' });
+    if (h.variant === 'showcase') {
+      for (const [k, max] of [['headline', 60], ['subheadline', 120], ['eyebrow', 32]] as const)
+        if ((h[k]?.length ?? 0) > max) ctx.addIssue({ code: 'custom', path: [k], message: `Maks. ${max} karakter untuk gaya Showcase` });
+    }
+    if (h.variant === 'cutout') {
+      if (!h.cutoutImage && !h.image) ctx.addIssue({ code: 'custom', path: ['cutoutImage'], message: 'Gaya Cutout butuh Foto Cutout' });
+      if (h.rotatingServices.length && h.rotatingServices.length < 3) ctx.addIssue({ code: 'custom', path: ['rotatingServices'], message: 'Isi 3–6 layanan (atau kosongkan)' });
+    }
   }),
   featuredProjects: z.object({
     type: z.literal('featuredProjects'),
@@ -112,8 +141,9 @@ export const sectionSchemas = {
   logos: z.object({
     type: z.literal('logos'),
     ...base,
-    variant: z.enum(['row', 'marquee']).default('row'),
+    variant: z.enum(['row', 'marquee', 'tiles']).default('row'),
     title: optText(80),
+    logoTone: z.enum(['mono', 'color']).default('mono'),
     items: z.array(z.object({ logo: image, name: text(60) })).min(1),
   }),
   testimonials: z.object({
@@ -198,17 +228,20 @@ export const siteSchema = z.object({
   cvFile: opt(z.string()),
   seo: z.object({ description: text(160), ogImage: image }),
   footerText: optText(160),
+  nameSuffix: z.enum(NAME_SUFFIXES).default('none'),
+  availability: z.object({ enabled: z.boolean().default(false), label: optText(24) }).default({ enabled: false }),
 });
 
 export const themeSchema = z.object({
-  preset: z.enum(['editorial', 'mono', 'midnight', 'soft', 'brutal', 'nusantara']).default('editorial'),
+  preset: z.enum(PRESET_IDS).default('editorial'),
   backgroundColor: opt(hex),
   textColor: opt(hex),
-  accentColor: opt(hex),
+  accentColor: opt(hex.or(z.literal('auto'))),
   motion: z.enum(['full', 'subtle', 'off']).default('full'),
 });
 
 export const navigationSchema = z.object({
+  navStyle: z.enum(NAV_STYLES).default('default'),
   mainMenu: z.array(z.object({ label: text(30), ...linkFields, openNewTab: z.boolean().default(false) }).superRefine(checkLink)).max(6, 'Menu navbar maks. 6 item'),
   ctaButton: z
     .object({

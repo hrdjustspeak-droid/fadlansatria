@@ -25,17 +25,19 @@ function raw(type: SectionType, variant: string, mode: Mode): Record<string, unk
   const min = mode === 'min';
   const base = { type, enabled: true, variant };
   switch (type) {
-    case 'hero':
+    case 'hero': {
+      const sc = variant === 'showcase';
       return {
         ...base,
-        eyebrow: min ? '' : t(mode, 'Desainer · Yogyakarta', 40),
-        headline: t(mode, 'Brand dan produk digital yang mudah dipahami', 80),
-        subheadline: min ? '' : t(mode, 'Tujuh tahun membantu UMKM dan startup tampil jelas.', 160),
-        image: min ? '' : '/uploads/sample/hero.webp',
+        eyebrow: min ? '' : t(mode, 'Desainer · Yogyakarta', sc ? 32 : 40),
+        headline: t(mode, 'Brand dan produk digital yang mudah dipahami', sc ? 60 : 80),
+        subheadline: min ? '' : t(mode, 'Tujuh tahun membantu UMKM dan startup tampil jelas.', sc ? 120 : 160),
+        image: min && variant !== 'cutout' ? '' : '/uploads/sample/hero.webp',
         imageAlt: 'Komposisi geometris',
         primaryCta: min ? undefined : { label: t(mode, 'Lihat proyek', 30), ...link },
         secondaryCta: min ? undefined : { label: t(mode, 'Hubungi saya', 30), linkType: 'builtin', builtinPage: '#kontak' },
       };
+    }
     case 'featuredProjects':
       return { ...base, eyebrow: min ? '' : t(mode, 'Karya pilihan', 40), title: min ? '' : t(mode, 'Proyek unggulan', 80), count: mode === 'max' ? 9 : 3, source: 'latest' };
     case 'richText':
