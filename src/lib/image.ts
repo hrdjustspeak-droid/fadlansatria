@@ -147,9 +147,12 @@ export function isCutout(src: string, l?: Locals): Promise<boolean> {
   return p;
 }
 
-/** Luminans persentil-95 area tertentu foto (0–1 relatif). Dipakai overlay teks & kaca. */
-export function regionP95(src: string, box: { x0: number; y0: number; x1: number; y1: number }, l?: Locals): Promise<number> {
-  if (!isLocal(src) || isSvg(src) || pending(src, l)) return Promise.resolve(0.6);
+/**
+ * Luminans persentil `pct` di area foto (koordinat 0–1). p95 = piksel terang terburuk untuk teks terang,
+ * p5 = piksel gelap terburuk untuk teks gelap. Dipakai overlay teks & kaca.
+ */
+export function regionLum(src: string, box: { x0: number; y0: number; x1: number; y1: number }, pct = 0.95, l?: Locals): Promise<number> {
+  if (!isLocal(src) || isSvg(src) || pending(src, l)) return Promise.resolve(pct >= 0.5 ? 0.6 : 0.02);
   return (async () => {
     const sharp = await loadSharp();
     const { data, info } = await sharp(localPath(src)).resize(96).removeAlpha().raw().toBuffer({ resolveWithObject: true });
@@ -160,6 +163,6 @@ export function regionP95(src: string, box: { x0: number; y0: number; x1: number
         lums.push(_l('#' + [data[i], data[i + 1], data[i + 2]].map((v) => v.toString(16).padStart(2, '0')).join('')));
       }
     lums.sort((a, b) => a - b);
-    return lums[Math.floor(lums.length * 0.95)] ?? 0.6;
+    return lums[Math.min(lums.length - 1, Math.floor(lums.length * pct))] ?? 0.6;
   })();
 }

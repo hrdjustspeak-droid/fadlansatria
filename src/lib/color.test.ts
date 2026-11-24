@@ -1,6 +1,6 @@
 import fc from 'fast-check';
 import { describe, expect, it } from 'vitest';
-import { CONTRAST_RULES, buildThemeColors, contrast, darkScheme, glassScrim, luminance, overlayAlpha, pickAccent } from './color';
+import { CONTRAST_RULES, buildThemeColors, contrast, darkScheme, glassScrim, luminance, overlayAlpha, pickAccent, scrimAlpha } from './color';
 import { PRESETS } from './themes';
 
 function assertAllPairs(input: { bg: string; text: string; accent: string }) {
@@ -120,4 +120,14 @@ describe('kaca & skema gelap lokal', () => {
     expect(luminance(vars['--bg'])).toBeLessThan(0.05);
     for (const rule of CONTRAST_RULES) for (const b of rule.bg) expect(contrast(vars[rule.fg], vars[b])).toBeGreaterThanOrEqual(rule.target);
   });
+});
+
+describe('scrimAlpha (teks di atas foto)', () => {
+  it('teks putih di foto gelap: tanpa scrim', () => expect(scrimAlpha(0.01, '#000000', '#ffffff', 3)).toBe(0));
+  it('teks gelap di foto gelap butuh lapisan latar terang', () => {
+    const a = scrimAlpha(0.02, '#ffffff', '#3b0a0f', 4.5);
+    expect(a).toBeGreaterThan(0.3);
+    expect(a).toBeLessThanOrEqual(1);
+  });
+  it('large text (3:1) butuh scrim lebih tipis dari teks biasa (4,5:1)', () => expect(scrimAlpha(0.7, '#000000', '#ffffff', 3)).toBeLessThan(scrimAlpha(0.7, '#000000', '#ffffff', 4.5)));
 });

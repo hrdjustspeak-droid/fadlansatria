@@ -36,6 +36,25 @@ function raw(type: SectionType, variant: string, mode: Mode): Record<string, unk
         imageAlt: 'Komposisi geometris',
         primaryCta: min ? undefined : { label: t(mode, 'Lihat proyek', 30), ...link },
         secondaryCta: min ? undefined : { label: t(mode, 'Hubungi saya', 30), linkType: 'builtin', builtinPage: '#kontak' },
+        ...(variant === 'spotlight' && {
+          image: min ? '' : '/uploads/sample/spotlight-subject.webp',
+          displayName: min ? '' : t(mode, 'Raka Pratama', 40),
+          serviceColumns: min ? [] : [1, 2, 3].map((i) => ({ label: `0${i}`, title: t(mode, 'Identitas brand', 40), description: t(mode, 'Logo, warna, dan tipografi yang konsisten.', 90) })),
+        }),
+        ...(sc && {
+          image: min ? '' : '/uploads/sample/showcase-subject.webp',
+          heroVideoUrl: min ? '' : 'https://www.youtube.com/watch?v=aqz-KE-bpKQ',
+          serviceColumns: min ? [] : [1, 2, 3].map(() => ({ title: t(mode, 'Identitas brand', 40), description: t(mode, 'Logo, warna, dan panduan brand.', 90) })),
+        }),
+        // Cutout: normal = PNG/WebP transparan; max = foto berlatar (uji fallback + peringatan build); min = hanya `image`.
+        ...(variant === 'cutout' && {
+          cutoutImage: min ? '' : mode === 'max' ? '/uploads/sample/hero.webp' : '/uploads/sample/cutout-figure.webp',
+          displayName: min ? '' : t(mode, 'Raka Pratama', 40),
+          intro: min ? '' : t(mode, 'Desainer brand & produk digital dari Yogyakarta.', 120),
+          textCta: min ? undefined : { label: t(mode, '// HIRE ME', 30), linkType: 'builtin', builtinPage: '#kontak' },
+          rotatingServices: min ? [] : (mode === 'max' ? [1, 2, 3, 4, 5, 6] : [1, 2, 3, 4]).map((i) => t(mode, `Layanan ${i}`, 28)),
+          watermarkText: mode === 'max' ? long(16) : '',
+        }),
       };
     }
     case 'featuredProjects':

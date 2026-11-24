@@ -16,6 +16,7 @@ const envelope = z.object({
   page: z.unknown().optional(),
   project: z.unknown().optional(),
   site: siteSchema,
+  home: homeSchema.optional(),
   theme: themeSchema,
   navigation: navigationSchema,
   customPages: z.array(z.object({ slug: z.string(), title: z.string(), draft: z.boolean() })),
@@ -39,7 +40,7 @@ export function parsePreviewRequest(body: unknown): { ok: true; value: Req } | {
   const env = envelope.safeParse(body);
   if (!env.success) return { ok: false, errors: issues(env.error) };
   const e = env.data;
-  const context: Preview = { site: e.site, theme: e.theme, navigation: e.navigation, customPages: e.customPages, projects: e.projects, assets: e.assets };
+  const context: Preview = { site: e.site, home: e.home, theme: e.theme, navigation: e.navigation, customPages: e.customPages, projects: e.projects, assets: e.assets, canvas: true };
   const schema = { home: homeSchema, about: aboutSchema, custom: customPageSchema } as const;
   if (e.kind === 'projects') return { ok: true, value: { kind: 'projects', context } };
   if (e.kind === 'project') {

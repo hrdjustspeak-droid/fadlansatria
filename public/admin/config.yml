@@ -729,7 +729,7 @@ collections:
                   - name: cutoutImage
                     label: Foto Cutout
                     widget: image
-                    hint: Hanya dipakai varian Cutout. Pakai foto tanpa latar (PNG transparan). Bisa dibuat gratis lewat fitur hapus latar di Canva atau remove.bg.
+                    hint: Hanya dipakai varian Cutout. Pakai foto tanpa latar (PNG transparan). Bisa dibuat gratis lewat fitur hapus latar di Canva atau remove.bg. Potong rapat di sekitar subjek supaya kepala menimpa nama.
                     required: false
                   - name: intro
                     label: Intro Singkat
@@ -2105,7 +2105,7 @@ collections:
                   - name: cutoutImage
                     label: Foto Cutout
                     widget: image
-                    hint: Hanya dipakai varian Cutout. Pakai foto tanpa latar (PNG transparan). Bisa dibuat gratis lewat fitur hapus latar di Canva atau remove.bg.
+                    hint: Hanya dipakai varian Cutout. Pakai foto tanpa latar (PNG transparan). Bisa dibuat gratis lewat fitur hapus latar di Canva atau remove.bg. Potong rapat di sekitar subjek supaya kepala menimpa nama.
                     required: false
                   - name: intro
                     label: Intro Singkat
@@ -3466,7 +3466,7 @@ collections:
               - name: cutoutImage
                 label: Foto Cutout
                 widget: image
-                hint: Hanya dipakai varian Cutout. Pakai foto tanpa latar (PNG transparan). Bisa dibuat gratis lewat fitur hapus latar di Canva atau remove.bg.
+                hint: Hanya dipakai varian Cutout. Pakai foto tanpa latar (PNG transparan). Bisa dibuat gratis lewat fitur hapus latar di Canva atau remove.bg. Potong rapat di sekitar subjek supaya kepala menimpa nama.
                 required: false
               - name: intro
                 label: Intro Singkat

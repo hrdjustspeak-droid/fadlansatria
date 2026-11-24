@@ -5,6 +5,9 @@ import EdgeImage from '../ui/EdgeImage.astro';
 import Img from '../ui/Img.astro';
 import CtaLink from '../ui/CtaLink.astro';
 import { ed } from '../../lib/edit';
+import HeroSpotlight from './hero/HeroSpotlight.astro';
+import HeroShowcase from './hero/HeroShowcase.astro';
+import HeroCutout from './hero/HeroCutout.astro';
 
 interface Props {
   data: Extract<Section, { type: 'hero' }>;
@@ -12,8 +15,9 @@ interface Props {
   first?: boolean;
   /** Section paling atas: gambar dimuat eager + fetchpriority high. */
   eager?: boolean;
+  index?: number;
 }
-const { data, first = false, eager = false } = Astro.props;
+const { data, first = false, eager = false, index = 0 } = Astro.props;
 const v = data.variant;
 const H = first ? 'h1' : 'h2';
 // fullbleed: default `none`, `frame` tidak berlaku. Lainnya: default `frame`.
@@ -26,8 +30,13 @@ const ctas = [
 const l = Astro.locals;
 ---
 
+{data.variant === 'spotlight' && <HeroSpotlight data={data} first={first} eager={eager} />}
+{data.variant === 'showcase' && <HeroShowcase data={data} first={first} eager={eager} index={index} />}
+{data.variant === 'cutout' && <HeroCutout data={data} first={first} eager={eager} />}
+
+
 {
-  v === 'fullbleed' ? (
+  !['spotlight', 'showcase', 'cutout'].includes(v) && (v === 'fullbleed' ? (
     <section class="hero-full relative isolate flex min-h-[88svh] items-end overflow-hidden" data-hero>
       {data.image && (
         <div class:list={['absolute inset-0 -z-10', edge !== 'none' && `edge-${edge}`, `edge-${data.edgeIntensity}`]}>
@@ -91,7 +100,7 @@ const l = Astro.locals;
         )}
       </div>
     </section>
-  )
+  ))
 }
 
 <script>

@@ -254,3 +254,27 @@ export function darkScheme(base: string, accent: string): Record<string, string>
   const bg = luminance(base) < 0.05 ? normalize(base) : '#0a0a0a';
   return buildThemeColors({ bg, text: '#ffffff', accent }).vars;
 }
+
+/** Luminans -> nilai abu-abu sRGB 0–1. */
+const toGray = (lum: number) => (lum <= 0.0031308 ? lum * 12.92 : 1.055 * lum ** (1 / 2.4) - 0.055);
+
+/**
+ * Opacity lapisan `overlayHex` di atas foto supaya `textHex` lolos `target` pada piksel terburuk
+ * (`worstLum`: p95 untuk teks terang, p5 untuk teks gelap). Dipakai nama raksasa (3:1) & teks di atas foto (4,5:1).
+ */
+export function scrimAlpha(worstLum: number, overlayHex: string, textHex: string, target: number): number {
+  const g = toGray(worstLum);
+  const o = toGray(luminance(overlayHex));
+  const t = luminance(textHex);
+  const passes = (a: number) => contrastFromLum(t, lin(g * (1 - a) + o * a)) >= target + MARGIN;
+  if (passes(0)) return 0;
+  if (!passes(1)) return 1;
+  let lo = 0;
+  let hi = 1;
+  for (let i = 0; i < 24; i++) {
+    const mid = (lo + hi) / 2;
+    if (passes(mid)) hi = mid;
+    else lo = mid;
+  }
+  return Math.ceil(hi * 100) / 100;
+}

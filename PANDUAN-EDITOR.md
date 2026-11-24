@@ -66,9 +66,21 @@ Tab **Tema**:
 - **Warna** latar, teks, dan aksen boleh diganti. Kalau kurang kontras, warna digeser sedikit otomatis, dan panel memberi tahu hasil akhirnya.
 - **Animasi**: Penuh, Halus, atau Mati. Animasi tidak diputar di editor; lihat di situs setelah dipublikasikan.
 
+## 5b. Gaya hero alternatif
+
+Klik hero → **Gaya Tampilan**:
+- **Spotlight**: foto muncul dari gelap, nama Anda ditulis raksasa, plus maks. 3 **Kolom Layanan**. Cocok dengan preset **Noir Spotlight** dan navbar **Pill**.
+- **Showcase**: kartu gelap besar dengan teks di kiri, foto di kanan, dan panel kaca berisi Kolom Layanan. Isi **Link Video Hero** untuk tombol "Tonton Video". **Titik Fokus Foto** menggeser bagian foto yang terlihat. Cocok dengan navbar **Kaca tengah**.
+- **Cutout**: subjek tanpa latar berdiri di depan nama raksasa. Upload **Foto Cutout** berupa PNG/WebP transparan (hapus latar gratis di Canva atau remove.bg). Kalau fotonya masih berlatar, situs tetap rapi dengan efek tepi memudar.
+
+Pengaturan pendukung:
+- **Situs** → Status Ketersediaan (badge bertitik hijau) dan Simbol di Belakang Nama (®, ™, *).
+- **Halaman → Menu navigasi** → Gaya Navbar.
+- **Tema** → "Ambil otomatis dari foto hero Beranda" untuk warna aksen.
+
 ## 6. Efek tepi gambar (vignette)
 
-Klik section yang punya gambar (Hero, About Singkat, header halaman) → **Efek Tepi Gambar** (Tanpa efek, Bingkai, Vignette, Pudar bawah, Vignette gelap) dan **Intensitas**.
+Klik section yang punya gambar (Hero, About Singkat, header halaman) → **Efek Tepi Gambar** (Tanpa efek, Bingkai, Vignette, Pudar bawah, Vignette gelap, Larut, Gelap dari kiri) dan **Intensitas**.
 
 ## 7. Membuat halaman baru dan memasukkannya ke menu
 

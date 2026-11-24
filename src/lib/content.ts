@@ -20,8 +20,12 @@ export interface Preview {
   navigation?: CollectionEntry<'navigation'>['data'];
   customPages?: { slug: string; title: string; draft: boolean }[];
   projects?: Project[];
+  /** Beranda draft: sumber foto untuk aksen `auto`. */
+  home?: CollectionEntry<'home'>['data'];
   /** Dimensi gambar yang baru di-upload dan belum ada di disk. */
   assets?: Record<string, { width: number; height: number }>;
+  /** true = dirender di kanvas editor (penanda edit, tanpa animasi/ClientRouter, section tersembunyi tampil, link longgar). */
+  canvas?: boolean;
 }
 type Locals = { preview?: Preview } | undefined;
 
@@ -46,6 +50,13 @@ async function one<C extends Single>(c: C): Promise<CollectionEntry<C>['data']> 
 export const getSite = async (l?: Locals) => l?.preview?.site ?? one('site');
 export const getTheme = async (l?: Locals) => l?.preview?.theme ?? one('theme');
 export const getHome = () => one('home');
+
+/** Foto hero pertama di Beranda: sumber warna aksen `auto`. */
+export async function accentSource(l?: Locals): Promise<string | undefined> {
+  const home = l?.preview?.home ?? (await getHome());
+  const hero = home.sections.find((s) => s.enabled && s.type === 'hero') as { cutoutImage?: string; image?: string } | undefined;
+  return hero?.cutoutImage || hero?.image;
+}
 export const getAbout = () => one('about');
 
 /** Halaman custom yang terbit. Gagal build bila slug bentrok/dicadangkan. */
@@ -108,13 +119,13 @@ async function buildNav(l?: Locals) {
   const p = l?.preview;
   const nav = p?.navigation ?? (await one('navigation'));
   const slugs = new Set(p?.customPages ? p.customPages.filter((c) => !c.draft).map((c) => c.slug) : (await getCustomPages()).map((c) => c.data.slug));
-  const lenient = !!p;
+  const lenient = !!p?.canvas;
   const main = nav.mainMenu.map((m) => ({ label: m.label, href: resolveHref(m, slugs, 'Menu Navbar', lenient), newTab: m.openNewTab }));
   const footer = nav.footerMenu.map((m) => ({ label: m.label, href: resolveHref(m, slugs, 'Menu Footer', lenient) }));
   const cta = nav.ctaButton.enabled
     ? { label: nav.ctaButton.label ?? '', href: resolveHref({ ...nav.ctaButton, linkType: nav.ctaButton.linkType }, slugs, 'Tombol CTA Navbar', lenient) }
     : undefined;
-  return { main, footer, cta, slugs, lenient };
+  return { main, footer, cta, slugs, lenient, style: (nav.navStyle ?? 'default') as 'default' | 'pill' | 'glass-center' };
 }
 
 export function getNavigation(l?: Locals) {

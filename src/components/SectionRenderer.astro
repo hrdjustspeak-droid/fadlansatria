@@ -42,7 +42,7 @@ const COMPONENTS = {
   contact: Contact,
 } as const;
 
-const preview = !!Astro.locals.preview;
+const preview = !!Astro.locals.preview?.canvas;
 for (const s of sections) {
   if (!(s.type in COMPONENTS)) throw new Error(`[SectionRenderer] Jenis section tidak dikenal: "${(s as { type: string }).type}".`);
 }

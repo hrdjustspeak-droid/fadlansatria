@@ -14,7 +14,8 @@
     "check": "astro check",
     "cms:config": "node scripts/cms-config.mjs",
     "samples": "node scripts/generate-samples.mjs",
-    "astro": "astro"
+    "astro": "astro",
+    "example": "node scripts/use-example.mjs"
   },
   "dependencies": {
     "@astrojs/netlify": "^8.2.14",

@@ -13,6 +13,7 @@
     ['accentColor', 'Aksen (tombol & link)', '--accent'],
   ] as const;
   const valid = (v: string) => /^#[0-9a-fA-F]{6}$/.test(v);
+  const auto = $derived(theme.accentColor === 'auto');
   const adjusted = (token: string) => result.adjustments.find((a) => a.token === token);
 </script>
 
@@ -40,11 +41,18 @@
     <div class="e-field">
       <label class="e-label" for={`c-${key}`}>{label}</label>
       <div class="e-color">
-        <input type="color" aria-label={`Pilih warna ${label}`} value={valid(v) ? v : result.vars[token]} oninput={(e) => set(key, e.currentTarget.value.toUpperCase())} />
-        <input id={`c-${key}`} class="e-input" placeholder={`preset: ${result.vars[token]}`} value={v} oninput={(e) => set(key, e.currentTarget.value)} />
+        <input type="color" aria-label={`Pilih warna ${label}`} disabled={v === 'auto'} value={valid(v) ? v : result.vars[token]} oninput={(e) => set(key, e.currentTarget.value.toUpperCase())} />
+        <input id={`c-${key}`} class="e-input" placeholder={`preset: ${result.vars[token]}`} value={v} disabled={v === 'auto'} oninput={(e) => set(key, e.currentTarget.value)} />
         {#if v}<button type="button" class="e-btn e-ghost" onclick={() => set(key, '')}>Reset</button>{/if}
       </div>
-      {#if v && !valid(v)}<p class="e-error">Format hex 6 digit, contoh #C2410C</p>{/if}
+      {#if key === 'accentColor'}
+        <label class="e-switch e-auto">
+          <input type="checkbox" checked={auto} onchange={(e) => set('accentColor', e.currentTarget.checked ? 'auto' : '')} />
+          <span>Ambil otomatis dari foto hero Beranda</span>
+        </label>
+        {#if auto}<p class="e-hint">Warna paling dominan & berwarna di foto hero dipakai sebagai aksen, lalu digeser bila perlu supaya kontras. Hasilnya terlihat di kanvas.</p>{/if}
+      {/if}
+      {#if v && v !== 'auto' && !valid(v)}<p class="e-error">Format hex 6 digit, contoh #C2410C</p>{/if}
       {#if adjusted(token)}
         {@const a = adjusted(token)!}
         <p class="e-hint">Digeser ke <span class="e-dot" style:background={a.to}></span>{a.to} supaya kontrasnya {a.ratio}:1.</p>

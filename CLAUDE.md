@@ -55,10 +55,25 @@ Astro 7 (`output: static`) + TypeScript strict, Tailwind CSS 4 (lewat `@tailwind
 - Rasio terkunci per slot: hero 16:9 (split 4:5, keputusan desain agar foto tidak terlalu pendek di kolom), cover 4:3, About 4:5, avatar 1:1, page header 12:5, galeri masonry = rasio asli.
 - Tipografi fluid `clamp()` di `global.css` (`--fs-h1` 40→72 px, body 16→17 px). Kontainer maks. 1280 px, padding 20→48 px.
 
+## Hero Spotlight / Showcase / Cutout, navbar, preset tambahan
+
+- Komponen di `src/components/sections/hero/` (`Hero.astro` meneruskan varian `spotlight`, `showcase`, `cutout`). Bagian bersama: `BigName.astro` (nama raksasa + suffix dari Pengaturan Situs), `ServiceColumns.astro` (siku aksen `.corner-mark`; varian kaca untuk Showcase), `ui/Availability.astro` (titik `--success`).
+- Field khusus varian ada di skema hero yang sama (`displayName`, `serviceColumns`, `focusX`, `heroVideoUrl`, `cutoutImage`, `intro`, `textCta`, `rotatingServices`, `watermarkText`, `nameLayer`); aturan per varian di `superRefine` (headline wajib kecuali Spotlight/Cutout; batas 60/120/32 untuk Showcase). `nameSuffix` & `availability` ada di **Pengaturan Situs** (dipakai navbar dan hero), bukan di hero.
+- `navigation.navStyle`: `default` (nama | menu tengah | status + CTA), `pill` (nama + status | tombol Menu), `glass-center` (fixed; di dalam kartu Showcase, jadi pill kaca mengambang setelah hero lewat; halaman tanpa Showcase mendapat padding atas).
+- Aksen `auto` (`theme.accentColor`): `lib/theme-colors.ts getColors()` → foto hero pertama Beranda → `lib/image.ts imageAccent()` (sharp 64 px) → `lib/color.ts pickAccent()` (abaikan L<0,2 / L>0,95 / chroma<0,08, hue dominan, persentil-80 chroma) → engine kontras seperti warna lain. Cadangan: aksen preset. Komponen yang butuh warna final memakai `getColors(Astro.locals)`.
+- Kontras teks di atas foto: `regionLum()` (p95 untuk teks terang, p5 untuk teks gelap) → `scrimAlpha()` (nama raksasa 3:1, teks 4,5:1) atau `glassScrim()` (teks di atas kaca, memperhitungkan tint kaca).
+- Skema gelap lokal: `darkScheme(bgPreset, aksen)` → token per elemen (kartu Showcase, navbar glass-center). Token kaca `--glass-*` di `themes.css`; fallback `@supports` tanpa backdrop-filter.
+- Cutout: `isCutout()` (alpha < 10 pada ≥ 15% piksel). Bila tidak transparan → `edge-dissolve edge-strong` + peringatan build log. Tidak ada library hapus latar.
+- Edge baru: `dissolve` (vignette ∩ fade-bottom via mask-composite) dan `fade-left` (overlay latar dari kiri).
+- Preset `noir` & `rouge` memakai surface/muted awal dari preset (tetap dicek engine). Rencana awal membandingkan Geist/Inter Tight/Albert Sans dan Archivo/Bricolage/Inter dibatalkan karena semua preset kini Montserrat; nama raksasa memakai bobot 600 (noir) dan 900 (rouge/cutout).
+- Contoh beranda: `examples/home-{spotlight,showcase,cutout}.json`, pratinjau di `/dev/examples/<nama>` (lewat `Astro.locals.preview` tanpa flag `canvas`), terapkan dengan `npm run example <nama>`.
+- `Astro.locals.preview.canvas = true` hanya dari `/edit/render`: penanda edit, tanpa ClientRouter/motion, section tersembunyi tampil, link rusak jadi `#`.
+
 ## Aturan motion (PRD Bagian 8)
 
 - Hanya `transform` dan `opacity` (plus clip-path reveal galeri detail proyek sesuai PRD).
 - Atribut penanda: `data-hero-line` (animasi load hero), `data-reveal` (fade-up saat scroll, `top 85%`), `data-clip` (reveal clip-path), `data-count` (angka naik).
+- Hero baru (`heroIntro`/`heroScroll` di `motion.ts`): `data-card-intro`, `data-photo-intro` (scale + blur/zoom), `data-split-chars` (huruf naik dengan mask; dipecah per kata dulu supaya tidak patah di tengah kata), `data-subject-intro`, `data-pop`, `data-fade-in`, `data-rise`, lalu header terakhir. Scroll (desktop, level penuh): `data-parallax` (y%), `data-parallax-x`, `data-scroll-scale`. `data-rotate` bergantian 2,2 dtk hanya di level penuh. Indikator pill glass-center menganimasikan `width` (pengecualian kecil yang disengaja).
 - `full`: semua + Lenis. `subtle`: fade tanpa geser, tanpa Lenis. `off` / `prefers-reduced-motion`: tidak ada animasi.
 - State awal diset oleh GSAP (bukan CSS), jadi konten terlihat walau JS gagal. Init di `astro:page-load`, dibersihkan di `astro:before-swap`.
 - Script komponen selalu pakai `document.addEventListener('astro:page-load', ...)` karena View Transitions.

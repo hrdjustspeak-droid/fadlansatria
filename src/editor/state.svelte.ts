@@ -463,6 +463,7 @@ class Editor {
     const c = $state.snapshot(this.content!) as ContentState;
     const ctx = {
       site: c.site,
+      home: c.home,
       theme: c.theme,
       navigation: c.navigation,
       customPages: Object.values(c.customPages).map((p) => ({ slug: p.slug, title: p.title, draft: !!p.draft })),

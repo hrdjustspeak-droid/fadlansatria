@@ -1,44 +1,96 @@
 ---
 import { getNavigation, getSite, isExternal } from '../lib/content';
+import { getColors } from '../lib/theme-colors';
+import { darkScheme } from '../lib/color';
 import Icon from './ui/Icon.astro';
+import Availability from './ui/Availability.astro';
 
-const [site, nav] = await Promise.all([getSite(Astro.locals), getNavigation(Astro.locals)]);
+const l = Astro.locals;
+const [site, nav, { colors }] = await Promise.all([getSite(l), getNavigation(l), getColors(l)]);
 const path = Astro.url.pathname.replace(/\/$/, '') || '/';
 const isActive = (href: string) => !href.includes('#') && (href === '/' ? path === '/' : path === href || path.startsWith(`${href}/`));
+const style = nav.style;
+const sfx = site.nameSuffix && site.nameSuffix !== 'none' ? site.nameSuffix : '';
+const avail = site.availability?.enabled ? site.availability.label || 'Available' : undefined;
+// glass-center selalu memakai skema gelap lokal (teks putih di atas kaca / kartu gelap).
+const gcVars =
+  style === 'glass-center'
+    ? Object.entries(darkScheme(colors.vars['--bg'], colors.vars['--accent']))
+        .map(([k, v]) => `${k}:${v}`)
+        .join(';')
+    : undefined;
+const arrow = 'M7 17 17 7M8 7h9v9';
 ---
 
-<header class="site-header sticky top-0 z-40" data-header>
-  <div class="container-x flex h-[72px] items-center justify-between gap-6">
-    <a href="/" class="brand flex items-center gap-3 font-head text-xl no-underline" aria-label={`${site.ownerName}, ke beranda`}>
-      {site.logo ? <img src={site.logo} alt="" class="h-9 w-auto" height="36" width="120" /> : <span>{site.ownerName}</span>}
-    </a>
-
-    <nav aria-label="Menu utama" class="hidden items-center gap-1 md:flex">
-      <ul class="flex items-center gap-1" role="list">
-        {
-          nav.main.map((m) => (
-            <li>
-              <a
-                href={m.href}
-                class="nav-link"
-                aria-current={isActive(m.href) ? 'page' : undefined}
-                target={m.newTab ? '_blank' : undefined}
-                rel={m.newTab || isExternal(m.href) ? 'noopener' : undefined}
-              >
-                {m.label}
-              </a>
-            </li>
-          ))
-        }
-      </ul>
-      {nav.cta && <a href={nav.cta.href} class="btn btn-primary ml-4 min-h-11 px-5 py-2">{nav.cta.label}</a>}
-    </nav>
-
-    <button type="button" class="menu-btn md:hidden" aria-haspopup="dialog" aria-controls="mobile-menu" data-menu-open>
-      <span class="sr-only">Buka menu</span>
-      <span class="burger" aria-hidden="true"></span>
-    </button>
-  </div>
+<header class:list={['site-header', `nav-${style}`]} data-header data-nav={style} style={gcVars}>
+  {
+    style === 'pill' ? (
+      <div class="container-x nav-row">
+        <div class="flex min-w-0 items-center gap-4">
+          <a href="/" class="brand no-underline" aria-label={`${site.ownerName}, ke beranda`}>
+            {site.ownerName}
+            {sfx && <sup class="brand-sfx">{sfx}</sup>}
+          </a>
+          <Availability label={avail} class="hidden sm:inline-flex" />
+        </div>
+        <button type="button" class="menu-pill" aria-haspopup="dialog" aria-controls="mobile-menu" data-menu-open>
+          Menu <span class="burger" aria-hidden="true" />
+        </button>
+      </div>
+    ) : style === 'glass-center' ? (
+      <div class="gc-bar">
+        <a href="/" class="brand flex items-center gap-3 no-underline" aria-label={`${site.ownerName}, ke beranda`}>
+          {site.logo ? <img src={site.logo} alt="" class="h-8 w-auto" height="32" width="110" /> : <span>{site.ownerName}</span>}
+        </a>
+        <nav aria-label="Menu utama" class="gc-nav glass" data-gc-nav>
+          <span class="gc-ind" aria-hidden="true" />
+          {nav.main.map((m) => (
+            <a href={m.href} aria-current={isActive(m.href) ? 'page' : undefined} target={m.newTab ? '_blank' : undefined} rel={m.newTab || isExternal(m.href) ? 'noopener' : undefined}>
+              {m.label}
+            </a>
+          ))}
+        </nav>
+        <div class="flex items-center justify-end gap-2">
+          {nav.cta && (
+            <a href={nav.cta.href} class="btn btn-primary gc-cta">
+              {nav.cta.label}
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d={arrow} />
+              </svg>
+            </a>
+          )}
+          <button type="button" class="menu-pill gc-menu" aria-haspopup="dialog" aria-controls="mobile-menu" data-menu-open>
+            Menu <span class="burger" aria-hidden="true" />
+          </button>
+        </div>
+      </div>
+    ) : (
+      <div class="container-x nav-row nav-default-row">
+        <a href="/" class="brand flex items-center gap-3 no-underline" aria-label={`${site.ownerName}, ke beranda`}>
+          {site.logo ? <img src={site.logo} alt="" class="h-9 w-auto" height="36" width="120" /> : <span>{site.ownerName}</span>}
+        </a>
+        <nav aria-label="Menu utama" class="hidden justify-center md:flex">
+          <ul class="flex items-center gap-1" role="list">
+            {nav.main.map((m) => (
+              <li>
+                <a href={m.href} class="nav-link" aria-current={isActive(m.href) ? 'page' : undefined} target={m.newTab ? '_blank' : undefined} rel={m.newTab || isExternal(m.href) ? 'noopener' : undefined}>
+                  {m.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+        <div class="flex items-center justify-end gap-4">
+          <Availability label={avail} pill={false} class="hidden lg:inline-flex" />
+          {nav.cta && <a href={nav.cta.href} class="btn btn-primary hidden min-h-11 px-5 py-2 md:inline-flex">{nav.cta.label}</a>}
+          <button type="button" class="menu-btn md:hidden" aria-haspopup="dialog" aria-controls="mobile-menu" data-menu-open>
+            <span class="sr-only">Buka menu</span>
+            <span class="burger" aria-hidden="true" />
+          </button>
+        </div>
+      </div>
+    )
+  }
 </header>
 
 <dialog id="mobile-menu" class="mobile-menu" aria-label="Menu">
@@ -71,16 +123,47 @@ const isActive = (href: string) => !href.includes('#') && (href === '/' ? path =
 <script>
   function initMenu() {
     const dlg = document.getElementById('mobile-menu') as HTMLDialogElement | null;
-    const open = document.querySelector<HTMLButtonElement>('[data-menu-open]');
-    if (!dlg || !open) return;
-    open.addEventListener('click', () => dlg.showModal());
+    const openers = [...document.querySelectorAll<HTMLButtonElement>('[data-menu-open]')];
+    if (!dlg || !openers.length) return;
+    let opener: HTMLButtonElement | null = null;
+    openers.forEach((b) =>
+      b.addEventListener('click', () => {
+        opener = b;
+        dlg.showModal();
+      }),
+    );
     dlg.querySelector('[data-menu-close]')?.addEventListener('click', () => dlg.close());
     // Klik link (termasuk #kontak) menutup menu.
     dlg.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => dlg.close()));
-    dlg.addEventListener('close', () => open.focus());
+    dlg.addEventListener('close', () => opener?.focus());
 
     const header = document.querySelector<HTMLElement>('[data-header]');
-    const onScroll = () => header?.toggleAttribute('data-scrolled', scrollY > 8);
+    // glass-center di atas hero Showcase: jadi pill kaca mengambang setelah melewati hero.
+    const hero = header?.dataset.nav === 'glass-center' ? document.querySelector<HTMLElement>('.showcase') : null;
+    const limit = () => (hero ? hero.offsetTop + hero.offsetHeight - 96 : 8);
+    const onScroll = () => header?.toggleAttribute('data-scrolled', scrollY > limit());
+
+    // Indikator pill menu glass-center: bergeser ke item yang di-hover, kembali ke item aktif.
+    const gc = header?.querySelector<HTMLElement>('[data-gc-nav]');
+    if (gc) {
+      const ind = gc.querySelector<HTMLElement>('.gc-ind')!;
+      const links = [...gc.querySelectorAll<HTMLAnchorElement>('a')];
+      const active = links.find((a) => a.getAttribute('aria-current') === 'page');
+      const moveTo = (a?: HTMLAnchorElement) => {
+        links.forEach((x) => x.toggleAttribute('data-on', x === a));
+        if (!a) {
+          ind.style.opacity = '0';
+          return;
+        }
+        ind.style.opacity = '1';
+        ind.style.width = `${a.offsetWidth}px`;
+        ind.style.transform = `translateX(${a.offsetLeft}px)`;
+      };
+      gc.classList.add('js');
+      moveTo(active);
+      links.forEach((a) => a.addEventListener('mouseenter', () => moveTo(a)));
+      gc.addEventListener('mouseleave', () => moveTo(active));
+    }
     onScroll();
     addEventListener('scroll', onScroll, { passive: true });
     document.addEventListener('astro:before-swap', () => removeEventListener('scroll', onScroll), { once: true });
@@ -90,14 +173,168 @@ const isActive = (href: string) => !href.includes('#') && (href === '/' ? path =
 
 <style>
   .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    border-bottom: 1px solid transparent;
+    transition:
+      border-color 0.2s,
+      background-color 0.2s;
+  }
+  /* Transparan di puncak halaman (watermark hero Cutout terlihat di belakangnya), berlatar saat discroll. */
+  .site-header:not(.nav-glass-center)[data-scrolled] {
     background: color-mix(in srgb, var(--bg) 88%, transparent);
     backdrop-filter: saturate(1.4) blur(12px);
     -webkit-backdrop-filter: saturate(1.4) blur(12px);
-    border-bottom: 1px solid transparent;
-    transition: border-color 0.2s;
-  }
-  .site-header[data-scrolled] {
     border-bottom-color: var(--divider);
+  }
+  .nav-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    height: 72px;
+  }
+  @media (min-width: 768px) {
+    .nav-default-row {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+    }
+  }
+  .brand-sfx {
+    font-size: 0.6em;
+    margin-left: 2px;
+  }
+  .menu-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 44px;
+    padding: 0 18px;
+    border-radius: 9999px;
+    background: var(--surface);
+    color: var(--text);
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  .menu-pill:hover {
+    background: color-mix(in srgb, var(--surface) 80%, var(--text));
+  }
+  .menu-pill .burger,
+  .menu-pill .burger::before,
+  .menu-pill .burger::after {
+    width: 16px;
+  }
+  .menu-pill .burger::before {
+    top: -5px;
+  }
+  .menu-pill .burger::after {
+    top: 5px;
+  }
+
+  /* glass-center: di dalam kartu hero Showcase, lalu pill kaca mengambang setelah hero lewat. */
+  .nav-glass-center {
+    position: fixed;
+    inset: 24px 24px auto;
+    border: 0;
+    color: var(--text);
+  }
+  .gc-bar {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 16px;
+    max-width: 1440px;
+    margin-inline: auto;
+    padding: 16px clamp(16px, 3vw, 40px);
+    border-radius: 9999px;
+    border: 1px solid transparent;
+    transition:
+      background-color 0.35s,
+      border-color 0.35s,
+      max-width 0.35s;
+  }
+  .nav-glass-center[data-scrolled] .gc-bar,
+  html:not(:has(.showcase)) .gc-bar {
+    max-width: 1100px;
+    padding-block: 8px;
+    background: color-mix(in srgb, var(--bg) 82%, transparent);
+    -webkit-backdrop-filter: var(--glass-blur);
+    backdrop-filter: var(--glass-blur);
+    border-color: var(--glass-border);
+    box-shadow: var(--glass-highlight), 0 10px 30px rgb(0 0 0 / 0.25);
+  }
+  :global(html:has([data-nav='glass-center'])) :global(main:not(:has(.showcase))) {
+    padding-top: 104px;
+  }
+  .gc-nav {
+    position: relative;
+    display: flex;
+    gap: 2px;
+    padding: 4px;
+    border-radius: 9999px;
+  }
+  .gc-nav a {
+    position: relative;
+    z-index: 1;
+    padding: 8px 16px;
+    border-radius: 9999px;
+    font-size: 0.9375rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: color 0.35s;
+  }
+  .gc-nav:not(.js) a[aria-current='page'],
+  .gc-nav a[data-on] {
+    color: var(--accent-contrast);
+  }
+  .gc-nav:not(.js) a[aria-current='page'] {
+    background: var(--accent);
+  }
+  .gc-ind {
+    position: absolute;
+    left: 0;
+    top: 4px;
+    bottom: 4px;
+    width: 0;
+    border-radius: 9999px;
+    background: var(--accent);
+    opacity: 0;
+    transition:
+      transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+      width 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+      opacity 0.2s;
+  }
+  .gc-cta {
+    border-radius: 9999px;
+    min-height: 44px;
+    padding: 8px 18px;
+  }
+  .gc-menu {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+  }
+  @media (min-width: 1024px) {
+    .gc-menu {
+      display: none;
+    }
+  }
+  @media (max-width: 1023px) {
+    .gc-nav {
+      display: none;
+    }
+    .gc-bar {
+      grid-template-columns: 1fr auto;
+    }
+  }
+  @media (max-width: 767px) {
+    .nav-glass-center {
+      inset: 12px 12px auto;
+    }
+    .gc-cta {
+      display: none;
+    }
   }
   .brand {
     font-weight: 600;
@@ -134,7 +371,7 @@ const isActive = (href: string) => !href.includes('#') && (href === '/' ? path =
     cursor: pointer;
   }
   @media (min-width: 768px) {
-    [data-menu-open] {
+    .menu-btn[data-menu-open] {
       display: none;
     }
   }

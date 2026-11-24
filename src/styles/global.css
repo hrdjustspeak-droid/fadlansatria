@@ -445,6 +445,104 @@
   }
 }
 
+@layer components {
+  .glass {
+    background:
+      linear-gradient(rgb(var(--scrim) / var(--glass-scrim, 0)), rgb(var(--scrim) / var(--glass-scrim, 0))),
+      var(--glass-bg);
+    -webkit-backdrop-filter: var(--glass-blur);
+    backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glass-highlight);
+  }
+  @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+    .glass {
+      background: color-mix(in srgb, var(--surface) 92%, transparent);
+    }
+  }
+  /* Siku kecil berwarna aksen di sudut kiri atas */
+  .corner-mark::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 8px;
+    height: 8px;
+    border-top: 1px solid var(--accent);
+    border-left: 1px solid var(--accent);
+  }
+  .availability {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--text);
+    white-space: nowrap;
+  }
+  .availability.is-pill {
+    min-height: 32px;
+    padding: 4px 12px 4px 10px;
+    border-radius: 9999px;
+    background: var(--surface);
+    border: 1px solid var(--divider);
+  }
+  .pulse-dot {
+    position: relative;
+    width: 8px;
+    height: 8px;
+    border-radius: 9999px;
+    background: var(--success);
+    flex: none;
+  }
+  .pulse-dot::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: var(--success);
+    animation: pulse-dot 2s ease-out infinite;
+  }
+  @keyframes pulse-dot {
+    from {
+      transform: scale(1);
+      opacity: 0.6;
+    }
+    to {
+      transform: scale(2.6);
+      opacity: 0;
+    }
+  }
+  /* Tekstur halftone CSS (Cutout): titik aksen yang memudar melingkar */
+  .halftone {
+    background-image: radial-gradient(circle, color-mix(in srgb, var(--accent) 35%, transparent) 1.25px, transparent 1.6px);
+    background-size: 8px 8px;
+    -webkit-mask-image: radial-gradient(closest-side, #000 20%, transparent 100%);
+    mask-image: radial-gradient(closest-side, #000 20%, transparent 100%);
+  }
+}
+
+/* Huruf nama raksasa yang dipecah motion.ts: mask per huruf */
+.ch-mask {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  padding-bottom: 0.1em;
+  margin-bottom: -0.1em;
+}
+.ch-word {
+  display: inline-block;
+  white-space: nowrap;
+}
+.ch {
+  display: inline-block;
+}
+
+[data-motion='subtle'] .pulse-dot::after {
+  animation: none;
+  opacity: 0;
+}
+
 /* Motion level off / reduced motion: matikan animasi non-esensial. */
 [data-motion='off'] *,
 [data-motion='off'] *::before,

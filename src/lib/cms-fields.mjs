@@ -105,7 +105,7 @@ export const sectionTypes = [
       ),
       number('focusX', 'Titik Fokus Foto (horizontal)', 'Hanya dipakai varian Showcase. 0 = kiri, 100 = kanan.', { min: 0, max: 100, default: 70, required: false }),
       optString('heroVideoUrl', 'Link Video Hero', 'Hanya dipakai varian Showcase. Link YouTube untuk tombol "Tonton Video".', { pattern: [YOUTUBE, 'Harus link YouTube'] }),
-      image('cutoutImage', 'Foto Cutout', 'Hanya dipakai varian Cutout. Pakai foto tanpa latar (PNG transparan). Bisa dibuat gratis lewat fitur hapus latar di Canva atau remove.bg.', false),
+      image('cutoutImage', 'Foto Cutout', 'Hanya dipakai varian Cutout. Pakai foto tanpa latar (PNG transparan). Bisa dibuat gratis lewat fitur hapus latar di Canva atau remove.bg. Potong rapat di sekitar subjek supaya kepala menimpa nama.', false),
       text('intro', 'Intro Singkat', 'Hanya dipakai varian Cutout. Maks. 120 karakter', { max: 120, required: false }),
       cta('textCta', 'Ajakan Teks', 'Hanya dipakai varian Cutout. Contoh: "// HIRE ME".'),
       { name: 'rotatingServices', label: 'Layanan Bergantian', widget: 'list', required: false, max: 6, hint: 'Hanya dipakai varian Cutout. 3–6 item, maks. 28 karakter per item.', field: string('service', 'Layanan', '', { max: 28 }) },

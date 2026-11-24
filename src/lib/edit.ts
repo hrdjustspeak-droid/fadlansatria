@@ -5,4 +5,4 @@ import type { Preview } from './content';
  * jadi HTML situs publik tetap bersih. `path` relatif terhadap section, atau "page.xxx" untuk field halaman.
  */
 export const ed = (locals: { preview?: Preview } | undefined, path: string | undefined) =>
-  locals?.preview && path ? { 'data-edit': path } : {};
+  locals?.preview?.canvas && path ? { 'data-edit': path } : {};

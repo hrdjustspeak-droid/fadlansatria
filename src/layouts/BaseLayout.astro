@@ -4,8 +4,9 @@ import '../styles/global.css';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
 import Lightbox from '../components/ui/Lightbox.astro';
-import { getSite, getTheme } from '../lib/content';
-import { PRESET_IDS, resolveTheme, type PresetId } from '../lib/themes';
+import { getSite } from '../lib/content';
+import { getColors } from '../lib/theme-colors';
+import { PRESET_IDS, type PresetId } from '../lib/themes';
 import { PRESET_FONTS, fontCss } from '../lib/fonts';
 import { absolute } from '../lib/seo';
 
@@ -19,9 +20,8 @@ interface Props {
   allPresets?: PresetId[];
 }
 const { title, description, ogImage, noindex = false, jsonLd, allPresets } = Astro.props;
-const preview = !!Astro.locals.preview;
-const [site, theme] = await Promise.all([getSite(Astro.locals), getTheme(Astro.locals)]);
-const colors = resolveTheme(theme);
+const preview = !!Astro.locals.preview?.canvas;
+const [site, { theme, colors }] = await Promise.all([getSite(Astro.locals), getColors(Astro.locals)]);
 const rootVars = Object.entries(colors.vars)
   .map(([k, v]) => `${k}:${v}`)
   .join(';');

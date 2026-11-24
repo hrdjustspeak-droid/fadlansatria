@@ -9,6 +9,13 @@
   --on-image: #ffffff;
   --scrim: 0 0 0;
 
+  /* Kaca (navbar glass-center & panel Showcase). Selalu dipakai di atas skema gelap lokal. */
+  --glass-bg: rgb(255 255 255 / 0.06);
+  --glass-blur: blur(16px) saturate(140%);
+  --glass-border: rgb(255 255 255 / 0.14);
+  --glass-highlight: inset 0 1px 0 rgb(255 255 255 / 0.12);
+  --glass-radius: 20px;
+
   /* Intensitas tepi gambar: posisi awal gradien mask (Bagian 9). */
   --edge-soft: 70%;
   --edge-medium: 55%;
