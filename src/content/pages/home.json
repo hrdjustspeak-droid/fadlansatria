@@ -65,7 +65,6 @@
       "type": "services",
       "enabled": true,
       "variant": "cards",
-      "eyebrow": "Projects",
       "title": "Programs I have built",
       "intro": "Each program targets one gap in access to practical self-development.",
       "items": [
@@ -129,7 +128,6 @@
       "type": "services",
       "enabled": true,
       "variant": "cards",
-      "eyebrow": "Non-profits",
       "title": "Communities I serve",
       "items": [
         {

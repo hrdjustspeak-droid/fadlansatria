@@ -18,13 +18,14 @@ const { data } = Astro.props;
       data.variant === 'cards' ? (
         <ul class="grid gap-8 md:grid-cols-2 lg:grid-cols-3" role="list">
           {data.items.map((s, i) => (
-            <li class="card flex flex-col gap-4 p-8" data-reveal>
+            <li class:list={['card flex flex-col gap-4 p-8', s.cta && 'card-hover']} data-reveal>
               <h3 class="h3" {...ed(l, `items.${i}.title`)}>{s.title}</h3>
               <p class="text-muted" {...ed(l, `items.${i}.description`)}>{s.description}</p>
               {(s.price || s.cta) && (
-                <div class="divider-t mt-auto flex flex-wrap items-center justify-between gap-4 pt-6">
+                <div class:list={['mt-auto flex flex-wrap items-center justify-between gap-4', s.price && 'divider-t pt-6']}>
                   {s.price && <p class="font-semibold" {...ed(l, `items.${i}.price`)}>{s.price}</p>}
-                  {s.cta && <CtaLink link={s.cta} editPath={`items.${i}.cta`} variant="link" where="Layanan" />}
+                  {/* card-link: seluruh kartu bisa diklik (bukan hanya teks link). */}
+                  {s.cta && <CtaLink link={s.cta} editPath={`items.${i}.cta`} variant="link" where="Layanan" class="card-link" />}
                 </div>
               )}
             </li>

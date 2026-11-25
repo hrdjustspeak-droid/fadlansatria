@@ -1,4 +1,5 @@
 ---
+import Arrow from './Arrow.astro';
 import { ctaHref, isExternal, type LinkLike } from '../../lib/content';
 import { ed } from '../../lib/edit';
 
@@ -21,5 +22,5 @@ const ext = isExternal(href);
   target={ext ? '_blank' : undefined}
   rel={ext ? 'noopener' : undefined}
 >
-  <span {...ed(Astro.locals, editPath && `${editPath}.label`)}>{link.label}</span><span aria-hidden="true">{ext ? '↗' : '→'}</span>
+  <span {...ed(Astro.locals, editPath && `${editPath}.label`)}>{link.label}</span><Arrow dir={ext ? 'ne' : 'e'} />
 </a>

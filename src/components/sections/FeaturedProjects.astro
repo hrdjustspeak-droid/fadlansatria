@@ -1,4 +1,5 @@
 ---
+import Arrow from '../ui/Arrow.astro';
 import type { Section } from '../../lib/schemas';
 import { getProjects } from '../../lib/content';
 import SectionHeading from '../ui/SectionHeading.astro';
@@ -26,7 +27,7 @@ const t = await getStrings(Astro.locals);
   <div class="container-x">
     <div class="flex flex-wrap items-end justify-between gap-x-8">
       <SectionHeading eyebrow={data.eyebrow} title={data.title} />
-      <a href="/projects" class="link mb-10 font-semibold md:mb-14">{t.allProjects} →</a>
+      <a href="/projects" class="link mb-10 inline-flex items-center gap-1 font-semibold md:mb-14">{t.allProjects} <Arrow /></a>
     </div>
     {list.length === 0 && <p class="meta">{t.noProjects}</p>}
     {

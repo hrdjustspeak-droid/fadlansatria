@@ -1,4 +1,5 @@
 ---
+import Arrow from '../../ui/Arrow.astro';
 // Hero Cutout: watermark pudar → halftone → nama aksen → subjek tanpa latar (atau sebaliknya, `nameLayer`).
 // Foto yang belum transparan otomatis memakai fallback edge dissolve kuat (peringatan di build log).
 import type { Section } from '../../../lib/schemas';
@@ -47,9 +48,7 @@ const t = await getStrings(Astro.locals);
           {cta && (
             <a href={cta.href} class="co-cta">
               <span {...ed(l, 'textCta.label')}>{cta.label}</span>
-              <span class="co-arrow" aria-hidden="true">
-                →
-              </span>
+              <Arrow class="co-arrow" />
             </a>
           )}
         </div>

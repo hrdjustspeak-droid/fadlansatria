@@ -96,6 +96,12 @@
     background: var(--accent);
     color: var(--accent-contrast);
   }
+  /* Permukaan bawaan browser ikut tema (caret, checkbox, scrollbar). */
+  :root {
+    accent-color: var(--accent);
+    caret-color: var(--accent);
+    scrollbar-color: color-mix(in oklab, var(--text) 28%, var(--bg)) var(--bg);
+  }
   :focus-visible {
     outline: 3px solid var(--accent);
     outline-offset: 3px;
@@ -286,6 +292,34 @@
   }
   .card-link {
     text-decoration: none;
+  }
+  .card-hover:hover .card-link.link,
+  .card-hover:focus-within .card-link.link {
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 0.2em;
+  }
+  /* Kanvas editor: overlay link tidak boleh menutupi teks yang bisa diedit. */
+  [data-preview] .card-link::before {
+    display: none;
+  }
+
+  .arrow-i {
+    display: inline-block;
+    flex: none;
+    vertical-align: -0.125em;
+    transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  a:hover .arrow-e,
+  .card-hover:hover .arrow-e {
+    transform: translateX(3px);
+  }
+  a:hover .arrow-ne,
+  .card-hover:hover .arrow-ne {
+    transform: translate(2px, -2px);
+  }
+  a:hover .arrow-w {
+    transform: translateX(-3px);
   }
   .card-link:focus-visible {
     outline: none;
@@ -571,6 +605,7 @@
     scroll-behavior: auto !important;
   }
 }
+[data-motion='subtle'] :is(a, .card-hover):hover .arrow-i,
 [data-motion='subtle'] .card-hover:hover,
 [data-motion='subtle'] .card-hover:focus-within,
 [data-motion='subtle'] .btn:hover {

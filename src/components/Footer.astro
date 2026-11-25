@@ -1,4 +1,5 @@
 ---
+import Arrow from './ui/Arrow.astro';
 import { getNavigation, getSite, isExternal } from '../lib/content';
 import { getStrings } from '../lib/i18n';
 
@@ -11,7 +12,7 @@ const waDisplay = site.whatsapp ? `+${site.whatsapp.slice(0, 2)} ${site.whatsapp
 
 <footer class="site-footer mt-auto">
   <div class="container-x grid gap-12 py-16 md:grid-cols-12 md:py-20">
-    <div class="md:col-span-4">
+    <div class="md:col-span-3">
       <p class="font-head text-2xl" style="font-weight:var(--heading-weight)">{site.ownerName}</p>
       <p class="meta mt-1">{site.role}</p>
       {site.cvFile && <a href={site.cvFile} class="btn btn-secondary mt-6 flex w-fit" download>{t.downloadCv}</a>}
@@ -44,7 +45,7 @@ const waDisplay = site.whatsapp ? `+${site.whatsapp.slice(0, 2)} ${site.whatsapp
             {site.socials.map((s) => (
               <li>
                 <a href={s.url} class="badge social" target="_blank" rel="noopener me">
-                  {s.platform} ↗
+                  {s.platform} <Arrow dir="ne" />
                 </a>
               </li>
             ))}
@@ -55,7 +56,7 @@ const waDisplay = site.whatsapp ? `+${site.whatsapp.slice(0, 2)} ${site.whatsapp
 
     {
       nav.footer.length > 0 && (
-        <nav aria-label={t.footerMenu} class="md:col-span-4">
+        <nav aria-label={t.footerMenu} class="md:col-span-5">
           <ul class="footer-menu" role="list">
             {nav.footer.map((m) => (
               <li>

@@ -143,10 +143,9 @@ const arrow = 'M7 17 17 7M8 7h9v9';
     dlg.addEventListener('close', () => opener?.focus());
 
     const header = document.querySelector<HTMLElement>('[data-header]');
-    // glass-center di atas hero Showcase: jadi pill kaca mengambang setelah melewati hero.
-    const hero = header?.dataset.nav === 'glass-center' ? document.querySelector<HTMLElement>('.showcase') : null;
-    const limit = () => (hero ? hero.offsetTop + hero.offsetHeight - 96 : 8);
-    const onScroll = () => header?.toggleAttribute('data-scrolled', scrollY > limit());
+    // Berlatar begitu halaman discroll. glass-center dulu menunggu hero lewat, tapi bar transparannya
+    // lalu menimpa judul/tombol hero yang ikut tergulir ke bawahnya.
+    const onScroll = () => header?.toggleAttribute('data-scrolled', scrollY > 8);
 
     // Indikator pill menu glass-center: bergeser ke item yang di-hover, kembali ke item aktif.
     const gc = header?.querySelector<HTMLElement>('[data-gc-nav]');
@@ -239,7 +238,7 @@ const arrow = 'M7 17 17 7M8 7h9v9';
     top: 5px;
   }
 
-  /* glass-center: di dalam kartu hero Showcase, lalu pill kaca mengambang setelah hero lewat. */
+  /* glass-center: di dalam kartu hero Showcase, lalu pill kaca mengambang begitu discroll. */
   .nav-glass-center {
     position: fixed;
     inset: 24px 24px auto;

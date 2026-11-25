@@ -1,4 +1,5 @@
 ---
+import Arrow from '../ui/Arrow.astro';
 import type { Section } from '../../lib/schemas';
 import { getSite } from '../../lib/content';
 
@@ -38,7 +39,7 @@ const t = await getStrings(Astro.locals);
             {wa && (
               <li>
                 <a class="btn btn-secondary" href={wa} target="_blank" rel="noopener">
-                  {t.chatWa} ↗
+                  {t.chatWa} <Arrow dir="ne" />
                 </a>
               </li>
             )}

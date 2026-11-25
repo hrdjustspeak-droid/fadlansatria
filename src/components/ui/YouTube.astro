@@ -1,4 +1,5 @@
 ---
+import Arrow from './Arrow.astro';
 import { parseYouTube, watchUrl } from '../../lib/youtube';
 import { getStrings } from '../../lib/i18n';
 
@@ -30,7 +31,7 @@ const t = await getStrings(Astro.locals);
   </lite-youtube>
   <figcaption class="meta mt-3 flex flex-wrap items-center justify-between gap-x-4 gap-y-1">
     <span>{title}</span>
-    <a class="link" href={watch} target="_blank" rel="noopener">{t.watchYoutube} ↗</a>
+    <a class="link" href={watch} target="_blank" rel="noopener">{t.watchYoutube} <Arrow dir="ne" /></a>
   </figcaption>
 </figure>
 
