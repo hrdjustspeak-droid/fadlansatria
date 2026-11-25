@@ -12,7 +12,7 @@ Website portfolio statis. Konten diedit lewat **editor visual `/edit`** (utama, 
 | `npm run preview` | Sajikan `dist/` |
 | `npm run samples` | Buat ulang gambar contoh abstrak di `public/uploads/sample/` |
 
-Windows: jalankan Vitest dari path berhuruf besar (`C:\laragon\...`). Path `c:\` kecil membuat Vitest memuat dua instance dan gagal dengan "Cannot read properties of undefined (reading 'config')".
+Windows: `npm run dev` dan `npm test` lewat `scripts/real-cwd.mjs`, yang menjalankan CLI dari path dengan huruf drive asli. Tanpa itu, `cd c:\...` (c kecil) membuat hash scoped CSS Astro tidak cocok dengan HTML (tampilan dev rusak: gaya komponen hilang) dan Vitest memuat dua instance. Jangan panggil `astro dev`/`vitest` langsung dari path c kecil.
 
 ## Stack
 

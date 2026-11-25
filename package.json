@@ -7,10 +7,10 @@
     "node": ">=22.12.0"
   },
   "scripts": {
-    "dev": "node scripts/cms-config.mjs && astro dev",
+    "dev": "node scripts/cms-config.mjs && node scripts/real-cwd.mjs astro dev",
     "build": "node scripts/cms-config.mjs && astro check && astro build",
     "preview": "astro preview",
-    "test": "vitest run",
+    "test": "node scripts/real-cwd.mjs vitest run",
     "check": "astro check",
     "cms:config": "node scripts/cms-config.mjs",
     "samples": "node scripts/generate-samples.mjs",

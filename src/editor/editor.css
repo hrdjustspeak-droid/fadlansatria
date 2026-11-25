@@ -61,6 +61,9 @@ textarea {
   width: auto;
   max-width: 260px;
 }
+.e-row.e-tools {
+  flex-wrap: nowrap;
+}
 .e-spacer {
   flex: 1;
 }
@@ -86,6 +89,7 @@ textarea {
 }
 @media (max-width: 1100px) {
   .e-status,
+  .e-lbl,
   .e-devices {
     display: none;
   }

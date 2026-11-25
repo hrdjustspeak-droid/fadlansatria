@@ -177,6 +177,13 @@ class Editor {
     this.afterChange();
   }
 
+  /** Batalkan semua perubahan: kembali ke versi terakhir yang disimpan. Masuk riwayat, jadi bisa di-undo. */
+  discard() {
+    this.mutate(() => (this.content = parseFiles(this.base)));
+    this.fixPage();
+    this.say('Semua perubahan dibuang. Klik Urungkan untuk mengembalikannya.');
+  }
+
   /** Setelah undo/hapus: pastikan halaman & section terpilih masih ada. */
   private fixPage() {
     const c = this.content!;

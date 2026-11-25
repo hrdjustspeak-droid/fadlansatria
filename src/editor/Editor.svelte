@@ -119,8 +119,14 @@
       {/if}
       <div class="e-spacer"></div>
       <div class="e-row e-tools">
-        <button type="button" class="e-icon" title="Urungkan (Ctrl+Z)" aria-label="Urungkan" disabled={!ed.canUndo} onclick={() => ed.undo()}>↶</button>
-        <button type="button" class="e-icon" title="Ulangi (Ctrl+Shift+Z)" aria-label="Ulangi" disabled={!ed.canRedo} onclick={() => ed.redo()}>↷</button>
+        <button type="button" class="e-btn" title="Urungkan (Ctrl+Z)" disabled={!ed.canUndo} onclick={() => ed.undo()}>
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 14 4 9l5-5" /><path d="M4 9h11a5 5 0 0 1 0 10h-3" /></svg>
+          <span class="e-lbl">Urungkan</span>
+        </button>
+        <button type="button" class="e-btn" title="Ulangi (Ctrl+Shift+Z)" disabled={!ed.canRedo} onclick={() => ed.redo()}>
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 14 5-5-5-5" /><path d="M20 9H9a5 5 0 0 0 0 10h3" /></svg>
+          <span class="e-lbl">Ulangi</span>
+        </button>
         <div class="e-devices" role="radiogroup" aria-label="Pratinjau perangkat">
           {#each [['desktop', 'Desktop'], ['tablet', 'Tablet'], ['mobile', 'HP']] as [d, l]}
             <button type="button" role="radio" aria-checked={ed.device === d} class:on={ed.device === d} onclick={() => (ed.device = d as typeof ed.device)}>{l}</button>
@@ -129,6 +135,7 @@
       </div>
       <span class="e-status" aria-live="polite">{ed.dirty ? `${ed.dirty} perubahan belum dipublikasikan` : 'Semua perubahan sudah dipublikasikan'}</span>
       <a class="e-btn e-ghost" href={ed.pageUrl()} target="_blank" rel="noopener">Lihat situs ↗</a>
+      <button type="button" class="e-btn e-danger" title="Kembalikan semua ke versi terakhir yang disimpan (bisa diurungkan)" disabled={!ed.dirty} onclick={() => ed.discard()}>Buang perubahan</button>
       <button type="button" class="e-btn e-primary" disabled={!ed.dirty} onclick={() => ed.openPublish()}>{ed.storage?.kind === 'local' ? 'Simpan ke file' : 'Publikasikan'}</button>
       <button type="button" class="e-btn e-ghost e-toggle" aria-expanded={ed.sidebarOpen} onclick={() => (ed.sidebarOpen = !ed.sidebarOpen)}>{ed.sidebarOpen ? 'Tutup panel' : 'Panel'}</button>
     </header>

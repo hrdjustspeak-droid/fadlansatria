@@ -33,7 +33,8 @@
   {/if}
   <div class="e-row">
     <button type="button" class="e-btn" onclick={() => input.click()}>{value ? 'Ganti' : 'Upload'} {isImage ? 'gambar' : 'file'}</button>
-    {#if value && def.required === false}<button type="button" class="e-btn e-ghost" onclick={() => onchange('')}>Hapus</button>{/if}
+    <!-- Selalu bisa dihapus; field wajib yang kosong dicegat validasi sebelum publish. -->
+    {#if value}<button type="button" class="e-btn e-danger" onclick={() => onchange('')}>Hapus {isImage ? 'gambar' : 'file'}</button>{/if}
   </div>
   <input {id} bind:this={input} type="file" {accept} hidden onchange={choose} />
 </div>
