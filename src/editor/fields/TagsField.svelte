@@ -1,4 +1,5 @@
 <script lang="ts">
+  import Icon from '../Icon.svelte';
   import { ed } from '../state.svelte';
   import type { Field } from '../paths';
 
@@ -28,7 +29,7 @@
   {#if def.hint}<p class="e-hint">{def.hint}</p>{/if}
   <ul class="e-tags">
     {#each tags as t, i}
-      <li>{t}<button type="button" aria-label={`Hapus ${t}`} onclick={() => ed.mutate(() => value[def.name].splice(i, 1))}>✕</button></li>
+      <li>{t}<button type="button" aria-label={`Hapus ${t}`} onclick={() => ed.mutate(() => value[def.name].splice(i, 1))}><Icon name="x" size={12} /></button></li>
     {/each}
   </ul>
   <div class="e-row">

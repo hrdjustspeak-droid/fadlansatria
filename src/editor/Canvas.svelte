@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { ICONS } from './icons';
   import { ed } from './state.svelte';
   import { fieldAt, folderFields, fileFields, getAt, labelFor, sectionDef, setAt, type Field } from './paths';
 
@@ -82,15 +83,6 @@
 
   // ---------- dekorasi kanvas ----------
 
-  const ICONS: Record<string, string> = {
-    drag: 'M9 5h.01M9 12h.01M9 19h.01M15 5h.01M15 12h.01M15 19h.01',
-    up: 'm18 15-6-6-6 6',
-    down: 'm6 9 6 6 6-6',
-    copy: 'M8 8h12v12H8zM4 16V4h12',
-    eye: 'M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12zM12 9a3 3 0 1 0 0 6 3 3 0 0 0 0-6z',
-    trash: 'M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14',
-    plus: 'M12 5v14M5 12h14',
-  };
   const svg = (n: string) => `<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="${ICONS[n]}"/></svg>`;
 
   function injectStyle(doc: Document) {
@@ -401,7 +393,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    background: #e5e7eb;
+    background: #e9e9ec;
     overflow: hidden;
   }
   iframe {

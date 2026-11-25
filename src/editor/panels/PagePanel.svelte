@@ -3,6 +3,7 @@
   import { ed } from '../state.svelte';
   import FieldForm from '../fields/FieldForm.svelte';
   import { fileFields, folderFields } from '../paths';
+  import Icon from '../Icon.svelte';
 
   let slugDraft = $state('');
   let confirmDelete = $state(false);
@@ -15,7 +16,7 @@
 </script>
 
 <div class="e-panel-head">
-  <button type="button" class="e-back" onclick={() => (ed.panel = { kind: 'tabs' })}>← Kembali</button>
+  <button type="button" class="e-icon e-back" title="Kembali" aria-label="Kembali ke daftar" onclick={() => (ed.panel = { kind: 'tabs' })}><Icon name="back" /></button>
   <h2>{page.kind === 'project' ? 'Proyek' : 'Pengaturan halaman'}</h2>
 </div>
 

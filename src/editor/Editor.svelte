@@ -10,9 +10,16 @@
   import SectionPanel from './panels/SectionPanel.svelte';
   import PagePanel from './panels/PagePanel.svelte';
   import FieldForm from './fields/FieldForm.svelte';
+  import Icon from './Icon.svelte';
 
   let { repo, branch }: { repo: string; branch: string } = $props();
   let loginError = $state('');
+  let side = $state<HTMLElement>();
+  // Ganti panel/tab = mulai dari atas, bukan posisi scroll panel sebelumnya.
+  $effect(() => {
+    void ed.panel, ed.tab;
+    side?.scrollTo(0, 0);
+  });
 
   onMount(async () => {
     const local = await tryLocal();
@@ -115,40 +122,40 @@
         {#each pageOptions as [k, l]}<option value={k}>{l}</option>{/each}
       </select>
       {#if ed.page.kind !== 'home' && ed.page.kind !== 'projects'}
-        <button type="button" class="e-btn e-ghost" onclick={() => ((ed.panel = { kind: 'page' }), (ed.sidebarOpen = true))}>Pengaturan halaman</button>
+        <button type="button" class="e-btn e-ghost e-pageset" title="Pengaturan halaman" onclick={() => ((ed.panel = { kind: 'page' }), (ed.sidebarOpen = true))}>
+          <Icon name="settings" /><span class="e-lbl">Pengaturan</span>
+        </button>
       {/if}
       <div class="e-spacer"></div>
       <div class="e-row e-tools">
-        <button type="button" class="e-btn" title="Urungkan (Ctrl+Z)" disabled={!ed.canUndo} onclick={() => ed.undo()}>
-          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 14 4 9l5-5" /><path d="M4 9h11a5 5 0 0 1 0 10h-3" /></svg>
-          <span class="e-lbl">Urungkan</span>
-        </button>
-        <button type="button" class="e-btn" title="Ulangi (Ctrl+Shift+Z)" disabled={!ed.canRedo} onclick={() => ed.redo()}>
-          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 14 5-5-5-5" /><path d="M20 9H9a5 5 0 0 0 0 10h3" /></svg>
-          <span class="e-lbl">Ulangi</span>
-        </button>
+        <button type="button" class="e-icon" title="Urungkan (Ctrl+Z)" aria-label="Urungkan" disabled={!ed.canUndo} onclick={() => ed.undo()}><Icon name="undo" /></button>
+        <button type="button" class="e-icon" title="Ulangi (Ctrl+Shift+Z)" aria-label="Ulangi" disabled={!ed.canRedo} onclick={() => ed.redo()}><Icon name="redo" /></button>
+        <span class="e-divider" aria-hidden="true"></span>
         <div class="e-devices" role="radiogroup" aria-label="Pratinjau perangkat">
           {#each [['desktop', 'Desktop'], ['tablet', 'Tablet'], ['mobile', 'HP']] as [d, l]}
-            <button type="button" role="radio" aria-checked={ed.device === d} class:on={ed.device === d} onclick={() => (ed.device = d as typeof ed.device)}>{l}</button>
+            <button type="button" role="radio" title={l} aria-label={l} aria-checked={ed.device === d} class:on={ed.device === d} onclick={() => (ed.device = d as typeof ed.device)}><Icon name={d} /></button>
           {/each}
         </div>
       </div>
-      <span class="e-status" aria-live="polite">{ed.dirty ? `${ed.dirty} perubahan belum dipublikasikan` : 'Semua perubahan sudah dipublikasikan'}</span>
-      <a class="e-btn e-ghost" href={ed.pageUrl()} target="_blank" rel="noopener">Lihat situs ↗</a>
-      <button type="button" class="e-btn e-danger" title="Kembalikan semua ke versi terakhir yang disimpan (bisa diurungkan)" disabled={!ed.dirty} onclick={() => ed.discard()}>Buang perubahan</button>
+      <div class="e-spacer"></div>
+      <span class="e-status" class:dirty={ed.dirty} aria-live="polite">{ed.dirty ? `${ed.dirty} perubahan belum ${ed.storage?.kind === 'local' ? 'disimpan' : 'dipublikasikan'}` : 'Tersimpan'}</span>
+      <a class="e-btn e-ghost e-view" href={ed.pageUrl()} target="_blank" rel="noopener" title="Buka halaman ini di tab baru"><span class="e-lbl">Lihat situs</span><Icon name="external" size={14} /></a>
+      {#if ed.dirty}
+        <button type="button" class="e-btn e-ghost e-discard" title="Kembalikan semua ke versi terakhir yang disimpan (bisa diurungkan)" onclick={() => ed.discard()}>Buang</button>
+      {/if}
       <button type="button" class="e-btn e-primary" disabled={!ed.dirty} onclick={() => ed.openPublish()}>{ed.storage?.kind === 'local' ? 'Simpan ke file' : 'Publikasikan'}</button>
-      <button type="button" class="e-btn e-ghost e-toggle" aria-expanded={ed.sidebarOpen} onclick={() => (ed.sidebarOpen = !ed.sidebarOpen)}>{ed.sidebarOpen ? 'Tutup panel' : 'Panel'}</button>
+      <button type="button" class="e-icon e-toggle" title={ed.sidebarOpen ? 'Tutup panel' : 'Buka panel'} aria-label={ed.sidebarOpen ? 'Tutup panel' : 'Buka panel'} aria-expanded={ed.sidebarOpen} class:on={ed.sidebarOpen} onclick={() => (ed.sidebarOpen = !ed.sidebarOpen)}><Icon name="panel" /></button>
     </header>
 
     <main class="e-main"><Canvas /></main>
 
-    <aside class="e-side" aria-label="Panel editor">
+    <aside class="e-side" aria-label="Panel editor" bind:this={side}>
       {#if ed.panel.kind === 'section'}
         <SectionPanel index={ed.panel.index} />
       {:else if ed.panel.kind === 'page'}
         <PagePanel />
       {:else}
-        <div class="e-tabs" role="tablist">
+        <div class="e-tabs" role="tablist" aria-label="Panel editor">
           {#each TABS as [t, l]}
             <button type="button" role="tab" aria-selected={ed.tab === t} class:on={ed.tab === t} onclick={() => (ed.tab = t)}>{l}</button>
           {/each}

@@ -2,6 +2,7 @@
   import FieldForm from './FieldForm.svelte';
   import { ed } from '../state.svelte';
   import { defaults, type Field } from '../paths';
+  import Icon from '../Icon.svelte';
 
   interface Props {
     def: Field;
@@ -51,10 +52,10 @@
     {#each items as item, i (i)}
       <li class:open={open === i}>
         <div class="e-item-head">
-          <button type="button" class="e-item-title" aria-expanded={open === i} onclick={() => (open = open === i ? null : i)}>{summary(item, i)}</button>
-          <button type="button" class="e-icon" aria-label="Naikkan" disabled={i === 0} onclick={() => move(i, -1)}>↑</button>
-          <button type="button" class="e-icon" aria-label="Turunkan" disabled={i === items.length - 1} onclick={() => move(i, 1)}>↓</button>
-          <button type="button" class="e-icon danger" aria-label="Hapus item" onclick={() => remove(i)}>✕</button>
+          <button type="button" class="e-item-title" aria-expanded={open === i} onclick={() => (open = open === i ? null : i)}><span>{summary(item, i)}</span></button>
+          <button type="button" class="e-icon" title="Naikkan" aria-label="Naikkan" disabled={i === 0} onclick={() => move(i, -1)}><Icon name="up" /></button>
+          <button type="button" class="e-icon" title="Turunkan" aria-label="Turunkan" disabled={i === items.length - 1} onclick={() => move(i, 1)}><Icon name="down" /></button>
+          <button type="button" class="e-icon danger" title="Hapus" aria-label="Hapus item" onclick={() => remove(i)}><Icon name="trash" /></button>
         </div>
         {#if open === i}
           <div class="e-item-body">
@@ -64,5 +65,5 @@
       </li>
     {/each}
   </ol>
-  <button type="button" class="e-btn e-add" disabled={full} onclick={add}>+ Tambah {def.label.toLowerCase()}</button>
+  <button type="button" class="e-btn e-add" disabled={full} onclick={add}><Icon name="plus" size={14} />Tambah {def.label.toLowerCase()}</button>
 </div>

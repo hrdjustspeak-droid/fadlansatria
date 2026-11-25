@@ -84,10 +84,11 @@
       {:else if f.widget === 'number'}
         <input id={id(f)} class="e-input" type="number" min={f.min} max={f.max} value={value[f.name] ?? ''} oninput={(e) => set(f, e.currentTarget.value === '' ? undefined : Number(e.currentTarget.value))} />
       {:else if f.widget === 'select' && f.name === 'variant'}
-        <div class="e-variants" role="radiogroup" aria-label={f.label}>
+        <div class="e-variants e-variants-list" role="radiogroup" aria-label={f.label}>
           {#each f.options ?? [] as o}
+            {@const [name, desc] = o.label.split(/:\s(.*)/s)}
             <button type="button" role="radio" aria-checked={value[f.name] === o.value} class:on={value[f.name] === o.value} onclick={() => set(f, o.value)}>
-              {o.label}
+              <strong>{name}</strong>{#if desc}<span>{desc}</span>{/if}
             </button>
           {/each}
         </div>

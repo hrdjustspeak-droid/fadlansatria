@@ -2,6 +2,7 @@
   import { ed, type PageRef } from '../state.svelte';
   import FieldForm from '../fields/FieldForm.svelte';
   import { fileFields } from '../paths';
+  import Icon from '../Icon.svelte';
 
   let newTitle = $state('');
   let adding = $state(false);
@@ -47,7 +48,7 @@
       <button class="e-btn e-primary" type="submit">Buat</button>
     </form>
   {:else}
-    <button type="button" class="e-btn e-add" onclick={() => (adding = true)}>+ Halaman baru</button>
+    <button type="button" class="e-btn e-add" onclick={() => (adding = true)}><Icon name="plus" size={14} />Halaman baru</button>
   {/if}
 </section>
 
@@ -63,7 +64,7 @@
       </li>
     {/each}
   </ul>
-  <button type="button" class="e-btn e-add" onclick={() => ed.addProject()}>+ Proyek baru</button>
+  <button type="button" class="e-btn e-add" onclick={() => ed.addProject()}><Icon name="plus" size={14} />Proyek baru</button>
 </section>
 
 {#if ed.content}
