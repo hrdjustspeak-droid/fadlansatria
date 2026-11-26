@@ -172,6 +172,14 @@
       }
     },
     {
+      "type": "video",
+      "enabled": true,
+      "variant": "framed",
+      "youtubeUrl": "https://youtu.be/JZaLf7vFP_4?si=F86sLdNRevwxPhVN",
+      "title": "Fadlan Satria at-a-glance",
+      "caption": "Get to know a fraction of my story"
+    },
+    {
       "type": "contact",
       "enabled": true,
       "variant": "split",
