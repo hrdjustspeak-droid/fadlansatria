@@ -59,7 +59,7 @@ export function fieldAt(fields: Field[], path: string): Field | undefined {
 
 export const sectionDef = (type: string) => SECTION_TYPES.find((t) => t.name === type);
 
-/** Label manusiawi untuk path, mis. "Hero › Judul Besar". */
+/** Label manusiawi untuk path, mis. "Hero › Judul besar". */
 export function labelFor(fields: Field[], path: string): string {
   const out: string[] = [];
   let list: Field[] | undefined = fields;
@@ -115,3 +115,37 @@ export function defaults(fields: Field[]): Record<string, unknown> {
   }
   return o;
 }
+
+// Syarat varian dibaca dari hint cms-fields ("Hanya dipakai varian X & Y.", "Tidak dipakai X & Y, ...")
+// supaya Sveltia tetap memakai definisi yang sama. Dijaga editor-hints.test.ts.
+const ONLY = /Hanya (?:dipakai varian|untuk gaya) ([^.]+)\.\s*/;
+const NOT = /Tidak dipakai ([^,.]+)[^.]*\.\s*/;
+function variantValues(list: string, variants: Field['options'] = []) {
+  return list.split(/\s*(?:&|,|\bdan\b)\s*/).map((n) => variants.find((o) => o.label.split(':')[0].trim().toLowerCase() === n.trim().toLowerCase())?.value);
+}
+
+/** false bila field tidak dipakai oleh varian section yang sedang aktif. */
+export function usedByVariant(f: Field, variant: string | undefined, variants: Field['options']) {
+  if (!variant || !variants?.length || !f.hint) return true;
+  const only = f.hint.match(ONLY);
+  if (only) return variantValues(only[1], variants).includes(variant);
+  const not = f.hint.match(NOT);
+  return not ? !variantValues(not[1], variants).includes(variant) : true;
+}
+
+/** Batas karakter untuk varian aktif: "Maks. 80 karakter (Showcase: 60)" → 60 saat Showcase. */
+export function maxFor(f: Field, variant: string | undefined, variants: Field['options']) {
+  const m = f.hint?.match(/Maks\. \d+ karakter \(([^:)]+): (\d+)\)/);
+  return m && variant && variantValues(m[1], variants).includes(variant) ? Number(m[2]) : f.maxlength;
+}
+
+/** Hint tanpa info yang sudah terlihat di editor visual: syarat varian, batas karakter/jumlah (ada penghitung), cara menyembunyikan tombol (ada saklar), seret (editor pakai tombol naik/turun). */
+export const editorHint = (hint = '') =>
+  hint
+    .replace(ONLY, '')
+    .replace(NOT, '')
+    .replace(/\s*Kosongkan teks tombol untuk menyembunyikan\./, '')
+    .replace(/\s*Maks\. \d+ karakter( \([^)]*\))?\.?/, '')
+    .replace(/\s*Maks\. \d+ (item|angka|kolom)\./, '')
+    .replace(/\s*Seret untuk mengubah urutan\./, '')
+    .trim();

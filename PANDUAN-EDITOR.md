@@ -8,7 +8,7 @@ Website ini diedit langsung di halamannya, mirip Google Sites. Anda melihat situ
 
 1. Buka `namaweb.com/edit`.
 2. Klik **Masuk dengan GitHub** dan izinkan aksesnya. Akun GitHub Anda harus sudah diundang developer.
-3. Halaman Beranda terbuka di tengah. Panel di kanan punya empat tab: **Sisipkan**, **Halaman**, **Tema**, dan **Situs**.
+3. Halaman Beranda terbuka di tengah. Panel di kanan punya lima tab: **Sisipkan**, **Halaman**, **Menu**, **Tema**, dan **Situs**.
 
 📷 *Tampilan editor*
 
@@ -38,17 +38,18 @@ Semua perubahan tersimpan otomatis sebagai **draft** di browser Anda. Kalau tab 
 
 1. Klik judul besar di halaman, lalu ketik judul baru (maks. 80 karakter).
 2. Untuk mengganti foto: klik area hero → panel kanan → **Ganti gambar** → pilih foto. Foto otomatis dikecilkan dan dikompres.
-3. Isi **Deskripsi Gambar (alt)**, misalnya "Raka sedang membuat sketsa logo di studio".
-4. **Gaya Tampilan** di panel kanan mengubah tata letak: Split, Tengah, atau Layar penuh.
+3. Isi **Deskripsi gambar (alt)**, misalnya "Raka sedang membuat sketsa logo di studio".
+4. **Gaya tampilan** di panel kanan mengubah tata letak: Split, Tengah, atau Layar penuh.
+   Panel hanya menampilkan isian yang dipakai gaya terpilih; isian khusus gaya lain muncul begitu gayanya dipilih.
 
 ## 2. Menambah proyek (3 gambar + 1 video)
 
 1. Tab **Halaman** → bagian Proyek → **+ Proyek baru**. Proyek baru dibuat sebagai draft.
 2. Klik judul dan ringkasan di halaman untuk mengubahnya, atau isi lewat panel kanan.
-3. Panel kanan: pilih **Kategori** dan **Tahun**, ganti **Gambar Cover**, nyalakan **Unggulan** bila perlu tampil di beranda.
+3. Panel kanan: pilih **Kategori** dan **Tahun**, ganti **Gambar cover**, nyalakan **Unggulan** bila perlu tampil di beranda.
 4. **Galeri** → **+ Tambah galeri** tiga kali, lalu ganti gambar tiap item dan isi deskripsinya.
 5. **Video YouTube** → **+ Tambah**, tempel link YouTube.
-6. Tulis ceritanya di **Isi Studi Kasus**. Tombol B, I, H2, dan • Daftar membantu format.
+6. Tulis ceritanya di **Isi studi kasus**. Tombol B, I, H2, dan • Daftar membantu format.
 7. Matikan **Sembunyikan (draft)**, lalu **Publikasikan**.
 
 ## 3. Menambah video YouTube di halaman
@@ -68,19 +69,19 @@ Tab **Tema**:
 
 ## 5b. Gaya hero alternatif
 
-Klik hero → **Gaya Tampilan**:
-- **Spotlight**: foto muncul dari gelap, nama Anda ditulis raksasa, plus maks. 3 **Kolom Layanan**. Cocok dengan preset **Noir Spotlight** dan navbar **Pill**.
-- **Showcase**: kartu gelap besar dengan teks di kiri, foto di kanan, dan panel kaca berisi Kolom Layanan. Isi **Link Video Hero** untuk tombol "Tonton Video". **Titik Fokus Foto** menggeser bagian foto yang terlihat. Cocok dengan navbar **Kaca tengah**.
+Klik hero → **Gaya tampilan**:
+- **Spotlight**: foto muncul dari gelap, nama Anda ditulis raksasa, plus maks. 3 **Kolom layanan**. Cocok dengan preset **Noir Spotlight** dan navbar **Pill**.
+- **Showcase**: kartu gelap besar dengan teks di kiri, foto di kanan, dan panel kaca berisi Kolom Layanan. Isi **Link video hero** untuk tombol "Tonton Video". **Titik fokus foto** menggeser bagian foto yang terlihat. Cocok dengan navbar **Kaca tengah**.
 - **Cutout**: subjek tanpa latar berdiri di depan nama raksasa. Upload **Foto Cutout** berupa PNG/WebP transparan (hapus latar gratis di Canva atau remove.bg). Kalau fotonya masih berlatar, situs tetap rapi dengan efek tepi memudar.
 
 Pengaturan pendukung:
 - **Situs** → Status Ketersediaan (badge bertitik hijau) dan Simbol di Belakang Nama (®, ™, *).
-- **Halaman → Menu navigasi** → Gaya Navbar.
+- Tab **Menu** → Gaya navbar.
 - **Tema** → "Ambil otomatis dari foto hero Beranda" untuk warna aksen.
 
 ## 6. Efek tepi gambar (vignette)
 
-Klik section yang punya gambar (Hero, About Singkat, header halaman) → **Efek Tepi Gambar** (Tanpa efek, Bingkai, Vignette, Pudar bawah, Vignette gelap, Larut, Gelap dari kiri) dan **Intensitas**.
+Klik section yang punya gambar (Hero, About Singkat, header halaman) → **Efek tepi gambar** (Tanpa efek, Bingkai, Vignette, Pudar bawah, Vignette gelap, Larut, Gelap dari kiri) dan **Intensitas**.
 
 ## 7. Membuat halaman baru dan memasukkannya ke menu
 
@@ -91,7 +92,7 @@ Klik section yang punya gambar (Hero, About Singkat, header halaman) → **Efek 
 
 Di Pengaturan halaman Anda juga bisa mengganti alamat URL (link di menu ikut berubah), menjadikan halaman draft, menduplikat, atau menghapusnya. Menghapus atau men-draft halaman otomatis mengeluarkannya dari menu.
 
-Urutan menu, tombol CTA navbar ("Hubungi Saya"), dan menu footer diatur di tab **Halaman** → **Menu navigasi**. Pilih tujuan tiap item dari satu daftar: halaman bawaan, halaman custom, atau link luar.
+Urutan menu, tombol CTA navbar ("Hubungi Saya"), dan menu footer diatur di tab **Menu**. Pilih tujuan tiap item dari satu daftar: halaman bawaan, halaman custom, atau link luar.
 
 ## Batas teks
 

@@ -1,10 +1,11 @@
 <script lang="ts">
   import { ICONS } from './icons';
   import { ed } from './state.svelte';
-  import { fieldAt, folderFields, fileFields, getAt, labelFor, sectionDef, setAt, type Field } from './paths';
+  import { fieldAt, folderFields, fileFields, getAt, labelFor, maxFor, sectionDef, setAt, type Field } from './paths';
 
   let iframe: HTMLIFrameElement;
   let loadedKey = '';
+  let shown = $state(false); // kanvas pertama kali tampil
   let timer: ReturnType<typeof setTimeout> | undefined;
   let ctrl: AbortController | null = null;
 
@@ -76,6 +77,7 @@
     const doc = iframe?.contentDocument;
     if (!doc?.body) return;
     doc.body.dataset.pbReady = '1';
+    shown = true;
     injectStyle(doc);
     bind(doc);
     decorate(doc);
@@ -95,7 +97,10 @@
       [data-section].pb-selected{outline:2px solid #2563eb;outline-offset:-2px}
       [data-section][data-hidden]{opacity:.9}
       .pb-bar{position:absolute;top:12px;left:12px;z-index:60;display:none;gap:2px;padding:4px;background:#111827;border-radius:10px;box-shadow:0 4px 16px rgb(0 0 0/.25);font:500 12px/1 system-ui,sans-serif}
-      [data-section]:hover>.pb-bar,[data-section].pb-selected>.pb-bar{display:flex}
+      /* Hanya saat hover/fokus: section terpilih sudah punya aksi di panel, dan bar permanen menutupi isi (mis. navbar). */
+      [data-section]:hover>.pb-bar,.pb-bar:focus-within{display:flex}
+      /* Di batas atas section (bukan di atas isinya), kecuali section pertama yang tidak punya ruang di atasnya. */
+      [data-section]:not([data-section="0"])>.pb-bar{top:0;translate:0 -100%;border-radius:10px 10px 0 0}
       .pb-bar button{all:unset;display:grid;place-items:center;width:30px;height:30px;border-radius:7px;color:#f9fafb;cursor:pointer}
       .pb-bar button:hover{background:#374151}.pb-bar button[data-act=drag]{cursor:grab}
       .pb-bar .pb-name{color:#d1d5db;padding:0 8px 0 6px;align-self:center;white-space:nowrap}
@@ -185,7 +190,9 @@
     const badge = doc.createElement('div');
     badge.className = 'pb-count';
     doc.body.append(badge);
-    editing = { el, abs, max: def?.maxlength, badge, before: el.textContent ?? '' };
+    const s = section !== null ? ed.sections()?.[section] : undefined;
+    const max = def && maxFor(def, s?.variant, sectionDef(s?.type)?.fields.find((x) => x.name === 'variant')?.options);
+    editing = { el, abs, max: max || undefined, badge, before: el.textContent ?? '' };
     el.focus();
     const range = (doc as any).caretRangeFromPoint?.(e.clientX, e.clientY) as Range | null;
     if (range) {
@@ -305,9 +312,8 @@
           ed.sidebarOpen = true;
         } else if (t.closest('.site-header, .site-footer')) {
           ed.panel = { kind: 'tabs' };
-          ed.tab = 'pages';
+          ed.tab = 'menu';
           ed.sidebarOpen = true;
-          ed.say('Menu navbar & footer diatur di tab Halaman.');
         } else if (t.closest('main')) {
           ed.panel = ed.page.kind === 'home' || ed.page.kind === 'projects' ? { kind: 'tabs' } : { kind: 'page' };
         }
@@ -383,6 +389,7 @@
     </div>
   {/if}
   <iframe bind:this={iframe} title="Kanvas halaman" style:width={widths[ed.device]} onload={onLoad}></iframe>
+  {#if !shown && !ed.renderErrors.length}<p class="first" role="status">Menyiapkan pratinjau halaman…</p>{/if}
   {#if ed.rendering}<div class="spinner" aria-hidden="true"></div>{/if}
 </div>
 
@@ -426,6 +433,13 @@
   .render-errors ul {
     margin: 6px 0 0 18px;
     list-style: disc;
+  }
+  .first {
+    position: absolute;
+    top: 45%;
+    margin: 0;
+    color: var(--e-muted);
+    font-size: 14px;
   }
   .spinner {
     position: absolute;

@@ -7,7 +7,7 @@
   import MarkdownField from './MarkdownField.svelte';
   import TagsField from './TagsField.svelte';
   import { ed } from '../state.svelte';
-  import type { Field } from '../paths';
+  import { editorHint, maxFor, usedByVariant, type Field } from '../paths';
 
   interface Props {
     fields: Field[];
@@ -19,8 +19,9 @@
   let { fields, value, path, skip = [] }: Props = $props();
 
   const LINK = ['linkType', 'builtinPage', 'customPage', 'url'];
+  const variants = $derived(fields.find((f) => f.name === 'variant')?.options);
   const hasLink = $derived(fields.some((f) => f.name === 'linkType'));
-  const visible = $derived(fields.filter((f) => !skip.includes(f.name) && f.widget !== 'hidden' && !(hasLink && (LINK.includes(f.name) || f.name === 'label')) && !f.types));
+  const visible = $derived(fields.filter((f) => !skip.includes(f.name) && f.widget !== 'hidden' && !(hasLink && (LINK.includes(f.name) || f.name === 'label')) && !f.types && usedByVariant(f, value.variant, variants)));
 
   const id = (f: Field) => `f-${path}-${f.name}`.replace(/[^a-zA-Z0-9_-]/g, '-');
   const set = (f: Field, v: unknown) => ed.mutate(() => (value[f.name] = v), { group: `${path}.${f.name}` });
@@ -34,6 +35,7 @@
       return '';
     }
   }
+  const max = (f: Field) => maxFor(f, value.variant, variants);
   const len = (f: Field) => String(value[f.name] ?? '').length;
 </script>
 
@@ -55,11 +57,11 @@
         <input type="checkbox" checked={!!value[f.name]} onchange={(e) => set(f, e.currentTarget.checked)} />
         <span>{f.label}</span>
       </label>
-      {#if f.hint}<p class="e-hint">{f.hint}</p>{/if}
+      {#if editorHint(f.hint)}<p class="e-hint">{editorHint(f.hint)}</p>{/if}
     {:else if f.widget === 'object'}
       <fieldset class="e-group">
         <legend>{f.label}</legend>
-        {#if f.hint}<p class="e-hint">{f.hint}</p>{/if}
+        {#if editorHint(f.hint)}<p class="e-hint">{editorHint(f.hint)}</p>{/if}
         {#if value[f.name] && typeof value[f.name] === 'object'}
           <FieldForm fields={f.fields ?? []} value={value[f.name]} path={`${path}.${f.name}`} />
         {:else}
@@ -73,12 +75,12 @@
     {:else}
       <label class="e-label" for={id(f)}>
         {f.label}{#if f.required !== false && f.widget !== 'select'}<span class="e-req" aria-hidden="true"> *</span>{/if}
-        {#if f.maxlength}<span class="e-count" class:over={len(f) > f.maxlength}>{len(f)}/{f.maxlength}</span>{/if}
+        {#if max(f)}<span class="e-count" class:over={len(f) > max(f)!}>{len(f)}/{max(f)}</span>{/if}
       </label>
       {#if f.widget === 'string'}
-        <input id={id(f)} class="e-input" type={f.type === 'email' ? 'email' : f.type === 'url' ? 'url' : 'text'} value={value[f.name] ?? ''} maxlength={f.maxlength} oninput={(e) => set(f, e.currentTarget.value)} />
+        <input id={id(f)} class="e-input" type={f.type === 'email' ? 'email' : f.type === 'url' ? 'url' : 'text'} value={value[f.name] ?? ''} maxlength={max(f)} oninput={(e) => set(f, e.currentTarget.value)} />
       {:else if f.widget === 'text'}
-        <textarea id={id(f)} class="e-input" rows="3" maxlength={f.maxlength} value={value[f.name] ?? ''} oninput={(e) => set(f, e.currentTarget.value)}></textarea>
+        <textarea id={id(f)} class="e-input" rows="3" maxlength={max(f)} value={value[f.name] ?? ''} oninput={(e) => set(f, e.currentTarget.value)}></textarea>
       {:else if f.widget === 'markdown'}
         <MarkdownField id={id(f)} value={value[f.name] ?? ''} onchange={(v) => set(f, v)} />
       {:else if f.widget === 'number'}
@@ -94,7 +96,7 @@
         </div>
       {:else if f.widget === 'select'}
         <select id={id(f)} class="e-input" value={value[f.name] ?? ''} onchange={(e) => set(f, e.currentTarget.value)}>
-          {#if f.required === false}<option value="">(default)</option>{/if}
+          {#if f.required === false}<option value="">Otomatis</option>{/if}
           {#each f.options ?? [] as o}<option value={o.value}>{o.label}</option>{/each}
         </select>
       {:else if f.widget === 'image' || f.widget === 'file'}
@@ -107,8 +109,7 @@
         </div>
       {/if}
       {#if patternError(f)}<p class="e-error">{patternError(f)}</p>{/if}
-      {#if f.hint && f.widget !== 'select'}<p class="e-hint">{f.hint}</p>{/if}
-      {#if f.hint && f.widget === 'select' && f.name !== 'variant'}<p class="e-hint">{f.hint}</p>{/if}
+      {#if f.name !== 'variant' && editorHint(f.hint)}<p class="e-hint">{editorHint(f.hint)}</p>{/if}
     {/if}
   </div>
 {/each}

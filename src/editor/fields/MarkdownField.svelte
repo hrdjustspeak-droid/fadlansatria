@@ -24,21 +24,29 @@
     onchange(value.slice(0, start) + prefix + value.slice(start));
     requestAnimationFrame(() => ta.focus());
   }
+  // Tanpa prompt(): sisipkan [teks](https://) lalu pilih bagian URL supaya langsung diketik/ditempel.
   function link() {
-    const url = prompt('Alamat link (https://… atau /halaman):');
-    if (url) wrap('[', `](${url})`, 'teks link');
+    const { selectionStart: s, selectionEnd: e } = ta;
+    const text = value.slice(s, e) || 'teks link';
+    const url = 'https://';
+    onchange(value.slice(0, s) + `[${text}](${url})` + value.slice(e));
+    const at = s + text.length + 3;
+    requestAnimationFrame(() => {
+      ta.focus();
+      ta.setSelectionRange(at, at + url.length);
+    });
   }
 </script>
 
 <div class="e-md">
   <div class="e-md-bar" role="toolbar" aria-label="Format teks">
-    <button type="button" title="Tebal" onclick={() => wrap('**')}><b>B</b></button>
-    <button type="button" title="Miring" onclick={() => wrap('*')}><i>I</i></button>
-    <button type="button" title="Sub-judul" onclick={() => line('## ')}>H2</button>
-    <button type="button" title="Sub-sub-judul" onclick={() => line('### ')}>H3</button>
-    <button type="button" title="Daftar" onclick={() => line('- ')}>• Daftar</button>
-    <button type="button" title="Kutipan" onclick={() => line('> ')}>❝</button>
-    <button type="button" title="Link" onclick={link}>Link</button>
+    <button type="button" title="Tebal" aria-label="Tebal" onclick={() => wrap('**')}><b>B</b></button>
+    <button type="button" title="Miring" aria-label="Miring" onclick={() => wrap('*')}><i>I</i></button>
+    <button type="button" title="Sub-judul" aria-label="Sub-judul" onclick={() => line('## ')}>H2</button>
+    <button type="button" title="Sub-sub-judul" aria-label="Sub-sub-judul" onclick={() => line('### ')}>H3</button>
+    <button type="button" title="Daftar" aria-label="Daftar" onclick={() => line('- ')}>• Daftar</button>
+    <button type="button" title="Kutipan" aria-label="Kutipan" onclick={() => line('> ')}>❝</button>
+    <button type="button" title="Link" aria-label="Link" onclick={link}>Link</button>
   </div>
   <textarea {id} bind:this={ta} class="e-input" rows="8" {value} oninput={(e) => onchange(e.currentTarget.value)}></textarea>
 </div>

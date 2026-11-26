@@ -33,8 +33,8 @@ const linkFields = {
 };
 type LinkFields = { linkType?: string; builtinPage?: string; customPage?: string; url?: string };
 function checkLink(l: LinkFields, ctx: z.RefinementCtx) {
-  if (l.linkType === 'builtin' && !l.builtinPage) ctx.addIssue({ code: 'custom', message: 'Pilih Halaman Bawaan untuk link jenis "builtin"' });
-  if (l.linkType === 'custom' && !l.customPage) ctx.addIssue({ code: 'custom', message: 'Pilih Halaman Custom untuk link jenis "custom"' });
+  if (l.linkType === 'builtin' && !l.builtinPage) ctx.addIssue({ code: 'custom', message: 'Pilih halaman bawaan untuk link jenis "builtin"' });
+  if (l.linkType === 'custom' && !l.customPage) ctx.addIssue({ code: 'custom', message: 'Pilih halaman custom untuk link jenis "custom"' });
   if (l.linkType === 'external' && !l.url) ctx.addIssue({ code: 'custom', message: 'Isi URL untuk link jenis "external"' });
   // "Tanpa link" hanya sah untuk item menu navbar (yang punya field children).
   if (l.linkType === 'none' && !('children' in l)) ctx.addIssue({ code: 'custom', message: 'Pilih tujuan link' });
@@ -87,7 +87,7 @@ export const sectionSchemas = {
     nameLayer: z.enum(['behind', 'front']).default('behind'),
   }).superRefine((h, ctx) => {
     const big = h.variant === 'spotlight' || h.variant === 'cutout';
-    if (!big && !h.headline) ctx.addIssue({ code: 'custom', path: ['headline'], message: 'Judul Besar wajib diisi' });
+    if (!big && !h.headline) ctx.addIssue({ code: 'custom', path: ['headline'], message: 'Judul besar wajib diisi' });
     if (h.variant === 'showcase') {
       for (const [k, max] of [['headline', 60], ['subheadline', 120], ['eyebrow', 32]] as const)
         if ((h[k]?.length ?? 0) > max) ctx.addIssue({ code: 'custom', path: [k], message: `Maks. ${max} karakter untuk gaya Showcase` });

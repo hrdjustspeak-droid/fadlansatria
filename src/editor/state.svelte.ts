@@ -14,7 +14,7 @@ export type PageRef =
   | { kind: 'project'; id: string };
 
 export type Panel = { kind: 'tabs' } | { kind: 'section'; index: number } | { kind: 'page' } | { kind: 'problems' };
-export type Tab = 'insert' | 'pages' | 'theme' | 'site';
+export type Tab = 'insert' | 'pages' | 'menu' | 'theme' | 'site';
 
 const DRAFT_KEY = 'pb-editor-draft';
 const IMG_RE = /^\/uploads\/.+\.(webp|png|jpe?g|gif|svg)$/i;
@@ -32,6 +32,8 @@ function uploadRefs(v: unknown, out = new Set<string>()): Set<string> {
   else if (v && typeof v === 'object') Object.values(v).forEach((x) => uploadRefs(x, out));
   return out;
 }
+
+type Draft = { base: string; content: ContentState; uploads: string[] };
 
 class Editor {
   status = $state<'loading' | 'login' | 'ready' | 'error'>('loading');
@@ -53,6 +55,7 @@ class Editor {
   toast = $state('');
   busy = $state('');
   publishOpen = $state(false);
+  staleDraft = $state<Draft | null>(null);
   problems = $state<Problem[]>([]);
   canUndo = $state(false);
   canRedo = $state(false);
@@ -96,22 +99,37 @@ class Editor {
     const raw = localStorage.getItem(DRAFT_KEY);
     if (!raw) return;
     try {
-      const d = JSON.parse(raw) as { base: string; content: ContentState; uploads: string[] };
-      if (d.base !== this.baseKey()) {
-        if (!confirm('Ada draft lama yang dibuat sebelum situs terakhir dipublikasikan. Pulihkan draft itu? (Batal = buang draft)')) {
-          localStorage.removeItem(DRAFT_KEY);
-          await idbClear();
-          return;
-        }
-      }
-      for (const path of d.uploads) {
-        const blob = await idbGet(path);
-        if (blob) this.uploads[path] = { blob, url: URL.createObjectURL(blob) };
-      }
-      this.content = d.content;
-      if (Object.keys(this.changes).length) this.say('Draft yang belum dipublikasikan dipulihkan');
+      const d = JSON.parse(raw) as Draft;
+      // Draft dari sebelum publikasi terakhir bisa menimpa isi yang lebih baru: tanya dulu (dialog di Editor.svelte).
+      if (d.base !== this.baseKey()) this.staleDraft = d;
+      else await this.applyDraft(d);
     } catch {
       localStorage.removeItem(DRAFT_KEY);
+    }
+  }
+
+  private async applyDraft(d: Draft) {
+    for (const path of d.uploads) {
+      const blob = await idbGet(path);
+      if (blob) this.uploads[path] = { blob, url: URL.createObjectURL(blob) };
+    }
+    this.content = d.content;
+    if (Object.keys(this.changes).length) this.say('Draft yang belum dipublikasikan dipulihkan.');
+  }
+
+  /** Jawaban dialog draft lama: pulihkan atau buang. */
+  async resolveStaleDraft(keep: boolean) {
+    const d = this.staleDraft;
+    this.staleDraft = null;
+    if (!d) return;
+    if (keep) {
+      await this.applyDraft(d);
+      this.fixPage();
+      this.measureImages();
+      this.renderTick++;
+    } else {
+      localStorage.removeItem(DRAFT_KEY);
+      await idbClear();
     }
   }
 
