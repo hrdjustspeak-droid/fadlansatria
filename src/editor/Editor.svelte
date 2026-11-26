@@ -6,6 +6,7 @@
   import Canvas from './Canvas.svelte';
   import InsertPanel from './panels/InsertPanel.svelte';
   import PagesPanel from './panels/PagesPanel.svelte';
+  import MenuPanel from './panels/MenuPanel.svelte';
   import ThemePanel from './panels/ThemePanel.svelte';
   import SectionPanel from './panels/SectionPanel.svelte';
   import PagePanel from './panels/PagePanel.svelte';
@@ -55,6 +56,7 @@
   const TABS: [Tab, string][] = [
     ['insert', 'Sisipkan'],
     ['pages', 'Halaman'],
+    ['menu', 'Menu'],
     ['theme', 'Tema'],
     ['site', 'Situs'],
   ];
@@ -90,14 +92,31 @@
     const [kind, id] = doc.split(':');
     ed.publishOpen = false;
     if (doc === 'site') return ((ed.panel = { kind: 'tabs' }), (ed.tab = 'site'));
-    if (doc === 'navigation') return ((ed.panel = { kind: 'tabs' }), (ed.tab = 'pages'));
+    if (doc === 'navigation') return ((ed.panel = { kind: 'tabs' }), (ed.tab = 'menu'));
     if (doc === 'theme') return ((ed.panel = { kind: 'tabs' }), (ed.tab = 'theme'));
     ed.openPage((id ? { kind, id } : { kind }) as PageRef);
     const sec = path.match(/^sections\.(\d+)/);
     ed.panel = sec ? { kind: 'section', index: Number(sec[1]) } : kind === 'home' ? { kind: 'tabs' } : { kind: 'page' };
     ed.sidebarOpen = true;
   }
-  const changeNames = $derived([...new Set(Object.keys(ed.changes).map((p) => ed.describe(p)))]);
+  // "Beranda · Hero, Statistik": section yang isinya beda dari versi tersimpan (dibandingkan per posisi).
+  function changeDetail(path: string) {
+    try {
+      const [a, b] = [JSON.parse(ed.base[path] ?? '{}'), JSON.parse((ed.serialized as Record<string, string>)[path] ?? '{}')];
+      if (!Array.isArray(b.sections)) return '';
+      const label = (s: any) => sectionDef(s?.type)?.label ?? 'Section';
+      const old: any[] = a.sections ?? [];
+      const parts = b.sections.filter((s: any, i: number) => JSON.stringify(s) !== JSON.stringify(old[i])).map(label);
+      if (old.length > b.sections.length) parts.push(`${old.length - b.sections.length} section dihapus`);
+      const { sections: _a, ...restA } = a;
+      const { sections: _b, ...restB } = b;
+      if (JSON.stringify(restA) !== JSON.stringify(restB)) parts.unshift('pengaturan halaman');
+      return [...new Set(parts)].join(', ');
+    } catch {
+      return '';
+    }
+  }
+  const changeNames = $derived(Object.keys(ed.changes).map((p) => [ed.describe(p), changeDetail(p)] as const));
 </script>
 
 <svelte:window onkeydown={onKey} />
@@ -141,7 +160,7 @@
       <span class="e-status" class:dirty={ed.dirty} aria-live="polite">{ed.dirty ? `${ed.dirty} perubahan belum ${ed.storage?.kind === 'local' ? 'disimpan' : 'dipublikasikan'}` : 'Tersimpan'}</span>
       <a class="e-btn e-ghost e-view" href={ed.pageUrl()} target="_blank" rel="noopener" title="Buka halaman ini di tab baru"><span class="e-lbl">Lihat situs</span><Icon name="external" size={14} /></a>
       {#if ed.dirty}
-        <button type="button" class="e-btn e-ghost e-discard" title="Kembalikan semua ke versi terakhir yang disimpan (bisa diurungkan)" onclick={() => ed.discard()}>Buang</button>
+        <button type="button" class="e-btn e-ghost e-discard" title="Kembalikan semua ke versi terakhir yang disimpan (bisa diurungkan)" onclick={() => ed.discard()}>Buang perubahan</button>
       {/if}
       <button type="button" class="e-btn e-primary" disabled={!ed.dirty} onclick={() => ed.openPublish()}>{ed.storage?.kind === 'local' ? 'Simpan ke file' : 'Publikasikan'}</button>
       <button type="button" class="e-icon e-toggle" title={ed.sidebarOpen ? 'Tutup panel' : 'Buka panel'} aria-label={ed.sidebarOpen ? 'Tutup panel' : 'Buka panel'} aria-expanded={ed.sidebarOpen} class:on={ed.sidebarOpen} onclick={() => (ed.sidebarOpen = !ed.sidebarOpen)}><Icon name="panel" /></button>
@@ -163,6 +182,7 @@
         <div class="e-tabpanel" role="tabpanel">
           {#if ed.tab === 'insert'}<InsertPanel />
           {:else if ed.tab === 'pages'}<PagesPanel />
+          {:else if ed.tab === 'menu'}<MenuPanel />
           {:else if ed.tab === 'theme'}<ThemePanel />
           {:else}
             <section class="e-sec">
@@ -176,8 +196,9 @@
   </div>
 
   {#if ed.publishOpen}
-    <div class="e-modal-bg" role="presentation" onclick={(e) => e.target === e.currentTarget && (ed.publishOpen = false)}>
-      <div class="e-modal" role="dialog" aria-modal="true" aria-labelledby="pub-title">
+    <!-- <dialog> native: Esc, focus trap, dan fokus awal dari browser. Klik backdrop = target dialog itu sendiri. -->
+    <dialog class="e-modal-bg" aria-labelledby="pub-title" {@attach (d) => d.showModal()} onclose={() => (ed.publishOpen = false)} onclick={(e) => e.target === e.currentTarget && e.currentTarget.close()}>
+      <div class="e-modal">
         <h2 id="pub-title">{ed.storage?.kind === 'local' ? 'Simpan perubahan ke file' : 'Publikasikan perubahan'}</h2>
         {#if ed.problems.length}
           <p>Perbaiki dulu {ed.problems.length} hal berikut sebelum {ed.storage?.kind === 'local' ? 'menyimpan' : 'mempublikasikan'}:</p>
@@ -189,7 +210,7 @@
         {:else}
           <p>Yang akan {ed.storage?.kind === 'local' ? 'disimpan' : 'dipublikasikan'}:</p>
           <ul class="e-changes">
-            {#each changeNames as n}<li>{n}</li>{/each}
+            {#each changeNames as [name, detail]}<li>{name}{#if detail}<span class="e-change-detail">{` · ${detail}`}</span>{/if}</li>{/each}
           </ul>
           {#if ed.storage?.kind === 'github'}<p class="e-hint">Situs diperbarui otomatis dalam 1–3 menit setelah dipublikasikan.</p>{/if}
         {/if}
@@ -198,9 +219,23 @@
           <button type="button" class="e-btn e-primary" disabled={!!ed.problems.length || !!ed.busy} onclick={() => ed.publish()}>{ed.busy || (ed.storage?.kind === 'local' ? 'Simpan' : 'Publikasikan')}</button>
         </div>
       </div>
-    </div>
+    </dialog>
+  {/if}
+
+  {#if ed.staleDraft}
+    <!-- Bukan confirm(): pilihan tombolnya harus jelas, dan draft lama bisa menimpa isi yang lebih baru. -->
+    <dialog class="e-modal-bg" aria-labelledby="draft-title" aria-describedby="draft-desc" {@attach (d) => d.showModal()} oncancel={(e) => e.preventDefault()}>
+      <div class="e-modal">
+        <h2 id="draft-title">Ada draft lama yang belum {ed.storage?.kind === 'local' ? 'disimpan' : 'dipublikasikan'}</h2>
+        <p id="draft-desc">Draft ini dibuat sebelum versi terakhir situs {ed.storage?.kind === 'local' ? 'disimpan' : 'dipublikasikan'}. Kalau dipulihkan, isinya bisa menimpa perubahan yang lebih baru.</p>
+        <div class="e-row e-modal-actions">
+          <button type="button" class="e-btn e-ghost" onclick={() => ed.resolveStaleDraft(false)}>Buang draft</button>
+          <button type="button" class="e-btn e-primary" onclick={() => ed.resolveStaleDraft(true)}>Pulihkan draft</button>
+        </div>
+      </div>
+    </dialog>
   {/if}
 {/if}
 
 {#if ed.toast}<div class="e-toast" role="status">{ed.toast}</div>{/if}
-{#if ed.busy && !ed.publishOpen}<div class="e-toast">{ed.busy}</div>{/if}
+{#if ed.busy && !ed.publishOpen}<div class="e-toast" role="status">{ed.busy}</div>{/if}

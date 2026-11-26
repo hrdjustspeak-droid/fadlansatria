@@ -1,6 +1,6 @@
 <script lang="ts">
   import { ed } from '../state.svelte';
-  import { SECTION_TYPES } from '../paths';
+  import { SECTION_TYPES, sectionDef } from '../paths';
   import type { SectionType } from '../../lib/schemas';
 
   // Deskripsi singkat + sketsa tata letak (kotak-kotak) per jenis section.
@@ -21,7 +21,9 @@
     contact: ['Form kontak, email, dan WhatsApp', 'M2 3h8v3H2zM12 3h10v2H12zM12 7h10v2H12zM12 11h6v2.5h-6z'],
   };
   const canInsert = $derived(!!ed.sections());
-  const where = $derived(ed.insertAt !== null ? `setelah section #${ed.insertAt}` : ed.panel.kind === 'section' ? 'setelah section terpilih' : 'di bagian bawah halaman');
+  // Sebut section patokannya dengan nama, bukan nomor urut.
+  const after = $derived(ed.insertAt !== null ? ed.insertAt - 1 : ed.panel.kind === 'section' ? ed.panel.index : -1);
+  const where = $derived(after >= 0 ? `di bawah section ${sectionDef(ed.sections()?.[after]?.type)?.label ?? ''}` : 'di bagian bawah halaman');
 </script>
 
 {#if canInsert}

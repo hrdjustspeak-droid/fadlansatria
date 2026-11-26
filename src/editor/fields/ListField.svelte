@@ -1,7 +1,7 @@
 <script lang="ts">
   import FieldForm from './FieldForm.svelte';
   import { ed } from '../state.svelte';
-  import { defaults, type Field } from '../paths';
+  import { defaults, editorHint, type Field } from '../paths';
   import Icon from '../Icon.svelte';
 
   interface Props {
@@ -47,7 +47,7 @@
     <span class="e-label">{def.label}</span>
     {#if def.max}<span class="e-count">{items.length}/{def.max}</span>{/if}
   </div>
-  {#if def.hint}<p class="e-hint">{def.hint}</p>{/if}
+  {#if editorHint(def.hint)}<p class="e-hint">{editorHint(def.hint)}</p>{/if}
   <ol class="e-items">
     {#each items as item, i (i)}
       <li class:open={open === i}>

@@ -69,7 +69,7 @@ collections:
               - ^62\d{8,14}$
               - "Format: 62 diikuti nomor, tanpa spasi"
           - name: socials
-            label: Sosial Media
+            label: Sosial media
             widget: list
             hint: ""
             required: false
@@ -98,7 +98,7 @@ collections:
                 hint: ""
                 required: true
               - name: url
-                label: Link Profil
+                label: Link profil
                 widget: string
                 hint: Link lengkap, diawali https://
                 required: true
@@ -117,24 +117,24 @@ collections:
             collapsed: false
             fields:
               - name: description
-                label: Deskripsi Situs
+                label: Deskripsi situs
                 widget: text
                 hint: Muncul di Google. Maks. 160 karakter
                 required: true
                 maxlength: 160
               - name: ogImage
-                label: Gambar Preview Link
+                label: Gambar preview link
                 widget: image
                 hint: 1200×630 px. Muncul saat link dibagikan di WhatsApp/LinkedIn.
                 required: true
           - name: footerText
-            label: Teks Footer
+            label: Teks footer
             widget: string
             hint: Maks. 160 karakter
             required: false
             maxlength: 160
           - name: language
-            label: Bahasa Situs
+            label: Bahasa situs
             widget: select
             options:
               - label: Bahasa Indonesia
@@ -151,7 +151,7 @@ collections:
             required: false
             maxlength: 200
           - name: nameSuffix
-            label: Simbol di Belakang Nama
+            label: Simbol di belakang nama
             widget: select
             options:
               - label: Tanpa simbol
@@ -166,7 +166,7 @@ collections:
             hint: Tampil kecil di belakang nama (navbar Pill, hero Spotlight & Cutout).
             required: false
           - name: availability
-            label: Status Ketersediaan
+            label: Status ketersediaan
             widget: object
             hint: Badge berisi titik hijau, mis. "Available" atau "Terima proyek".
             required: true
@@ -178,7 +178,7 @@ collections:
                 default: false
                 required: false
               - name: label
-                label: Teks Status
+                label: Teks status
                 widget: string
                 hint: Maks. 24 karakter
                 required: false
@@ -188,7 +188,7 @@ collections:
         file: src/content/settings/theme.json
         fields:
           - name: preset
-            label: Preset Tema
+            label: Preset tema
             widget: select
             options:
               - label: "Editorial: majalah, hangat, elegan"
@@ -211,7 +211,7 @@ collections:
             hint: Menentukan font, sudut, bayangan, dan warna awal.
             required: true
           - name: backgroundColor
-            label: Warna Latar (opsional)
+            label: Warna latar (opsional)
             widget: color
             allowInput: true
             required: false
@@ -220,7 +220,7 @@ collections:
               - "Format hex, contoh #F5F1EA"
             hint: Kosongkan untuk memakai warna preset. Warna bisa digeser sedikit otomatis demi keterbacaan.
           - name: textColor
-            label: Warna Teks (opsional)
+            label: Warna teks (opsional)
             widget: color
             allowInput: true
             required: false
@@ -229,7 +229,7 @@ collections:
               - "Format hex, contoh #1A1A1A"
             hint: Kosongkan untuk memakai warna preset. Bila kurang kontras dengan latar, otomatis digelapkan/diterangkan.
           - name: accentColor
-            label: Warna Aksen (opsional)
+            label: Warna aksen (opsional)
             widget: color
             allowInput: true
             required: false
@@ -255,7 +255,7 @@ collections:
         file: src/content/settings/navigation.json
         fields:
           - name: navStyle
-            label: Gaya Navbar
+            label: Gaya navbar
             widget: select
             options:
               - label: "Standar: nama, menu, tombol"
@@ -268,21 +268,21 @@ collections:
             hint: Tampilan navbar di semua halaman.
             required: false
           - name: mainMenu
-            label: Menu Navbar
+            label: Menu navbar
             widget: list
-            hint: "Maks. 6 item. Seret untuk mengubah urutan. Menautkan halaman custom: buat halamannya dulu di menu Halaman Custom."
+            hint: "Maks. 6 item. Seret untuk mengubah urutan. Menautkan halaman custom: buat halamannya dulu di menu Halaman custom."
             required: false
             max: 6
             summary: "{{label}}"
             fields:
               - name: label
-                label: Teks Menu
+                label: Teks menu
                 widget: string
                 hint: Maks. 30 karakter
                 required: true
                 maxlength: 30
               - name: linkType
-                label: Jenis Link
+                label: Jenis link
                 widget: select
                 options:
                   - label: Halaman bawaan
@@ -297,7 +297,7 @@ collections:
                 hint: Pilih jenisnya, lalu isi SATU field tujuan di bawah yang sesuai. "Tanpa link" hanya untuk item menu navbar yang punya submenu.
                 required: true
               - name: builtinPage
-                label: Halaman Bawaan
+                label: Halaman bawaan
                 widget: select
                 options:
                   - label: Beranda
@@ -308,10 +308,10 @@ collections:
                     value: about
                   - label: Bagian Kontak (#kontak)
                     value: "#kontak"
-                hint: Isi bila Jenis Link = Halaman bawaan.
+                hint: Isi bila Jenis link = Halaman bawaan.
                 required: false
               - name: customPage
-                label: Halaman Custom
+                label: Halaman custom
                 widget: relation
                 collection: custom_pages
                 value_field: "{{fields.slug}}"
@@ -325,14 +325,14 @@ collections:
                     values:
                       - false
                 required: false
-                hint: Isi bila Jenis Link = Halaman custom. Halaman draft tidak muncul di sini.
+                hint: Isi bila Jenis link = Halaman custom. Halaman draft tidak muncul di sini.
               - name: url
-                label: URL Eksternal
+                label: URL eksternal
                 widget: string
-                hint: "Isi bila Jenis Link = Link luar. Contoh: https://instagram.com/nama"
+                hint: "Isi bila Jenis link = Link luar. Contoh: https://instagram.com/nama"
                 required: false
               - name: openNewTab
-                label: Buka di Tab Baru
+                label: Buka di tab baru
                 widget: boolean
                 default: false
                 required: false
@@ -345,13 +345,13 @@ collections:
                 summary: "{{label}}"
                 fields:
                   - name: label
-                    label: Teks Submenu
+                    label: Teks submenu
                     widget: string
                     hint: Maks. 40 karakter
                     required: true
                     maxlength: 40
                   - name: linkType
-                    label: Jenis Link
+                    label: Jenis link
                     widget: select
                     options:
                       - label: Halaman bawaan
@@ -366,7 +366,7 @@ collections:
                     hint: Pilih jenisnya, lalu isi SATU field tujuan di bawah yang sesuai. "Tanpa link" hanya untuk item menu navbar yang punya submenu.
                     required: true
                   - name: builtinPage
-                    label: Halaman Bawaan
+                    label: Halaman bawaan
                     widget: select
                     options:
                       - label: Beranda
@@ -377,10 +377,10 @@ collections:
                         value: about
                       - label: Bagian Kontak (#kontak)
                         value: "#kontak"
-                    hint: Isi bila Jenis Link = Halaman bawaan.
+                    hint: Isi bila Jenis link = Halaman bawaan.
                     required: false
                   - name: customPage
-                    label: Halaman Custom
+                    label: Halaman custom
                     widget: relation
                     collection: custom_pages
                     value_field: "{{fields.slug}}"
@@ -394,14 +394,14 @@ collections:
                         values:
                           - false
                     required: false
-                    hint: Isi bila Jenis Link = Halaman custom. Halaman draft tidak muncul di sini.
+                    hint: Isi bila Jenis link = Halaman custom. Halaman draft tidak muncul di sini.
                   - name: url
-                    label: URL Eksternal
+                    label: URL eksternal
                     widget: string
-                    hint: "Isi bila Jenis Link = Link luar. Contoh: https://instagram.com/nama"
+                    hint: "Isi bila Jenis link = Link luar. Contoh: https://instagram.com/nama"
                     required: false
           - name: ctaButton
-            label: Tombol CTA Navbar
+            label: Tombol CTA navbar
             widget: object
             hint: Tombol menonjol di kanan navbar, contoh "Hubungi Saya".
             required: true
@@ -413,13 +413,13 @@ collections:
                 default: false
                 required: false
               - name: label
-                label: Teks Tombol
+                label: Teks tombol
                 widget: string
                 hint: Maks. 30 karakter
                 required: false
                 maxlength: 30
               - name: linkType
-                label: Jenis Link
+                label: Jenis link
                 widget: select
                 options:
                   - label: Halaman bawaan
@@ -434,7 +434,7 @@ collections:
                 hint: Pilih jenisnya, lalu isi SATU field tujuan di bawah yang sesuai. "Tanpa link" hanya untuk item menu navbar yang punya submenu.
                 required: true
               - name: builtinPage
-                label: Halaman Bawaan
+                label: Halaman bawaan
                 widget: select
                 options:
                   - label: Beranda
@@ -445,10 +445,10 @@ collections:
                     value: about
                   - label: Bagian Kontak (#kontak)
                     value: "#kontak"
-                hint: Isi bila Jenis Link = Halaman bawaan.
+                hint: Isi bila Jenis link = Halaman bawaan.
                 required: false
               - name: customPage
-                label: Halaman Custom
+                label: Halaman custom
                 widget: relation
                 collection: custom_pages
                 value_field: "{{fields.slug}}"
@@ -462,14 +462,14 @@ collections:
                     values:
                       - false
                 required: false
-                hint: Isi bila Jenis Link = Halaman custom. Halaman draft tidak muncul di sini.
+                hint: Isi bila Jenis link = Halaman custom. Halaman draft tidak muncul di sini.
               - name: url
-                label: URL Eksternal
+                label: URL eksternal
                 widget: string
-                hint: "Isi bila Jenis Link = Link luar. Contoh: https://instagram.com/nama"
+                hint: "Isi bila Jenis link = Link luar. Contoh: https://instagram.com/nama"
                 required: false
           - name: footerMenu
-            label: Menu Footer
+            label: Menu footer
             widget: list
             hint: Maks. 10 item, untuk halaman sekunder seperti FAQ.
             required: false
@@ -477,13 +477,13 @@ collections:
             summary: "{{label}}"
             fields:
               - name: label
-                label: Teks Menu
+                label: Teks menu
                 widget: string
                 hint: Maks. 30 karakter
                 required: true
                 maxlength: 30
               - name: linkType
-                label: Jenis Link
+                label: Jenis link
                 widget: select
                 options:
                   - label: Halaman bawaan
@@ -498,7 +498,7 @@ collections:
                 hint: Pilih jenisnya, lalu isi SATU field tujuan di bawah yang sesuai. "Tanpa link" hanya untuk item menu navbar yang punya submenu.
                 required: true
               - name: builtinPage
-                label: Halaman Bawaan
+                label: Halaman bawaan
                 widget: select
                 options:
                   - label: Beranda
@@ -509,10 +509,10 @@ collections:
                     value: about
                   - label: Bagian Kontak (#kontak)
                     value: "#kontak"
-                hint: Isi bila Jenis Link = Halaman bawaan.
+                hint: Isi bila Jenis link = Halaman bawaan.
                 required: false
               - name: customPage
-                label: Halaman Custom
+                label: Halaman custom
                 widget: relation
                 collection: custom_pages
                 value_field: "{{fields.slug}}"
@@ -526,11 +526,11 @@ collections:
                     values:
                       - false
                 required: false
-                hint: Isi bila Jenis Link = Halaman custom. Halaman draft tidak muncul di sini.
+                hint: Isi bila Jenis link = Halaman custom. Halaman draft tidak muncul di sini.
               - name: url
-                label: URL Eksternal
+                label: URL eksternal
                 widget: string
-                hint: "Isi bila Jenis Link = Link luar. Contoh: https://instagram.com/nama"
+                hint: "Isi bila Jenis link = Link luar. Contoh: https://instagram.com/nama"
                 required: false
   - name: pages
     label: Halaman
@@ -557,7 +557,7 @@ collections:
                     required: false
                     hint: Matikan untuk menyembunyikan section tanpa menghapusnya.
                   - name: variant
-                    label: Gaya Tampilan
+                    label: Gaya tampilan
                     widget: select
                     options:
                       - label: "Split: teks kiri, foto kanan"
@@ -576,13 +576,13 @@ collections:
                     hint: Tata letak hero.
                     required: true
                   - name: eyebrow
-                    label: Teks Kecil di Atas Judul
+                    label: Teks kecil di atas judul
                     widget: string
                     hint: 'Contoh: "Desainer · Yogyakarta". Maks. 40 karakter (Showcase: 32)'
                     required: false
                     maxlength: 40
                   - name: headline
-                    label: Judul Besar
+                    label: Judul besar
                     widget: string
                     hint: "Kalimat utama. Maks. 80 karakter (Showcase: 60). Tidak dipakai Spotlight & Cutout, yang menampilkan nama raksasa."
                     required: false
@@ -599,18 +599,18 @@ collections:
                     hint: "Rasio 16:9 (Split: 4:5). Untuk Layar penuh, teks otomatis diberi overlay gelap supaya tetap terbaca."
                     required: false
                   - name: imageAlt
-                    label: Deskripsi Gambar (alt)
+                    label: Deskripsi gambar (alt)
                     widget: string
                     hint: Jelaskan isi gambar untuk pembaca layar & Google. Wajib bila ada gambar. Maks. 160 karakter
                     required: false
                     maxlength: 160
                   - name: videoMp4
-                    label: Video Latar MP4 (opsional)
+                    label: Video latar MP4 (opsional)
                     widget: file
                     required: false
                     hint: Hanya untuk gaya Layar penuh. Maks. 10 MB, tanpa suara. Gambar di atas wajib diisi sebagai poster.
                   - name: imageEdge
-                    label: Efek Tepi Gambar
+                    label: Efek tepi gambar
                     widget: select
                     options:
                       - label: "Tanpa efek: gambar tampil penuh"
@@ -630,7 +630,7 @@ collections:
                     hint: "Cara tepi gambar ditampilkan. Layar penuh: default Tanpa efek, Bingkai diabaikan. Gaya lain: default Bingkai."
                     required: false
                   - name: edgeIntensity
-                    label: Intensitas Efek
+                    label: Intensitas efek
                     widget: select
                     options:
                       - label: Halus
@@ -640,23 +640,23 @@ collections:
                       - label: Kuat
                         value: strong
                     default: medium
-                    hint: Seberapa kuat efek tepi. Tidak berpengaruh bila Efek Tepi = Tanpa efek atau Bingkai.
+                    hint: Seberapa kuat efek tepi. Tidak berpengaruh bila Efek tepi = Tanpa efek atau Bingkai.
                     required: false
                   - name: primaryCta
-                    label: Tombol Utama
+                    label: Tombol utama
                     widget: object
-                    hint: Tombol berwarna aksen. Kosongkan Teks Tombol untuk menyembunyikan.
+                    hint: Tombol berwarna aksen. Kosongkan teks tombol untuk menyembunyikan.
                     required: false
                     collapsed: true
                     fields:
                       - name: label
-                        label: Teks Tombol
+                        label: Teks tombol
                         widget: string
                         hint: Maks. 30 karakter
                         required: false
                         maxlength: 30
                       - name: linkType
-                        label: Jenis Link
+                        label: Jenis link
                         widget: select
                         options:
                           - label: Halaman bawaan
@@ -671,7 +671,7 @@ collections:
                         hint: Pilih jenisnya, lalu isi SATU field tujuan di bawah yang sesuai. "Tanpa link" hanya untuk item menu navbar yang punya submenu.
                         required: true
                       - name: builtinPage
-                        label: Halaman Bawaan
+                        label: Halaman bawaan
                         widget: select
                         options:
                           - label: Beranda
@@ -682,10 +682,10 @@ collections:
                             value: about
                           - label: Bagian Kontak (#kontak)
                             value: "#kontak"
-                        hint: Isi bila Jenis Link = Halaman bawaan.
+                        hint: Isi bila Jenis link = Halaman bawaan.
                         required: false
                       - name: customPage
-                        label: Halaman Custom
+                        label: Halaman custom
                         widget: relation
                         collection: custom_pages
                         value_field: "{{fields.slug}}"
@@ -699,27 +699,27 @@ collections:
                             values:
                               - false
                         required: false
-                        hint: Isi bila Jenis Link = Halaman custom. Halaman draft tidak muncul di sini.
+                        hint: Isi bila Jenis link = Halaman custom. Halaman draft tidak muncul di sini.
                       - name: url
-                        label: URL Eksternal
+                        label: URL eksternal
                         widget: string
-                        hint: "Isi bila Jenis Link = Link luar. Contoh: https://instagram.com/nama"
+                        hint: "Isi bila Jenis link = Link luar. Contoh: https://instagram.com/nama"
                         required: false
                   - name: secondaryCta
-                    label: Tombol Kedua
+                    label: Tombol kedua
                     widget: object
-                    hint: "Tombol bergaris. Showcase: dipakai bila Link Video Hero kosong. Kosongkan Teks Tombol untuk menyembunyikan."
+                    hint: "Tombol bergaris. Showcase: dipakai bila Link video hero kosong. Kosongkan teks tombol untuk menyembunyikan."
                     required: false
                     collapsed: true
                     fields:
                       - name: label
-                        label: Teks Tombol
+                        label: Teks tombol
                         widget: string
                         hint: Maks. 30 karakter
                         required: false
                         maxlength: 30
                       - name: linkType
-                        label: Jenis Link
+                        label: Jenis link
                         widget: select
                         options:
                           - label: Halaman bawaan
@@ -734,7 +734,7 @@ collections:
                         hint: Pilih jenisnya, lalu isi SATU field tujuan di bawah yang sesuai. "Tanpa link" hanya untuk item menu navbar yang punya submenu.
                         required: true
                       - name: builtinPage
-                        label: Halaman Bawaan
+                        label: Halaman bawaan
                         widget: select
                         options:
                           - label: Beranda
@@ -745,10 +745,10 @@ collections:
                             value: about
                           - label: Bagian Kontak (#kontak)
                             value: "#kontak"
-                        hint: Isi bila Jenis Link = Halaman bawaan.
+                        hint: Isi bila Jenis link = Halaman bawaan.
                         required: false
                       - name: customPage
-                        label: Halaman Custom
+                        label: Halaman custom
                         widget: relation
                         collection: custom_pages
                         value_field: "{{fields.slug}}"
@@ -762,20 +762,20 @@ collections:
                             values:
                               - false
                         required: false
-                        hint: Isi bila Jenis Link = Halaman custom. Halaman draft tidak muncul di sini.
+                        hint: Isi bila Jenis link = Halaman custom. Halaman draft tidak muncul di sini.
                       - name: url
-                        label: URL Eksternal
+                        label: URL eksternal
                         widget: string
-                        hint: "Isi bila Jenis Link = Link luar. Contoh: https://instagram.com/nama"
+                        hint: "Isi bila Jenis link = Link luar. Contoh: https://instagram.com/nama"
                         required: false
                   - name: displayName
-                    label: Nama Raksasa
+                    label: Nama raksasa
                     widget: string
                     hint: Hanya dipakai varian Spotlight & Cutout. Kosong = nama di Pengaturan Situs. Maks. 40 karakter
                     required: false
                     maxlength: 40
                   - name: serviceColumns
-                    label: Kolom Layanan
+                    label: Kolom layanan
                     widget: list
                     hint: Hanya dipakai varian Spotlight & Showcase. Maks. 3 kolom.
                     required: false
@@ -783,7 +783,7 @@ collections:
                     summary: "{{title}}"
                     fields:
                       - name: label
-                        label: Label Kecil
+                        label: Label kecil
                         widget: string
                         hint: Opsional, mis. "01". Maks. 24 karakter
                         required: false
@@ -801,7 +801,7 @@ collections:
                         required: true
                         maxlength: 90
                   - name: focusX
-                    label: Titik Fokus Foto (horizontal)
+                    label: Titik fokus foto (horizontal)
                     widget: number
                     value_type: int
                     hint: Hanya dipakai varian Showcase. 0 = kiri, 100 = kanan.
@@ -810,7 +810,7 @@ collections:
                     max: 100
                     default: 70
                   - name: heroVideoUrl
-                    label: Link Video Hero
+                    label: Link video hero
                     widget: string
                     hint: Hanya dipakai varian Showcase. Link YouTube untuk tombol "Tonton Video".
                     required: false
@@ -823,26 +823,26 @@ collections:
                     hint: Hanya dipakai varian Cutout. Pakai foto tanpa latar (PNG transparan). Bisa dibuat gratis lewat fitur hapus latar di Canva atau remove.bg. Potong rapat di sekitar subjek supaya kepala menimpa nama.
                     required: false
                   - name: intro
-                    label: Intro Singkat
+                    label: Intro singkat
                     widget: text
                     hint: Hanya dipakai varian Cutout. Maks. 120 karakter
                     required: false
                     maxlength: 120
                   - name: textCta
-                    label: Ajakan Teks
+                    label: Ajakan teks
                     widget: object
-                    hint: 'Hanya dipakai varian Cutout. Contoh: "// HIRE ME". Kosongkan Teks Tombol untuk menyembunyikan.'
+                    hint: 'Hanya dipakai varian Cutout. Contoh: "// HIRE ME". Kosongkan teks tombol untuk menyembunyikan.'
                     required: false
                     collapsed: true
                     fields:
                       - name: label
-                        label: Teks Tombol
+                        label: Teks tombol
                         widget: string
                         hint: Maks. 30 karakter
                         required: false
                         maxlength: 30
                       - name: linkType
-                        label: Jenis Link
+                        label: Jenis link
                         widget: select
                         options:
                           - label: Halaman bawaan
@@ -857,7 +857,7 @@ collections:
                         hint: Pilih jenisnya, lalu isi SATU field tujuan di bawah yang sesuai. "Tanpa link" hanya untuk item menu navbar yang punya submenu.
                         required: true
                       - name: builtinPage
-                        label: Halaman Bawaan
+                        label: Halaman bawaan
                         widget: select
                         options:
                           - label: Beranda
@@ -868,10 +868,10 @@ collections:
                             value: about
                           - label: Bagian Kontak (#kontak)
                             value: "#kontak"
-                        hint: Isi bila Jenis Link = Halaman bawaan.
+                        hint: Isi bila Jenis link = Halaman bawaan.
                         required: false
                       - name: customPage
-                        label: Halaman Custom
+                        label: Halaman custom
                         widget: relation
                         collection: custom_pages
                         value_field: "{{fields.slug}}"
@@ -885,14 +885,14 @@ collections:
                             values:
                               - false
                         required: false
-                        hint: Isi bila Jenis Link = Halaman custom. Halaman draft tidak muncul di sini.
+                        hint: Isi bila Jenis link = Halaman custom. Halaman draft tidak muncul di sini.
                       - name: url
-                        label: URL Eksternal
+                        label: URL eksternal
                         widget: string
-                        hint: "Isi bila Jenis Link = Link luar. Contoh: https://instagram.com/nama"
+                        hint: "Isi bila Jenis link = Link luar. Contoh: https://instagram.com/nama"
                         required: false
                   - name: rotatingServices
-                    label: Layanan Bergantian
+                    label: Layanan bergantian
                     widget: list
                     required: false
                     max: 6
@@ -905,13 +905,13 @@ collections:
                       required: true
                       maxlength: 28
                   - name: watermarkText
-                    label: Teks Watermark
+                    label: Teks watermark
                     widget: string
                     hint: Hanya dipakai varian Cutout. Kosong = kata pertama nama. Maks. 16 karakter
                     required: false
                     maxlength: 16
                   - name: nameLayer
-                    label: Posisi Nama
+                    label: Posisi nama
                     widget: select
                     options:
                       - label: Di belakang subjek
@@ -932,7 +932,7 @@ collections:
                     required: false
                     hint: Matikan untuk menyembunyikan section tanpa menghapusnya.
                   - name: variant
-                    label: Gaya Tampilan
+                    label: Gaya tampilan
                     widget: select
                     options:
                       - label: "Grid: kartu 2–3 kolom"
@@ -945,19 +945,19 @@ collections:
                     hint: Tata letak daftar proyek.
                     required: true
                   - name: eyebrow
-                    label: Teks Kecil di Atas Judul
+                    label: Teks kecil di atas judul
                     widget: string
                     hint: Maks. 40 karakter
                     required: false
                     maxlength: 40
                   - name: title
-                    label: Judul Section
+                    label: Judul section
                     widget: string
                     hint: Maks. 80 karakter
                     required: false
                     maxlength: 80
                   - name: count
-                    label: Jumlah Proyek
+                    label: Jumlah proyek
                     widget: number
                     value_type: int
                     hint: Antara 3 sampai 9
@@ -966,7 +966,7 @@ collections:
                     max: 9
                     default: 6
                   - name: source
-                    label: Sumber Proyek
+                    label: Sumber proyek
                     widget: select
                     options:
                       - label: Yang ditandai Unggulan
@@ -1003,7 +1003,7 @@ collections:
                     required: false
                     hint: Matikan untuk menyembunyikan section tanpa menghapusnya.
                   - name: variant
-                    label: Gaya Tampilan
+                    label: Gaya tampilan
                     widget: select
                     options:
                       - label: "Sempit: lebar baca nyaman"
@@ -1046,7 +1046,7 @@ collections:
                     required: false
                     hint: Matikan untuk menyembunyikan section tanpa menghapusnya.
                   - name: variant
-                    label: Gaya Tampilan
+                    label: Gaya tampilan
                     widget: select
                     options:
                       - label: Lebar penuh
@@ -1065,7 +1065,7 @@ collections:
                       - ^(https?://)?(www\.|m\.)?(youtube\.com|youtu\.be|youtube-nocookie\.com)/.+
                       - Harus link YouTube
                   - name: title
-                    label: Judul Video
+                    label: Judul video
                     widget: string
                     hint: Maks. 100 karakter
                     required: true
@@ -1087,7 +1087,7 @@ collections:
                     required: false
                     hint: Matikan untuk menyembunyikan section tanpa menghapusnya.
                   - name: variant
-                    label: Gaya Tampilan
+                    label: Gaya tampilan
                     widget: select
                     options:
                       - label: "Split: foto di samping teks"
@@ -1098,7 +1098,7 @@ collections:
                     hint: Tata letak.
                     required: true
                   - name: eyebrow
-                    label: Teks Kecil di Atas Judul
+                    label: Teks kecil di atas judul
                     widget: string
                     hint: Maks. 40 karakter
                     required: false
@@ -1131,13 +1131,13 @@ collections:
                     hint: Rasio 4:5 (potret).
                     required: false
                   - name: imageAlt
-                    label: Deskripsi Gambar (alt)
+                    label: Deskripsi gambar (alt)
                     widget: string
                     hint: Jelaskan isi gambar untuk pembaca layar & Google. Wajib bila ada gambar. Maks. 160 karakter
                     required: false
                     maxlength: 160
                   - name: imageEdge
-                    label: Efek Tepi Gambar
+                    label: Efek tepi gambar
                     widget: select
                     options:
                       - label: "Tanpa efek: gambar tampil penuh"
@@ -1157,7 +1157,7 @@ collections:
                     hint: "Cara tepi gambar ditampilkan. Default: Bingkai."
                     required: false
                   - name: edgeIntensity
-                    label: Intensitas Efek
+                    label: Intensitas efek
                     widget: select
                     options:
                       - label: Halus
@@ -1167,23 +1167,23 @@ collections:
                       - label: Kuat
                         value: strong
                     default: medium
-                    hint: Seberapa kuat efek tepi. Tidak berpengaruh bila Efek Tepi = Tanpa efek atau Bingkai.
+                    hint: Seberapa kuat efek tepi. Tidak berpengaruh bila Efek tepi = Tanpa efek atau Bingkai.
                     required: false
                   - name: cta
                     label: Tombol
                     widget: object
-                    hint: 'Contoh: "Kenalan lebih jauh" ke halaman About. Kosongkan Teks Tombol untuk menyembunyikan.'
+                    hint: 'Contoh: "Kenalan lebih jauh" ke halaman About. Kosongkan teks tombol untuk menyembunyikan.'
                     required: false
                     collapsed: true
                     fields:
                       - name: label
-                        label: Teks Tombol
+                        label: Teks tombol
                         widget: string
                         hint: Maks. 30 karakter
                         required: false
                         maxlength: 30
                       - name: linkType
-                        label: Jenis Link
+                        label: Jenis link
                         widget: select
                         options:
                           - label: Halaman bawaan
@@ -1198,7 +1198,7 @@ collections:
                         hint: Pilih jenisnya, lalu isi SATU field tujuan di bawah yang sesuai. "Tanpa link" hanya untuk item menu navbar yang punya submenu.
                         required: true
                       - name: builtinPage
-                        label: Halaman Bawaan
+                        label: Halaman bawaan
                         widget: select
                         options:
                           - label: Beranda
@@ -1209,10 +1209,10 @@ collections:
                             value: about
                           - label: Bagian Kontak (#kontak)
                             value: "#kontak"
-                        hint: Isi bila Jenis Link = Halaman bawaan.
+                        hint: Isi bila Jenis link = Halaman bawaan.
                         required: false
                       - name: customPage
-                        label: Halaman Custom
+                        label: Halaman custom
                         widget: relation
                         collection: custom_pages
                         value_field: "{{fields.slug}}"
@@ -1226,11 +1226,11 @@ collections:
                             values:
                               - false
                         required: false
-                        hint: Isi bila Jenis Link = Halaman custom. Halaman draft tidak muncul di sini.
+                        hint: Isi bila Jenis link = Halaman custom. Halaman draft tidak muncul di sini.
                       - name: url
-                        label: URL Eksternal
+                        label: URL eksternal
                         widget: string
-                        hint: "Isi bila Jenis Link = Link luar. Contoh: https://instagram.com/nama"
+                        hint: "Isi bila Jenis link = Link luar. Contoh: https://instagram.com/nama"
                         required: false
               - name: stats
                 label: Statistik
@@ -1243,7 +1243,7 @@ collections:
                     required: false
                     hint: Matikan untuk menyembunyikan section tanpa menghapusnya.
                   - name: variant
-                    label: Gaya Tampilan
+                    label: Gaya tampilan
                     widget: select
                     options:
                       - label: Sebaris dengan garis pemisah
@@ -1291,7 +1291,7 @@ collections:
                     required: false
                     hint: Matikan untuk menyembunyikan section tanpa menghapusnya.
                   - name: variant
-                    label: Gaya Tampilan
+                    label: Gaya tampilan
                     widget: select
                     options:
                       - label: Baris statis
@@ -1310,7 +1310,7 @@ collections:
                     required: false
                     maxlength: 80
                   - name: logoTone
-                    label: Warna Logo
+                    label: Warna logo
                     widget: select
                     options:
                       - label: Monokrom (berwarna saat disentuh)
@@ -1334,7 +1334,7 @@ collections:
                         hint: SVG atau PNG transparan
                         required: true
                       - name: name
-                        label: Nama Klien
+                        label: Nama klien
                         widget: string
                         hint: Dipakai sebagai alt text. Maks. 60 karakter
                         required: true
@@ -1350,7 +1350,7 @@ collections:
                     required: false
                     hint: Matikan untuk menyembunyikan section tanpa menghapusnya.
                   - name: variant
-                    label: Gaya Tampilan
+                    label: Gaya tampilan
                     widget: select
                     options:
                       - label: "Carousel: geser ke samping"
@@ -1387,7 +1387,7 @@ collections:
                         required: true
                         maxlength: 60
                       - name: role
-                        label: Jabatan / Perusahaan
+                        label: Jabatan / perusahaan
                         widget: string
                         hint: Maks. 80 karakter
                         required: false
@@ -1408,7 +1408,7 @@ collections:
                     required: false
                     hint: Matikan untuk menyembunyikan section tanpa menghapusnya.
                   - name: variant
-                    label: Gaya Tampilan
+                    label: Gaya tampilan
                     widget: select
                     options:
                       - label: Kartu
@@ -1419,7 +1419,7 @@ collections:
                     hint: Tata letak layanan.
                     required: true
                   - name: eyebrow
-                    label: Teks Kecil di Atas Judul
+                    label: Teks kecil di atas judul
                     widget: string
                     hint: Maks. 40 karakter
                     required: false
@@ -1437,7 +1437,7 @@ collections:
                     required: false
                     maxlength: 240
                   - name: items
-                    label: Daftar Layanan
+                    label: Daftar layanan
                     widget: list
                     hint: ""
                     required: true
@@ -1445,7 +1445,7 @@ collections:
                     summary: "{{title}}"
                     fields:
                       - name: title
-                        label: Nama Layanan
+                        label: Nama layanan
                         widget: string
                         hint: Maks. 60 karakter
                         required: true
@@ -1465,18 +1465,18 @@ collections:
                       - name: cta
                         label: Tombol
                         widget: object
-                        hint: Opsional. Kosongkan Teks Tombol untuk menyembunyikan.
+                        hint: Opsional. Kosongkan teks tombol untuk menyembunyikan.
                         required: false
                         collapsed: true
                         fields:
                           - name: label
-                            label: Teks Tombol
+                            label: Teks tombol
                             widget: string
                             hint: Maks. 30 karakter
                             required: false
                             maxlength: 30
                           - name: linkType
-                            label: Jenis Link
+                            label: Jenis link
                             widget: select
                             options:
                               - label: Halaman bawaan
@@ -1491,7 +1491,7 @@ collections:
                             hint: Pilih jenisnya, lalu isi SATU field tujuan di bawah yang sesuai. "Tanpa link" hanya untuk item menu navbar yang punya submenu.
                             required: true
                           - name: builtinPage
-                            label: Halaman Bawaan
+                            label: Halaman bawaan
                             widget: select
                             options:
                               - label: Beranda
@@ -1502,10 +1502,10 @@ collections:
                                 value: about
                               - label: Bagian Kontak (#kontak)
                                 value: "#kontak"
-                            hint: Isi bila Jenis Link = Halaman bawaan.
+                            hint: Isi bila Jenis link = Halaman bawaan.
                             required: false
                           - name: customPage
-                            label: Halaman Custom
+                            label: Halaman custom
                             widget: relation
                             collection: custom_pages
                             value_field: "{{fields.slug}}"
@@ -1519,11 +1519,11 @@ collections:
                                 values:
                                   - false
                             required: false
-                            hint: Isi bila Jenis Link = Halaman custom. Halaman draft tidak muncul di sini.
+                            hint: Isi bila Jenis link = Halaman custom. Halaman draft tidak muncul di sini.
                           - name: url
-                            label: URL Eksternal
+                            label: URL eksternal
                             widget: string
-                            hint: "Isi bila Jenis Link = Link luar. Contoh: https://instagram.com/nama"
+                            hint: "Isi bila Jenis link = Link luar. Contoh: https://instagram.com/nama"
                             required: false
               - name: faq
                 label: FAQ
@@ -1536,7 +1536,7 @@ collections:
                     required: false
                     hint: Matikan untuk menyembunyikan section tanpa menghapusnya.
                   - name: variant
-                    label: Gaya Tampilan
+                    label: Gaya tampilan
                     widget: select
                     options:
                       - label: "Akordeon: klik untuk buka jawaban"
@@ -1593,7 +1593,7 @@ collections:
                     required: false
                     hint: Matikan untuk menyembunyikan section tanpa menghapusnya.
                   - name: variant
-                    label: Gaya Tampilan
+                    label: Gaya tampilan
                     widget: select
                     options:
                       - label: Grid rapi (rasio 4:3)
@@ -1623,7 +1623,7 @@ collections:
                         hint: ""
                         required: true
                       - name: alt
-                        label: Deskripsi Gambar (alt)
+                        label: Deskripsi gambar (alt)
                         widget: string
                         hint: Jelaskan isi gambar. Maks. 160 karakter
                         required: true
@@ -1645,7 +1645,7 @@ collections:
                     required: false
                     hint: Matikan untuk menyembunyikan section tanpa menghapusnya.
                   - name: variant
-                    label: Gaya Tampilan
+                    label: Gaya tampilan
                     widget: select
                     options:
                       - label: Peta lebar penuh
@@ -1662,7 +1662,7 @@ collections:
                     required: false
                     maxlength: 80
                   - name: embedUrl
-                    label: Link Embed Google Maps
+                    label: Link embed Google Maps
                     widget: string
                     hint: 'Di Google Maps: Bagikan → Sematkan peta → salin link di dalam src="...".'
                     required: true
@@ -1676,7 +1676,7 @@ collections:
                     required: false
                     maxlength: 240
                   - name: hours
-                    label: Jam Buka
+                    label: Jam buka
                     widget: text
                     hint: Maks. 240 karakter
                     required: false
@@ -1692,7 +1692,7 @@ collections:
                     required: false
                     hint: Matikan untuk menyembunyikan section tanpa menghapusnya.
                   - name: variant
-                    label: Gaya Tampilan
+                    label: Gaya tampilan
                     widget: select
                     options:
                       - label: Banner berwarna aksen
@@ -1701,7 +1701,7 @@ collections:
                     hint: Hanya satu gaya.
                     required: true
                   - name: headline
-                    label: Kalimat Ajakan
+                    label: Kalimat ajakan
                     widget: string
                     hint: Maks. 100 karakter
                     required: true
@@ -1714,13 +1714,13 @@ collections:
                     collapsed: false
                     fields:
                       - name: label
-                        label: Teks Tombol
+                        label: Teks tombol
                         widget: string
                         hint: Maks. 30 karakter
                         required: true
                         maxlength: 30
                       - name: linkType
-                        label: Jenis Link
+                        label: Jenis link
                         widget: select
                         options:
                           - label: Halaman bawaan
@@ -1735,7 +1735,7 @@ collections:
                         hint: Pilih jenisnya, lalu isi SATU field tujuan di bawah yang sesuai. "Tanpa link" hanya untuk item menu navbar yang punya submenu.
                         required: true
                       - name: builtinPage
-                        label: Halaman Bawaan
+                        label: Halaman bawaan
                         widget: select
                         options:
                           - label: Beranda
@@ -1746,10 +1746,10 @@ collections:
                             value: about
                           - label: Bagian Kontak (#kontak)
                             value: "#kontak"
-                        hint: Isi bila Jenis Link = Halaman bawaan.
+                        hint: Isi bila Jenis link = Halaman bawaan.
                         required: false
                       - name: customPage
-                        label: Halaman Custom
+                        label: Halaman custom
                         widget: relation
                         collection: custom_pages
                         value_field: "{{fields.slug}}"
@@ -1763,11 +1763,11 @@ collections:
                             values:
                               - false
                         required: false
-                        hint: Isi bila Jenis Link = Halaman custom. Halaman draft tidak muncul di sini.
+                        hint: Isi bila Jenis link = Halaman custom. Halaman draft tidak muncul di sini.
                       - name: url
-                        label: URL Eksternal
+                        label: URL eksternal
                         widget: string
-                        hint: "Isi bila Jenis Link = Link luar. Contoh: https://instagram.com/nama"
+                        hint: "Isi bila Jenis link = Link luar. Contoh: https://instagram.com/nama"
                         required: false
               - name: contact
                 label: Kontak
@@ -1780,7 +1780,7 @@ collections:
                     required: false
                     hint: Matikan untuk menyembunyikan section tanpa menghapusnya.
                   - name: variant
-                    label: Gaya Tampilan
+                    label: Gaya tampilan
                     widget: select
                     options:
                       - label: "Sederhana: rata tengah"
@@ -1803,13 +1803,13 @@ collections:
                     required: false
                     maxlength: 300
                   - name: showForm
-                    label: Tampilkan Form
+                    label: Tampilkan form
                     widget: boolean
                     default: true
                     required: false
                     hint: Pesan masuk ke email lewat Netlify Forms.
                   - name: showDirect
-                    label: Tampilkan Email & WhatsApp
+                    label: Tampilkan email & WhatsApp
                     widget: boolean
                     default: true
                     required: false
@@ -1824,13 +1824,13 @@ collections:
             hint: Rasio 4:5 (potret).
             required: true
           - name: photoAlt
-            label: Deskripsi Foto (alt)
+            label: Deskripsi foto (alt)
             widget: string
             hint: Maks. 160 karakter
             required: true
             maxlength: 160
           - name: imageEdge
-            label: Efek Tepi Gambar
+            label: Efek tepi gambar
             widget: select
             options:
               - label: "Tanpa efek: gambar tampil penuh"
@@ -1850,7 +1850,7 @@ collections:
             hint: "Cara tepi gambar ditampilkan. Default: Bingkai."
             required: false
           - name: edgeIntensity
-            label: Intensitas Efek
+            label: Intensitas efek
             widget: select
             options:
               - label: Halus
@@ -1860,7 +1860,7 @@ collections:
               - label: Kuat
                 value: strong
             default: medium
-            hint: Seberapa kuat efek tepi. Tidak berpengaruh bila Efek Tepi = Tanpa efek atau Bingkai.
+            hint: Seberapa kuat efek tepi. Tidak berpengaruh bila Efek tepi = Tanpa efek atau Bingkai.
             required: false
           - name: headline
             label: Judul
@@ -1945,7 +1945,7 @@ collections:
                     required: false
                     hint: Matikan untuk menyembunyikan section tanpa menghapusnya.
                   - name: variant
-                    label: Gaya Tampilan
+                    label: Gaya tampilan
                     widget: select
                     options:
                       - label: "Split: teks kiri, foto kanan"
@@ -1964,13 +1964,13 @@ collections:
                     hint: Tata letak hero.
                     required: true
                   - name: eyebrow
-                    label: Teks Kecil di Atas Judul
+                    label: Teks kecil di atas judul
                     widget: string
                     hint: 'Contoh: "Desainer · Yogyakarta". Maks. 40 karakter (Showcase: 32)'
                     required: false
                     maxlength: 40
                   - name: headline
-                    label: Judul Besar
+                    label: Judul besar
                     widget: string
                     hint: "Kalimat utama. Maks. 80 karakter (Showcase: 60). Tidak dipakai Spotlight & Cutout, yang menampilkan nama raksasa."
                     required: false
@@ -1987,18 +1987,18 @@ collections:
                     hint: "Rasio 16:9 (Split: 4:5). Untuk Layar penuh, teks otomatis diberi overlay gelap supaya tetap terbaca."
                     required: false
                   - name: imageAlt
-                    label: Deskripsi Gambar (alt)
+                    label: Deskripsi gambar (alt)
                     widget: string
                     hint: Jelaskan isi gambar untuk pembaca layar & Google. Wajib bila ada gambar. Maks. 160 karakter
                     required: false
                     maxlength: 160
                   - name: videoMp4
-                    label: Video Latar MP4 (opsional)
+                    label: Video latar MP4 (opsional)
                     widget: file
                     required: false
                     hint: Hanya untuk gaya Layar penuh. Maks. 10 MB, tanpa suara. Gambar di atas wajib diisi sebagai poster.
                   - name: imageEdge
-                    label: Efek Tepi Gambar
+                    label: Efek tepi gambar
                     widget: select
                     options:
                       - label: "Tanpa efek: gambar tampil penuh"
@@ -2018,7 +2018,7 @@ collections:
                     hint: "Cara tepi gambar ditampilkan. Layar penuh: default Tanpa efek, Bingkai diabaikan. Gaya lain: default Bingkai."
                     required: false
                   - name: edgeIntensity
-                    label: Intensitas Efek
+                    label: Intensitas efek
                     widget: select
                     options:
                       - label: Halus
@@ -2028,23 +2028,23 @@ collections:
                       - label: Kuat
                         value: strong
                     default: medium
-                    hint: Seberapa kuat efek tepi. Tidak berpengaruh bila Efek Tepi = Tanpa efek atau Bingkai.
+                    hint: Seberapa kuat efek tepi. Tidak berpengaruh bila Efek tepi = Tanpa efek atau Bingkai.
                     required: false
                   - name: primaryCta
-                    label: Tombol Utama
+                    label: Tombol utama
                     widget: object
-                    hint: Tombol berwarna aksen. Kosongkan Teks Tombol untuk menyembunyikan.
+                    hint: Tombol berwarna aksen. Kosongkan teks tombol untuk menyembunyikan.
                     required: false
                     collapsed: true
                     fields:
                       - name: label
-                        label: Teks Tombol
+                        label: Teks tombol
                         widget: string
                         hint: Maks. 30 karakter
                         required: false
                         maxlength: 30
                       - name: linkType
-                        label: Jenis Link
+                        label: Jenis link
                         widget: select
                         options:
                           - label: Halaman bawaan
@@ -2059,7 +2059,7 @@ collections:
                         hint: Pilih jenisnya, lalu isi SATU field tujuan di bawah yang sesuai. "Tanpa link" hanya untuk item menu navbar yang punya submenu.
                         required: true
                       - name: builtinPage
-                        label: Halaman Bawaan
+                        label: Halaman bawaan
                         widget: select
                         options:
                           - label: Beranda
@@ -2070,10 +2070,10 @@ collections:
                             value: about
                           - label: Bagian Kontak (#kontak)
                             value: "#kontak"
-                        hint: Isi bila Jenis Link = Halaman bawaan.
+                        hint: Isi bila Jenis link = Halaman bawaan.
                         required: false
                       - name: customPage
-                        label: Halaman Custom
+                        label: Halaman custom
                         widget: relation
                         collection: custom_pages
                         value_field: "{{fields.slug}}"
@@ -2087,27 +2087,27 @@ collections:
                             values:
                               - false
                         required: false
-                        hint: Isi bila Jenis Link = Halaman custom. Halaman draft tidak muncul di sini.
+                        hint: Isi bila Jenis link = Halaman custom. Halaman draft tidak muncul di sini.
                       - name: url
-                        label: URL Eksternal
+                        label: URL eksternal
                         widget: string
-                        hint: "Isi bila Jenis Link = Link luar. Contoh: https://instagram.com/nama"
+                        hint: "Isi bila Jenis link = Link luar. Contoh: https://instagram.com/nama"
                         required: false
                   - name: secondaryCta
-                    label: Tombol Kedua
+                    label: Tombol kedua
                     widget: object
-                    hint: "Tombol bergaris. Showcase: dipakai bila Link Video Hero kosong. Kosongkan Teks Tombol untuk menyembunyikan."
+                    hint: "Tombol bergaris. Showcase: dipakai bila Link video hero kosong. Kosongkan teks tombol untuk menyembunyikan."
                     required: false
                     collapsed: true
                     fields:
                       - name: label
-                        label: Teks Tombol
+                        label: Teks tombol
                         widget: string
                         hint: Maks. 30 karakter
                         required: false
                         maxlength: 30
                       - name: linkType
-                        label: Jenis Link
+                        label: Jenis link
                         widget: select
                         options:
                           - label: Halaman bawaan
@@ -2122,7 +2122,7 @@ collections:
                         hint: Pilih jenisnya, lalu isi SATU field tujuan di bawah yang sesuai. "Tanpa link" hanya untuk item menu navbar yang punya submenu.
                         required: true
                       - name: builtinPage
-                        label: Halaman Bawaan
+                        label: Halaman bawaan
                         widget: select
                         options:
                           - label: Beranda
@@ -2133,10 +2133,10 @@ collections:
                             value: about
                           - label: Bagian Kontak (#kontak)
                             value: "#kontak"
-                        hint: Isi bila Jenis Link = Halaman bawaan.
+                        hint: Isi bila Jenis link = Halaman bawaan.
                         required: false
                       - name: customPage
-                        label: Halaman Custom
+                        label: Halaman custom
                         widget: relation
                         collection: custom_pages
                         value_field: "{{fields.slug}}"
@@ -2150,20 +2150,20 @@ collections:
                             values:
                               - false
                         required: false
-                        hint: Isi bila Jenis Link = Halaman custom. Halaman draft tidak muncul di sini.
+                        hint: Isi bila Jenis link = Halaman custom. Halaman draft tidak muncul di sini.
                       - name: url
-                        label: URL Eksternal
+                        label: URL eksternal
                         widget: string
-                        hint: "Isi bila Jenis Link = Link luar. Contoh: https://instagram.com/nama"
+                        hint: "Isi bila Jenis link = Link luar. Contoh: https://instagram.com/nama"
                         required: false
                   - name: displayName
-                    label: Nama Raksasa
+                    label: Nama raksasa
                     widget: string
                     hint: Hanya dipakai varian Spotlight & Cutout. Kosong = nama di Pengaturan Situs. Maks. 40 karakter
                     required: false
                     maxlength: 40
                   - name: serviceColumns
-                    label: Kolom Layanan
+                    label: Kolom layanan
                     widget: list
                     hint: Hanya dipakai varian Spotlight & Showcase. Maks. 3 kolom.
                     required: false
@@ -2171,7 +2171,7 @@ collections:
                     summary: "{{title}}"
                     fields:
                       - name: label
-                        label: Label Kecil
+                        label: Label kecil
                         widget: string
                         hint: Opsional, mis. "01". Maks. 24 karakter
                         required: false
@@ -2189,7 +2189,7 @@ collections:
                         required: true
                         maxlength: 90
                   - name: focusX
-                    label: Titik Fokus Foto (horizontal)
+                    label: Titik fokus foto (horizontal)
                     widget: number
                     value_type: int
                     hint: Hanya dipakai varian Showcase. 0 = kiri, 100 = kanan.
@@ -2198,7 +2198,7 @@ collections:
                     max: 100
                     default: 70
                   - name: heroVideoUrl
-                    label: Link Video Hero
+                    label: Link video hero
                     widget: string
                     hint: Hanya dipakai varian Showcase. Link YouTube untuk tombol "Tonton Video".
                     required: false
@@ -2211,26 +2211,26 @@ collections:
                     hint: Hanya dipakai varian Cutout. Pakai foto tanpa latar (PNG transparan). Bisa dibuat gratis lewat fitur hapus latar di Canva atau remove.bg. Potong rapat di sekitar subjek supaya kepala menimpa nama.
                     required: false
                   - name: intro
-                    label: Intro Singkat
+                    label: Intro singkat
                     widget: text
                     hint: Hanya dipakai varian Cutout. Maks. 120 karakter
                     required: false
                     maxlength: 120
                   - name: textCta
-                    label: Ajakan Teks
+                    label: Ajakan teks
                     widget: object
-                    hint: 'Hanya dipakai varian Cutout. Contoh: "// HIRE ME". Kosongkan Teks Tombol untuk menyembunyikan.'
+                    hint: 'Hanya dipakai varian Cutout. Contoh: "// HIRE ME". Kosongkan teks tombol untuk menyembunyikan.'
                     required: false
                     collapsed: true
                     fields:
                       - name: label
-                        label: Teks Tombol
+                        label: Teks tombol
                         widget: string
                         hint: Maks. 30 karakter
                         required: false
                         maxlength: 30
                       - name: linkType
-                        label: Jenis Link
+                        label: Jenis link
                         widget: select
                         options:
                           - label: Halaman bawaan
@@ -2245,7 +2245,7 @@ collections:
                         hint: Pilih jenisnya, lalu isi SATU field tujuan di bawah yang sesuai. "Tanpa link" hanya untuk item menu navbar yang punya submenu.
                         required: true
                       - name: builtinPage
-                        label: Halaman Bawaan
+                        label: Halaman bawaan
                         widget: select
                         options:
                           - label: Beranda
@@ -2256,10 +2256,10 @@ collections:
                             value: about
                           - label: Bagian Kontak (#kontak)
                             value: "#kontak"
-                        hint: Isi bila Jenis Link = Halaman bawaan.
+                        hint: Isi bila Jenis link = Halaman bawaan.
                         required: false
                       - name: customPage
-                        label: Halaman Custom
+                        label: Halaman custom
                         widget: relation
                         collection: custom_pages
                         value_field: "{{fields.slug}}"
@@ -2273,14 +2273,14 @@ collections:
                             values:
                               - false
                         required: false
-                        hint: Isi bila Jenis Link = Halaman custom. Halaman draft tidak muncul di sini.
+                        hint: Isi bila Jenis link = Halaman custom. Halaman draft tidak muncul di sini.
                       - name: url
-                        label: URL Eksternal
+                        label: URL eksternal
                         widget: string
-                        hint: "Isi bila Jenis Link = Link luar. Contoh: https://instagram.com/nama"
+                        hint: "Isi bila Jenis link = Link luar. Contoh: https://instagram.com/nama"
                         required: false
                   - name: rotatingServices
-                    label: Layanan Bergantian
+                    label: Layanan bergantian
                     widget: list
                     required: false
                     max: 6
@@ -2293,13 +2293,13 @@ collections:
                       required: true
                       maxlength: 28
                   - name: watermarkText
-                    label: Teks Watermark
+                    label: Teks watermark
                     widget: string
                     hint: Hanya dipakai varian Cutout. Kosong = kata pertama nama. Maks. 16 karakter
                     required: false
                     maxlength: 16
                   - name: nameLayer
-                    label: Posisi Nama
+                    label: Posisi nama
                     widget: select
                     options:
                       - label: Di belakang subjek
@@ -2320,7 +2320,7 @@ collections:
                     required: false
                     hint: Matikan untuk menyembunyikan section tanpa menghapusnya.
                   - name: variant
-                    label: Gaya Tampilan
+                    label: Gaya tampilan
                     widget: select
                     options:
                       - label: "Grid: kartu 2–3 kolom"
@@ -2333,19 +2333,19 @@ collections:
                     hint: Tata letak daftar proyek.
                     required: true
                   - name: eyebrow
-                    label: Teks Kecil di Atas Judul
+                    label: Teks kecil di atas judul
                     widget: string
                     hint: Maks. 40 karakter
                     required: false
                     maxlength: 40
                   - name: title
-                    label: Judul Section
+                    label: Judul section
                     widget: string
                     hint: Maks. 80 karakter
                     required: false
                     maxlength: 80
                   - name: count
-                    label: Jumlah Proyek
+                    label: Jumlah proyek
                     widget: number
                     value_type: int
                     hint: Antara 3 sampai 9
@@ -2354,7 +2354,7 @@ collections:
                     max: 9
                     default: 6
                   - name: source
-                    label: Sumber Proyek
+                    label: Sumber proyek
                     widget: select
                     options:
                       - label: Yang ditandai Unggulan
@@ -2391,7 +2391,7 @@ collections:
                     required: false
                     hint: Matikan untuk menyembunyikan section tanpa menghapusnya.
                   - name: variant
-                    label: Gaya Tampilan
+                    label: Gaya tampilan
                     widget: select
                     options:
                       - label: "Sempit: lebar baca nyaman"
@@ -2434,7 +2434,7 @@ collections:
                     required: false
                     hint: Matikan untuk menyembunyikan section tanpa menghapusnya.
                   - name: variant
-                    label: Gaya Tampilan
+                    label: Gaya tampilan
                     widget: select
                     options:
                       - label: Lebar penuh
@@ -2453,7 +2453,7 @@ collections:
                       - ^(https?://)?(www\.|m\.)?(youtube\.com|youtu\.be|youtube-nocookie\.com)/.+
                       - Harus link YouTube
                   - name: title
-                    label: Judul Video
+                    label: Judul video
                     widget: string
                     hint: Maks. 100 karakter
                     required: true
@@ -2475,7 +2475,7 @@ collections:
                     required: false
                     hint: Matikan untuk menyembunyikan section tanpa menghapusnya.
                   - name: variant
-                    label: Gaya Tampilan
+                    label: Gaya tampilan
                     widget: select
                     options:
                       - label: "Split: foto di samping teks"
@@ -2486,7 +2486,7 @@ collections:
                     hint: Tata letak.
                     required: true
                   - name: eyebrow
-                    label: Teks Kecil di Atas Judul
+                    label: Teks kecil di atas judul
                     widget: string
                     hint: Maks. 40 karakter
                     required: false
@@ -2519,13 +2519,13 @@ collections:
                     hint: Rasio 4:5 (potret).
                     required: false
                   - name: imageAlt
-                    label: Deskripsi Gambar (alt)
+                    label: Deskripsi gambar (alt)
                     widget: string
                     hint: Jelaskan isi gambar untuk pembaca layar & Google. Wajib bila ada gambar. Maks. 160 karakter
                     required: false
                     maxlength: 160
                   - name: imageEdge
-                    label: Efek Tepi Gambar
+                    label: Efek tepi gambar
                     widget: select
                     options:
                       - label: "Tanpa efek: gambar tampil penuh"
@@ -2545,7 +2545,7 @@ collections:
                     hint: "Cara tepi gambar ditampilkan. Default: Bingkai."
                     required: false
                   - name: edgeIntensity
-                    label: Intensitas Efek
+                    label: Intensitas efek
                     widget: select
                     options:
                       - label: Halus
@@ -2555,23 +2555,23 @@ collections:
                       - label: Kuat
                         value: strong
                     default: medium
-                    hint: Seberapa kuat efek tepi. Tidak berpengaruh bila Efek Tepi = Tanpa efek atau Bingkai.
+                    hint: Seberapa kuat efek tepi. Tidak berpengaruh bila Efek tepi = Tanpa efek atau Bingkai.
                     required: false
                   - name: cta
                     label: Tombol
                     widget: object
-                    hint: 'Contoh: "Kenalan lebih jauh" ke halaman About. Kosongkan Teks Tombol untuk menyembunyikan.'
+                    hint: 'Contoh: "Kenalan lebih jauh" ke halaman About. Kosongkan teks tombol untuk menyembunyikan.'
                     required: false
                     collapsed: true
                     fields:
                       - name: label
-                        label: Teks Tombol
+                        label: Teks tombol
                         widget: string
                         hint: Maks. 30 karakter
                         required: false
                         maxlength: 30
                       - name: linkType
-                        label: Jenis Link
+                        label: Jenis link
                         widget: select
                         options:
                           - label: Halaman bawaan
@@ -2586,7 +2586,7 @@ collections:
                         hint: Pilih jenisnya, lalu isi SATU field tujuan di bawah yang sesuai. "Tanpa link" hanya untuk item menu navbar yang punya submenu.
                         required: true
                       - name: builtinPage
-                        label: Halaman Bawaan
+                        label: Halaman bawaan
                         widget: select
                         options:
                           - label: Beranda
@@ -2597,10 +2597,10 @@ collections:
                             value: about
                           - label: Bagian Kontak (#kontak)
                             value: "#kontak"
-                        hint: Isi bila Jenis Link = Halaman bawaan.
+                        hint: Isi bila Jenis link = Halaman bawaan.
                         required: false
                       - name: customPage
-                        label: Halaman Custom
+                        label: Halaman custom
                         widget: relation
                         collection: custom_pages
                         value_field: "{{fields.slug}}"
@@ -2614,11 +2614,11 @@ collections:
                             values:
                               - false
                         required: false
-                        hint: Isi bila Jenis Link = Halaman custom. Halaman draft tidak muncul di sini.
+                        hint: Isi bila Jenis link = Halaman custom. Halaman draft tidak muncul di sini.
                       - name: url
-                        label: URL Eksternal
+                        label: URL eksternal
                         widget: string
-                        hint: "Isi bila Jenis Link = Link luar. Contoh: https://instagram.com/nama"
+                        hint: "Isi bila Jenis link = Link luar. Contoh: https://instagram.com/nama"
                         required: false
               - name: stats
                 label: Statistik
@@ -2631,7 +2631,7 @@ collections:
                     required: false
                     hint: Matikan untuk menyembunyikan section tanpa menghapusnya.
                   - name: variant
-                    label: Gaya Tampilan
+                    label: Gaya tampilan
                     widget: select
                     options:
                       - label: Sebaris dengan garis pemisah
@@ -2679,7 +2679,7 @@ collections:
                     required: false
                     hint: Matikan untuk menyembunyikan section tanpa menghapusnya.
                   - name: variant
-                    label: Gaya Tampilan
+                    label: Gaya tampilan
                     widget: select
                     options:
                       - label: Baris statis
@@ -2698,7 +2698,7 @@ collections:
                     required: false
                     maxlength: 80
                   - name: logoTone
-                    label: Warna Logo
+                    label: Warna logo
                     widget: select
                     options:
                       - label: Monokrom (berwarna saat disentuh)
@@ -2722,7 +2722,7 @@ collections:
                         hint: SVG atau PNG transparan
                         required: true
                       - name: name
-                        label: Nama Klien
+                        label: Nama klien
                         widget: string
                         hint: Dipakai sebagai alt text. Maks. 60 karakter
                         required: true
@@ -2738,7 +2738,7 @@ collections:
                     required: false
                     hint: Matikan untuk menyembunyikan section tanpa menghapusnya.
                   - name: variant
-                    label: Gaya Tampilan
+                    label: Gaya tampilan
                     widget: select
                     options:
                       - label: "Carousel: geser ke samping"
@@ -2775,7 +2775,7 @@ collections:
                         required: true
                         maxlength: 60
                       - name: role
-                        label: Jabatan / Perusahaan
+                        label: Jabatan / perusahaan
                         widget: string
                         hint: Maks. 80 karakter
                         required: false
@@ -2796,7 +2796,7 @@ collections:
                     required: false
                     hint: Matikan untuk menyembunyikan section tanpa menghapusnya.
                   - name: variant
-                    label: Gaya Tampilan
+                    label: Gaya tampilan
                     widget: select
                     options:
                       - label: Kartu
@@ -2807,7 +2807,7 @@ collections:
                     hint: Tata letak layanan.
                     required: true
                   - name: eyebrow
-                    label: Teks Kecil di Atas Judul
+                    label: Teks kecil di atas judul
                     widget: string
                     hint: Maks. 40 karakter
                     required: false
@@ -2825,7 +2825,7 @@ collections:
                     required: false
                     maxlength: 240
                   - name: items
-                    label: Daftar Layanan
+                    label: Daftar layanan
                     widget: list
                     hint: ""
                     required: true
@@ -2833,7 +2833,7 @@ collections:
                     summary: "{{title}}"
                     fields:
                       - name: title
-                        label: Nama Layanan
+                        label: Nama layanan
                         widget: string
                         hint: Maks. 60 karakter
                         required: true
@@ -2853,18 +2853,18 @@ collections:
                       - name: cta
                         label: Tombol
                         widget: object
-                        hint: Opsional. Kosongkan Teks Tombol untuk menyembunyikan.
+                        hint: Opsional. Kosongkan teks tombol untuk menyembunyikan.
                         required: false
                         collapsed: true
                         fields:
                           - name: label
-                            label: Teks Tombol
+                            label: Teks tombol
                             widget: string
                             hint: Maks. 30 karakter
                             required: false
                             maxlength: 30
                           - name: linkType
-                            label: Jenis Link
+                            label: Jenis link
                             widget: select
                             options:
                               - label: Halaman bawaan
@@ -2879,7 +2879,7 @@ collections:
                             hint: Pilih jenisnya, lalu isi SATU field tujuan di bawah yang sesuai. "Tanpa link" hanya untuk item menu navbar yang punya submenu.
                             required: true
                           - name: builtinPage
-                            label: Halaman Bawaan
+                            label: Halaman bawaan
                             widget: select
                             options:
                               - label: Beranda
@@ -2890,10 +2890,10 @@ collections:
                                 value: about
                               - label: Bagian Kontak (#kontak)
                                 value: "#kontak"
-                            hint: Isi bila Jenis Link = Halaman bawaan.
+                            hint: Isi bila Jenis link = Halaman bawaan.
                             required: false
                           - name: customPage
-                            label: Halaman Custom
+                            label: Halaman custom
                             widget: relation
                             collection: custom_pages
                             value_field: "{{fields.slug}}"
@@ -2907,11 +2907,11 @@ collections:
                                 values:
                                   - false
                             required: false
-                            hint: Isi bila Jenis Link = Halaman custom. Halaman draft tidak muncul di sini.
+                            hint: Isi bila Jenis link = Halaman custom. Halaman draft tidak muncul di sini.
                           - name: url
-                            label: URL Eksternal
+                            label: URL eksternal
                             widget: string
-                            hint: "Isi bila Jenis Link = Link luar. Contoh: https://instagram.com/nama"
+                            hint: "Isi bila Jenis link = Link luar. Contoh: https://instagram.com/nama"
                             required: false
               - name: faq
                 label: FAQ
@@ -2924,7 +2924,7 @@ collections:
                     required: false
                     hint: Matikan untuk menyembunyikan section tanpa menghapusnya.
                   - name: variant
-                    label: Gaya Tampilan
+                    label: Gaya tampilan
                     widget: select
                     options:
                       - label: "Akordeon: klik untuk buka jawaban"
@@ -2981,7 +2981,7 @@ collections:
                     required: false
                     hint: Matikan untuk menyembunyikan section tanpa menghapusnya.
                   - name: variant
-                    label: Gaya Tampilan
+                    label: Gaya tampilan
                     widget: select
                     options:
                       - label: Grid rapi (rasio 4:3)
@@ -3011,7 +3011,7 @@ collections:
                         hint: ""
                         required: true
                       - name: alt
-                        label: Deskripsi Gambar (alt)
+                        label: Deskripsi gambar (alt)
                         widget: string
                         hint: Jelaskan isi gambar. Maks. 160 karakter
                         required: true
@@ -3033,7 +3033,7 @@ collections:
                     required: false
                     hint: Matikan untuk menyembunyikan section tanpa menghapusnya.
                   - name: variant
-                    label: Gaya Tampilan
+                    label: Gaya tampilan
                     widget: select
                     options:
                       - label: Peta lebar penuh
@@ -3050,7 +3050,7 @@ collections:
                     required: false
                     maxlength: 80
                   - name: embedUrl
-                    label: Link Embed Google Maps
+                    label: Link embed Google Maps
                     widget: string
                     hint: 'Di Google Maps: Bagikan → Sematkan peta → salin link di dalam src="...".'
                     required: true
@@ -3064,7 +3064,7 @@ collections:
                     required: false
                     maxlength: 240
                   - name: hours
-                    label: Jam Buka
+                    label: Jam buka
                     widget: text
                     hint: Maks. 240 karakter
                     required: false
@@ -3080,7 +3080,7 @@ collections:
                     required: false
                     hint: Matikan untuk menyembunyikan section tanpa menghapusnya.
                   - name: variant
-                    label: Gaya Tampilan
+                    label: Gaya tampilan
                     widget: select
                     options:
                       - label: Banner berwarna aksen
@@ -3089,7 +3089,7 @@ collections:
                     hint: Hanya satu gaya.
                     required: true
                   - name: headline
-                    label: Kalimat Ajakan
+                    label: Kalimat ajakan
                     widget: string
                     hint: Maks. 100 karakter
                     required: true
@@ -3102,13 +3102,13 @@ collections:
                     collapsed: false
                     fields:
                       - name: label
-                        label: Teks Tombol
+                        label: Teks tombol
                         widget: string
                         hint: Maks. 30 karakter
                         required: true
                         maxlength: 30
                       - name: linkType
-                        label: Jenis Link
+                        label: Jenis link
                         widget: select
                         options:
                           - label: Halaman bawaan
@@ -3123,7 +3123,7 @@ collections:
                         hint: Pilih jenisnya, lalu isi SATU field tujuan di bawah yang sesuai. "Tanpa link" hanya untuk item menu navbar yang punya submenu.
                         required: true
                       - name: builtinPage
-                        label: Halaman Bawaan
+                        label: Halaman bawaan
                         widget: select
                         options:
                           - label: Beranda
@@ -3134,10 +3134,10 @@ collections:
                             value: about
                           - label: Bagian Kontak (#kontak)
                             value: "#kontak"
-                        hint: Isi bila Jenis Link = Halaman bawaan.
+                        hint: Isi bila Jenis link = Halaman bawaan.
                         required: false
                       - name: customPage
-                        label: Halaman Custom
+                        label: Halaman custom
                         widget: relation
                         collection: custom_pages
                         value_field: "{{fields.slug}}"
@@ -3151,11 +3151,11 @@ collections:
                             values:
                               - false
                         required: false
-                        hint: Isi bila Jenis Link = Halaman custom. Halaman draft tidak muncul di sini.
+                        hint: Isi bila Jenis link = Halaman custom. Halaman draft tidak muncul di sini.
                       - name: url
-                        label: URL Eksternal
+                        label: URL eksternal
                         widget: string
-                        hint: "Isi bila Jenis Link = Link luar. Contoh: https://instagram.com/nama"
+                        hint: "Isi bila Jenis link = Link luar. Contoh: https://instagram.com/nama"
                         required: false
               - name: contact
                 label: Kontak
@@ -3168,7 +3168,7 @@ collections:
                     required: false
                     hint: Matikan untuk menyembunyikan section tanpa menghapusnya.
                   - name: variant
-                    label: Gaya Tampilan
+                    label: Gaya tampilan
                     widget: select
                     options:
                       - label: "Sederhana: rata tengah"
@@ -3191,19 +3191,19 @@ collections:
                     required: false
                     maxlength: 300
                   - name: showForm
-                    label: Tampilkan Form
+                    label: Tampilkan form
                     widget: boolean
                     default: true
                     required: false
                     hint: Pesan masuk ke email lewat Netlify Forms.
                   - name: showDirect
-                    label: Tampilkan Email & WhatsApp
+                    label: Tampilkan email & WhatsApp
                     widget: boolean
                     default: true
                     required: false
                     hint: Diambil dari Pengaturan Situs.
   - name: custom_pages
-    label: Halaman Custom
+    label: Halaman custom
     label_singular: Halaman
     description: Halaman tambahan seperti Layanan, Harga, atau FAQ. Setelah dibuat, tambahkan ke menu di Pengaturan Situs → Navigasi.
     folder: src/content/custom-pages
@@ -3218,7 +3218,7 @@ collections:
       - title
     fields:
       - name: title
-        label: Judul Halaman
+        label: Judul halaman
         widget: string
         hint: Tampil di tab browser dan sebagai judul besar. Maks. 80 karakter
         required: true
@@ -3232,7 +3232,7 @@ collections:
           - ^[a-z0-9]+(-[a-z0-9]+)*$
           - Huruf kecil, angka, dan tanda hubung saja
       - name: pageHeader
-        label: Header Halaman
+        label: Header halaman
         widget: object
         hint: Judul + sub-judul di atas konten. Matikan bila section pertama adalah Hero.
         required: false
@@ -3244,7 +3244,7 @@ collections:
             default: true
             required: false
           - name: eyebrow
-            label: Teks Kecil di Atas Judul
+            label: Teks kecil di atas judul
             widget: string
             hint: Maks. 40 karakter
             required: false
@@ -3261,13 +3261,13 @@ collections:
             hint: Opsional. Rasio 12:5 (lebar).
             required: false
           - name: imageAlt
-            label: Deskripsi Gambar (alt)
+            label: Deskripsi gambar (alt)
             widget: string
             hint: Jelaskan isi gambar untuk pembaca layar & Google. Wajib bila ada gambar. Maks. 160 karakter
             required: false
             maxlength: 160
           - name: imageEdge
-            label: Efek Tepi Gambar
+            label: Efek tepi gambar
             widget: select
             options:
               - label: "Tanpa efek: gambar tampil penuh"
@@ -3287,7 +3287,7 @@ collections:
             hint: "Cara tepi gambar ditampilkan. Default: Bingkai."
             required: false
           - name: edgeIntensity
-            label: Intensitas Efek
+            label: Intensitas efek
             widget: select
             options:
               - label: Halus
@@ -3297,7 +3297,7 @@ collections:
               - label: Kuat
                 value: strong
             default: medium
-            hint: Seberapa kuat efek tepi. Tidak berpengaruh bila Efek Tepi = Tanpa efek atau Bingkai.
+            hint: Seberapa kuat efek tepi. Tidak berpengaruh bila Efek tepi = Tanpa efek atau Bingkai.
             required: false
       - name: sections
         label: Section
@@ -3318,7 +3318,7 @@ collections:
                 required: false
                 hint: Matikan untuk menyembunyikan section tanpa menghapusnya.
               - name: variant
-                label: Gaya Tampilan
+                label: Gaya tampilan
                 widget: select
                 options:
                   - label: "Split: teks kiri, foto kanan"
@@ -3337,13 +3337,13 @@ collections:
                 hint: Tata letak hero.
                 required: true
               - name: eyebrow
-                label: Teks Kecil di Atas Judul
+                label: Teks kecil di atas judul
                 widget: string
                 hint: 'Contoh: "Desainer · Yogyakarta". Maks. 40 karakter (Showcase: 32)'
                 required: false
                 maxlength: 40
               - name: headline
-                label: Judul Besar
+                label: Judul besar
                 widget: string
                 hint: "Kalimat utama. Maks. 80 karakter (Showcase: 60). Tidak dipakai Spotlight & Cutout, yang menampilkan nama raksasa."
                 required: false
@@ -3360,18 +3360,18 @@ collections:
                 hint: "Rasio 16:9 (Split: 4:5). Untuk Layar penuh, teks otomatis diberi overlay gelap supaya tetap terbaca."
                 required: false
               - name: imageAlt
-                label: Deskripsi Gambar (alt)
+                label: Deskripsi gambar (alt)
                 widget: string
                 hint: Jelaskan isi gambar untuk pembaca layar & Google. Wajib bila ada gambar. Maks. 160 karakter
                 required: false
                 maxlength: 160
               - name: videoMp4
-                label: Video Latar MP4 (opsional)
+                label: Video latar MP4 (opsional)
                 widget: file
                 required: false
                 hint: Hanya untuk gaya Layar penuh. Maks. 10 MB, tanpa suara. Gambar di atas wajib diisi sebagai poster.
               - name: imageEdge
-                label: Efek Tepi Gambar
+                label: Efek tepi gambar
                 widget: select
                 options:
                   - label: "Tanpa efek: gambar tampil penuh"
@@ -3391,7 +3391,7 @@ collections:
                 hint: "Cara tepi gambar ditampilkan. Layar penuh: default Tanpa efek, Bingkai diabaikan. Gaya lain: default Bingkai."
                 required: false
               - name: edgeIntensity
-                label: Intensitas Efek
+                label: Intensitas efek
                 widget: select
                 options:
                   - label: Halus
@@ -3401,23 +3401,23 @@ collections:
                   - label: Kuat
                     value: strong
                 default: medium
-                hint: Seberapa kuat efek tepi. Tidak berpengaruh bila Efek Tepi = Tanpa efek atau Bingkai.
+                hint: Seberapa kuat efek tepi. Tidak berpengaruh bila Efek tepi = Tanpa efek atau Bingkai.
                 required: false
               - name: primaryCta
-                label: Tombol Utama
+                label: Tombol utama
                 widget: object
-                hint: Tombol berwarna aksen. Kosongkan Teks Tombol untuk menyembunyikan.
+                hint: Tombol berwarna aksen. Kosongkan teks tombol untuk menyembunyikan.
                 required: false
                 collapsed: true
                 fields:
                   - name: label
-                    label: Teks Tombol
+                    label: Teks tombol
                     widget: string
                     hint: Maks. 30 karakter
                     required: false
                     maxlength: 30
                   - name: linkType
-                    label: Jenis Link
+                    label: Jenis link
                     widget: select
                     options:
                       - label: Halaman bawaan
@@ -3432,7 +3432,7 @@ collections:
                     hint: Pilih jenisnya, lalu isi SATU field tujuan di bawah yang sesuai. "Tanpa link" hanya untuk item menu navbar yang punya submenu.
                     required: true
                   - name: builtinPage
-                    label: Halaman Bawaan
+                    label: Halaman bawaan
                     widget: select
                     options:
                       - label: Beranda
@@ -3443,10 +3443,10 @@ collections:
                         value: about
                       - label: Bagian Kontak (#kontak)
                         value: "#kontak"
-                    hint: Isi bila Jenis Link = Halaman bawaan.
+                    hint: Isi bila Jenis link = Halaman bawaan.
                     required: false
                   - name: customPage
-                    label: Halaman Custom
+                    label: Halaman custom
                     widget: relation
                     collection: custom_pages
                     value_field: "{{fields.slug}}"
@@ -3460,27 +3460,27 @@ collections:
                         values:
                           - false
                     required: false
-                    hint: Isi bila Jenis Link = Halaman custom. Halaman draft tidak muncul di sini.
+                    hint: Isi bila Jenis link = Halaman custom. Halaman draft tidak muncul di sini.
                   - name: url
-                    label: URL Eksternal
+                    label: URL eksternal
                     widget: string
-                    hint: "Isi bila Jenis Link = Link luar. Contoh: https://instagram.com/nama"
+                    hint: "Isi bila Jenis link = Link luar. Contoh: https://instagram.com/nama"
                     required: false
               - name: secondaryCta
-                label: Tombol Kedua
+                label: Tombol kedua
                 widget: object
-                hint: "Tombol bergaris. Showcase: dipakai bila Link Video Hero kosong. Kosongkan Teks Tombol untuk menyembunyikan."
+                hint: "Tombol bergaris. Showcase: dipakai bila Link video hero kosong. Kosongkan teks tombol untuk menyembunyikan."
                 required: false
                 collapsed: true
                 fields:
                   - name: label
-                    label: Teks Tombol
+                    label: Teks tombol
                     widget: string
                     hint: Maks. 30 karakter
                     required: false
                     maxlength: 30
                   - name: linkType
-                    label: Jenis Link
+                    label: Jenis link
                     widget: select
                     options:
                       - label: Halaman bawaan
@@ -3495,7 +3495,7 @@ collections:
                     hint: Pilih jenisnya, lalu isi SATU field tujuan di bawah yang sesuai. "Tanpa link" hanya untuk item menu navbar yang punya submenu.
                     required: true
                   - name: builtinPage
-                    label: Halaman Bawaan
+                    label: Halaman bawaan
                     widget: select
                     options:
                       - label: Beranda
@@ -3506,10 +3506,10 @@ collections:
                         value: about
                       - label: Bagian Kontak (#kontak)
                         value: "#kontak"
-                    hint: Isi bila Jenis Link = Halaman bawaan.
+                    hint: Isi bila Jenis link = Halaman bawaan.
                     required: false
                   - name: customPage
-                    label: Halaman Custom
+                    label: Halaman custom
                     widget: relation
                     collection: custom_pages
                     value_field: "{{fields.slug}}"
@@ -3523,20 +3523,20 @@ collections:
                         values:
                           - false
                     required: false
-                    hint: Isi bila Jenis Link = Halaman custom. Halaman draft tidak muncul di sini.
+                    hint: Isi bila Jenis link = Halaman custom. Halaman draft tidak muncul di sini.
                   - name: url
-                    label: URL Eksternal
+                    label: URL eksternal
                     widget: string
-                    hint: "Isi bila Jenis Link = Link luar. Contoh: https://instagram.com/nama"
+                    hint: "Isi bila Jenis link = Link luar. Contoh: https://instagram.com/nama"
                     required: false
               - name: displayName
-                label: Nama Raksasa
+                label: Nama raksasa
                 widget: string
                 hint: Hanya dipakai varian Spotlight & Cutout. Kosong = nama di Pengaturan Situs. Maks. 40 karakter
                 required: false
                 maxlength: 40
               - name: serviceColumns
-                label: Kolom Layanan
+                label: Kolom layanan
                 widget: list
                 hint: Hanya dipakai varian Spotlight & Showcase. Maks. 3 kolom.
                 required: false
@@ -3544,7 +3544,7 @@ collections:
                 summary: "{{title}}"
                 fields:
                   - name: label
-                    label: Label Kecil
+                    label: Label kecil
                     widget: string
                     hint: Opsional, mis. "01". Maks. 24 karakter
                     required: false
@@ -3562,7 +3562,7 @@ collections:
                     required: true
                     maxlength: 90
               - name: focusX
-                label: Titik Fokus Foto (horizontal)
+                label: Titik fokus foto (horizontal)
                 widget: number
                 value_type: int
                 hint: Hanya dipakai varian Showcase. 0 = kiri, 100 = kanan.
@@ -3571,7 +3571,7 @@ collections:
                 max: 100
                 default: 70
               - name: heroVideoUrl
-                label: Link Video Hero
+                label: Link video hero
                 widget: string
                 hint: Hanya dipakai varian Showcase. Link YouTube untuk tombol "Tonton Video".
                 required: false
@@ -3584,26 +3584,26 @@ collections:
                 hint: Hanya dipakai varian Cutout. Pakai foto tanpa latar (PNG transparan). Bisa dibuat gratis lewat fitur hapus latar di Canva atau remove.bg. Potong rapat di sekitar subjek supaya kepala menimpa nama.
                 required: false
               - name: intro
-                label: Intro Singkat
+                label: Intro singkat
                 widget: text
                 hint: Hanya dipakai varian Cutout. Maks. 120 karakter
                 required: false
                 maxlength: 120
               - name: textCta
-                label: Ajakan Teks
+                label: Ajakan teks
                 widget: object
-                hint: 'Hanya dipakai varian Cutout. Contoh: "// HIRE ME". Kosongkan Teks Tombol untuk menyembunyikan.'
+                hint: 'Hanya dipakai varian Cutout. Contoh: "// HIRE ME". Kosongkan teks tombol untuk menyembunyikan.'
                 required: false
                 collapsed: true
                 fields:
                   - name: label
-                    label: Teks Tombol
+                    label: Teks tombol
                     widget: string
                     hint: Maks. 30 karakter
                     required: false
                     maxlength: 30
                   - name: linkType
-                    label: Jenis Link
+                    label: Jenis link
                     widget: select
                     options:
                       - label: Halaman bawaan
@@ -3618,7 +3618,7 @@ collections:
                     hint: Pilih jenisnya, lalu isi SATU field tujuan di bawah yang sesuai. "Tanpa link" hanya untuk item menu navbar yang punya submenu.
                     required: true
                   - name: builtinPage
-                    label: Halaman Bawaan
+                    label: Halaman bawaan
                     widget: select
                     options:
                       - label: Beranda
@@ -3629,10 +3629,10 @@ collections:
                         value: about
                       - label: Bagian Kontak (#kontak)
                         value: "#kontak"
-                    hint: Isi bila Jenis Link = Halaman bawaan.
+                    hint: Isi bila Jenis link = Halaman bawaan.
                     required: false
                   - name: customPage
-                    label: Halaman Custom
+                    label: Halaman custom
                     widget: relation
                     collection: custom_pages
                     value_field: "{{fields.slug}}"
@@ -3646,14 +3646,14 @@ collections:
                         values:
                           - false
                     required: false
-                    hint: Isi bila Jenis Link = Halaman custom. Halaman draft tidak muncul di sini.
+                    hint: Isi bila Jenis link = Halaman custom. Halaman draft tidak muncul di sini.
                   - name: url
-                    label: URL Eksternal
+                    label: URL eksternal
                     widget: string
-                    hint: "Isi bila Jenis Link = Link luar. Contoh: https://instagram.com/nama"
+                    hint: "Isi bila Jenis link = Link luar. Contoh: https://instagram.com/nama"
                     required: false
               - name: rotatingServices
-                label: Layanan Bergantian
+                label: Layanan bergantian
                 widget: list
                 required: false
                 max: 6
@@ -3666,13 +3666,13 @@ collections:
                   required: true
                   maxlength: 28
               - name: watermarkText
-                label: Teks Watermark
+                label: Teks watermark
                 widget: string
                 hint: Hanya dipakai varian Cutout. Kosong = kata pertama nama. Maks. 16 karakter
                 required: false
                 maxlength: 16
               - name: nameLayer
-                label: Posisi Nama
+                label: Posisi nama
                 widget: select
                 options:
                   - label: Di belakang subjek
@@ -3693,7 +3693,7 @@ collections:
                 required: false
                 hint: Matikan untuk menyembunyikan section tanpa menghapusnya.
               - name: variant
-                label: Gaya Tampilan
+                label: Gaya tampilan
                 widget: select
                 options:
                   - label: "Grid: kartu 2–3 kolom"
@@ -3706,19 +3706,19 @@ collections:
                 hint: Tata letak daftar proyek.
                 required: true
               - name: eyebrow
-                label: Teks Kecil di Atas Judul
+                label: Teks kecil di atas judul
                 widget: string
                 hint: Maks. 40 karakter
                 required: false
                 maxlength: 40
               - name: title
-                label: Judul Section
+                label: Judul section
                 widget: string
                 hint: Maks. 80 karakter
                 required: false
                 maxlength: 80
               - name: count
-                label: Jumlah Proyek
+                label: Jumlah proyek
                 widget: number
                 value_type: int
                 hint: Antara 3 sampai 9
@@ -3727,7 +3727,7 @@ collections:
                 max: 9
                 default: 6
               - name: source
-                label: Sumber Proyek
+                label: Sumber proyek
                 widget: select
                 options:
                   - label: Yang ditandai Unggulan
@@ -3764,7 +3764,7 @@ collections:
                 required: false
                 hint: Matikan untuk menyembunyikan section tanpa menghapusnya.
               - name: variant
-                label: Gaya Tampilan
+                label: Gaya tampilan
                 widget: select
                 options:
                   - label: "Sempit: lebar baca nyaman"
@@ -3807,7 +3807,7 @@ collections:
                 required: false
                 hint: Matikan untuk menyembunyikan section tanpa menghapusnya.
               - name: variant
-                label: Gaya Tampilan
+                label: Gaya tampilan
                 widget: select
                 options:
                   - label: Lebar penuh
@@ -3826,7 +3826,7 @@ collections:
                   - ^(https?://)?(www\.|m\.)?(youtube\.com|youtu\.be|youtube-nocookie\.com)/.+
                   - Harus link YouTube
               - name: title
-                label: Judul Video
+                label: Judul video
                 widget: string
                 hint: Maks. 100 karakter
                 required: true
@@ -3848,7 +3848,7 @@ collections:
                 required: false
                 hint: Matikan untuk menyembunyikan section tanpa menghapusnya.
               - name: variant
-                label: Gaya Tampilan
+                label: Gaya tampilan
                 widget: select
                 options:
                   - label: "Split: foto di samping teks"
@@ -3859,7 +3859,7 @@ collections:
                 hint: Tata letak.
                 required: true
               - name: eyebrow
-                label: Teks Kecil di Atas Judul
+                label: Teks kecil di atas judul
                 widget: string
                 hint: Maks. 40 karakter
                 required: false
@@ -3892,13 +3892,13 @@ collections:
                 hint: Rasio 4:5 (potret).
                 required: false
               - name: imageAlt
-                label: Deskripsi Gambar (alt)
+                label: Deskripsi gambar (alt)
                 widget: string
                 hint: Jelaskan isi gambar untuk pembaca layar & Google. Wajib bila ada gambar. Maks. 160 karakter
                 required: false
                 maxlength: 160
               - name: imageEdge
-                label: Efek Tepi Gambar
+                label: Efek tepi gambar
                 widget: select
                 options:
                   - label: "Tanpa efek: gambar tampil penuh"
@@ -3918,7 +3918,7 @@ collections:
                 hint: "Cara tepi gambar ditampilkan. Default: Bingkai."
                 required: false
               - name: edgeIntensity
-                label: Intensitas Efek
+                label: Intensitas efek
                 widget: select
                 options:
                   - label: Halus
@@ -3928,23 +3928,23 @@ collections:
                   - label: Kuat
                     value: strong
                 default: medium
-                hint: Seberapa kuat efek tepi. Tidak berpengaruh bila Efek Tepi = Tanpa efek atau Bingkai.
+                hint: Seberapa kuat efek tepi. Tidak berpengaruh bila Efek tepi = Tanpa efek atau Bingkai.
                 required: false
               - name: cta
                 label: Tombol
                 widget: object
-                hint: 'Contoh: "Kenalan lebih jauh" ke halaman About. Kosongkan Teks Tombol untuk menyembunyikan.'
+                hint: 'Contoh: "Kenalan lebih jauh" ke halaman About. Kosongkan teks tombol untuk menyembunyikan.'
                 required: false
                 collapsed: true
                 fields:
                   - name: label
-                    label: Teks Tombol
+                    label: Teks tombol
                     widget: string
                     hint: Maks. 30 karakter
                     required: false
                     maxlength: 30
                   - name: linkType
-                    label: Jenis Link
+                    label: Jenis link
                     widget: select
                     options:
                       - label: Halaman bawaan
@@ -3959,7 +3959,7 @@ collections:
                     hint: Pilih jenisnya, lalu isi SATU field tujuan di bawah yang sesuai. "Tanpa link" hanya untuk item menu navbar yang punya submenu.
                     required: true
                   - name: builtinPage
-                    label: Halaman Bawaan
+                    label: Halaman bawaan
                     widget: select
                     options:
                       - label: Beranda
@@ -3970,10 +3970,10 @@ collections:
                         value: about
                       - label: Bagian Kontak (#kontak)
                         value: "#kontak"
-                    hint: Isi bila Jenis Link = Halaman bawaan.
+                    hint: Isi bila Jenis link = Halaman bawaan.
                     required: false
                   - name: customPage
-                    label: Halaman Custom
+                    label: Halaman custom
                     widget: relation
                     collection: custom_pages
                     value_field: "{{fields.slug}}"
@@ -3987,11 +3987,11 @@ collections:
                         values:
                           - false
                     required: false
-                    hint: Isi bila Jenis Link = Halaman custom. Halaman draft tidak muncul di sini.
+                    hint: Isi bila Jenis link = Halaman custom. Halaman draft tidak muncul di sini.
                   - name: url
-                    label: URL Eksternal
+                    label: URL eksternal
                     widget: string
-                    hint: "Isi bila Jenis Link = Link luar. Contoh: https://instagram.com/nama"
+                    hint: "Isi bila Jenis link = Link luar. Contoh: https://instagram.com/nama"
                     required: false
           - name: stats
             label: Statistik
@@ -4004,7 +4004,7 @@ collections:
                 required: false
                 hint: Matikan untuk menyembunyikan section tanpa menghapusnya.
               - name: variant
-                label: Gaya Tampilan
+                label: Gaya tampilan
                 widget: select
                 options:
                   - label: Sebaris dengan garis pemisah
@@ -4052,7 +4052,7 @@ collections:
                 required: false
                 hint: Matikan untuk menyembunyikan section tanpa menghapusnya.
               - name: variant
-                label: Gaya Tampilan
+                label: Gaya tampilan
                 widget: select
                 options:
                   - label: Baris statis
@@ -4071,7 +4071,7 @@ collections:
                 required: false
                 maxlength: 80
               - name: logoTone
-                label: Warna Logo
+                label: Warna logo
                 widget: select
                 options:
                   - label: Monokrom (berwarna saat disentuh)
@@ -4095,7 +4095,7 @@ collections:
                     hint: SVG atau PNG transparan
                     required: true
                   - name: name
-                    label: Nama Klien
+                    label: Nama klien
                     widget: string
                     hint: Dipakai sebagai alt text. Maks. 60 karakter
                     required: true
@@ -4111,7 +4111,7 @@ collections:
                 required: false
                 hint: Matikan untuk menyembunyikan section tanpa menghapusnya.
               - name: variant
-                label: Gaya Tampilan
+                label: Gaya tampilan
                 widget: select
                 options:
                   - label: "Carousel: geser ke samping"
@@ -4148,7 +4148,7 @@ collections:
                     required: true
                     maxlength: 60
                   - name: role
-                    label: Jabatan / Perusahaan
+                    label: Jabatan / perusahaan
                     widget: string
                     hint: Maks. 80 karakter
                     required: false
@@ -4169,7 +4169,7 @@ collections:
                 required: false
                 hint: Matikan untuk menyembunyikan section tanpa menghapusnya.
               - name: variant
-                label: Gaya Tampilan
+                label: Gaya tampilan
                 widget: select
                 options:
                   - label: Kartu
@@ -4180,7 +4180,7 @@ collections:
                 hint: Tata letak layanan.
                 required: true
               - name: eyebrow
-                label: Teks Kecil di Atas Judul
+                label: Teks kecil di atas judul
                 widget: string
                 hint: Maks. 40 karakter
                 required: false
@@ -4198,7 +4198,7 @@ collections:
                 required: false
                 maxlength: 240
               - name: items
-                label: Daftar Layanan
+                label: Daftar layanan
                 widget: list
                 hint: ""
                 required: true
@@ -4206,7 +4206,7 @@ collections:
                 summary: "{{title}}"
                 fields:
                   - name: title
-                    label: Nama Layanan
+                    label: Nama layanan
                     widget: string
                     hint: Maks. 60 karakter
                     required: true
@@ -4226,18 +4226,18 @@ collections:
                   - name: cta
                     label: Tombol
                     widget: object
-                    hint: Opsional. Kosongkan Teks Tombol untuk menyembunyikan.
+                    hint: Opsional. Kosongkan teks tombol untuk menyembunyikan.
                     required: false
                     collapsed: true
                     fields:
                       - name: label
-                        label: Teks Tombol
+                        label: Teks tombol
                         widget: string
                         hint: Maks. 30 karakter
                         required: false
                         maxlength: 30
                       - name: linkType
-                        label: Jenis Link
+                        label: Jenis link
                         widget: select
                         options:
                           - label: Halaman bawaan
@@ -4252,7 +4252,7 @@ collections:
                         hint: Pilih jenisnya, lalu isi SATU field tujuan di bawah yang sesuai. "Tanpa link" hanya untuk item menu navbar yang punya submenu.
                         required: true
                       - name: builtinPage
-                        label: Halaman Bawaan
+                        label: Halaman bawaan
                         widget: select
                         options:
                           - label: Beranda
@@ -4263,10 +4263,10 @@ collections:
                             value: about
                           - label: Bagian Kontak (#kontak)
                             value: "#kontak"
-                        hint: Isi bila Jenis Link = Halaman bawaan.
+                        hint: Isi bila Jenis link = Halaman bawaan.
                         required: false
                       - name: customPage
-                        label: Halaman Custom
+                        label: Halaman custom
                         widget: relation
                         collection: custom_pages
                         value_field: "{{fields.slug}}"
@@ -4280,11 +4280,11 @@ collections:
                             values:
                               - false
                         required: false
-                        hint: Isi bila Jenis Link = Halaman custom. Halaman draft tidak muncul di sini.
+                        hint: Isi bila Jenis link = Halaman custom. Halaman draft tidak muncul di sini.
                       - name: url
-                        label: URL Eksternal
+                        label: URL eksternal
                         widget: string
-                        hint: "Isi bila Jenis Link = Link luar. Contoh: https://instagram.com/nama"
+                        hint: "Isi bila Jenis link = Link luar. Contoh: https://instagram.com/nama"
                         required: false
           - name: faq
             label: FAQ
@@ -4297,7 +4297,7 @@ collections:
                 required: false
                 hint: Matikan untuk menyembunyikan section tanpa menghapusnya.
               - name: variant
-                label: Gaya Tampilan
+                label: Gaya tampilan
                 widget: select
                 options:
                   - label: "Akordeon: klik untuk buka jawaban"
@@ -4354,7 +4354,7 @@ collections:
                 required: false
                 hint: Matikan untuk menyembunyikan section tanpa menghapusnya.
               - name: variant
-                label: Gaya Tampilan
+                label: Gaya tampilan
                 widget: select
                 options:
                   - label: Grid rapi (rasio 4:3)
@@ -4384,7 +4384,7 @@ collections:
                     hint: ""
                     required: true
                   - name: alt
-                    label: Deskripsi Gambar (alt)
+                    label: Deskripsi gambar (alt)
                     widget: string
                     hint: Jelaskan isi gambar. Maks. 160 karakter
                     required: true
@@ -4406,7 +4406,7 @@ collections:
                 required: false
                 hint: Matikan untuk menyembunyikan section tanpa menghapusnya.
               - name: variant
-                label: Gaya Tampilan
+                label: Gaya tampilan
                 widget: select
                 options:
                   - label: Peta lebar penuh
@@ -4423,7 +4423,7 @@ collections:
                 required: false
                 maxlength: 80
               - name: embedUrl
-                label: Link Embed Google Maps
+                label: Link embed Google Maps
                 widget: string
                 hint: 'Di Google Maps: Bagikan → Sematkan peta → salin link di dalam src="...".'
                 required: true
@@ -4437,7 +4437,7 @@ collections:
                 required: false
                 maxlength: 240
               - name: hours
-                label: Jam Buka
+                label: Jam buka
                 widget: text
                 hint: Maks. 240 karakter
                 required: false
@@ -4453,7 +4453,7 @@ collections:
                 required: false
                 hint: Matikan untuk menyembunyikan section tanpa menghapusnya.
               - name: variant
-                label: Gaya Tampilan
+                label: Gaya tampilan
                 widget: select
                 options:
                   - label: Banner berwarna aksen
@@ -4462,7 +4462,7 @@ collections:
                 hint: Hanya satu gaya.
                 required: true
               - name: headline
-                label: Kalimat Ajakan
+                label: Kalimat ajakan
                 widget: string
                 hint: Maks. 100 karakter
                 required: true
@@ -4475,13 +4475,13 @@ collections:
                 collapsed: false
                 fields:
                   - name: label
-                    label: Teks Tombol
+                    label: Teks tombol
                     widget: string
                     hint: Maks. 30 karakter
                     required: true
                     maxlength: 30
                   - name: linkType
-                    label: Jenis Link
+                    label: Jenis link
                     widget: select
                     options:
                       - label: Halaman bawaan
@@ -4496,7 +4496,7 @@ collections:
                     hint: Pilih jenisnya, lalu isi SATU field tujuan di bawah yang sesuai. "Tanpa link" hanya untuk item menu navbar yang punya submenu.
                     required: true
                   - name: builtinPage
-                    label: Halaman Bawaan
+                    label: Halaman bawaan
                     widget: select
                     options:
                       - label: Beranda
@@ -4507,10 +4507,10 @@ collections:
                         value: about
                       - label: Bagian Kontak (#kontak)
                         value: "#kontak"
-                    hint: Isi bila Jenis Link = Halaman bawaan.
+                    hint: Isi bila Jenis link = Halaman bawaan.
                     required: false
                   - name: customPage
-                    label: Halaman Custom
+                    label: Halaman custom
                     widget: relation
                     collection: custom_pages
                     value_field: "{{fields.slug}}"
@@ -4524,11 +4524,11 @@ collections:
                         values:
                           - false
                     required: false
-                    hint: Isi bila Jenis Link = Halaman custom. Halaman draft tidak muncul di sini.
+                    hint: Isi bila Jenis link = Halaman custom. Halaman draft tidak muncul di sini.
                   - name: url
-                    label: URL Eksternal
+                    label: URL eksternal
                     widget: string
-                    hint: "Isi bila Jenis Link = Link luar. Contoh: https://instagram.com/nama"
+                    hint: "Isi bila Jenis link = Link luar. Contoh: https://instagram.com/nama"
                     required: false
           - name: contact
             label: Kontak
@@ -4541,7 +4541,7 @@ collections:
                 required: false
                 hint: Matikan untuk menyembunyikan section tanpa menghapusnya.
               - name: variant
-                label: Gaya Tampilan
+                label: Gaya tampilan
                 widget: select
                 options:
                   - label: "Sederhana: rata tengah"
@@ -4564,13 +4564,13 @@ collections:
                 required: false
                 maxlength: 300
               - name: showForm
-                label: Tampilkan Form
+                label: Tampilkan form
                 widget: boolean
                 default: true
                 required: false
                 hint: Pesan masuk ke email lewat Netlify Forms.
               - name: showDirect
-                label: Tampilkan Email & WhatsApp
+                label: Tampilkan email & WhatsApp
                 widget: boolean
                 default: true
                 required: false
@@ -4589,7 +4589,7 @@ collections:
             required: false
             maxlength: 160
           - name: ogImage
-            label: Gambar Preview Link
+            label: Gambar preview link
             widget: image
             hint: 1200×630 px. Kosongkan untuk memakai gambar situs.
             required: false
@@ -4650,12 +4650,12 @@ collections:
         min: 1990
         max: 2100
       - name: cover
-        label: Gambar Cover
+        label: Gambar cover
         widget: image
         hint: Rasio 4:3. Tampil di kartu proyek.
         required: true
       - name: coverAlt
-        label: Deskripsi Cover (alt)
+        label: Deskripsi cover (alt)
         widget: string
         hint: Maks. 160 karakter
         required: true
@@ -4667,7 +4667,7 @@ collections:
         required: true
         maxlength: 160
       - name: role
-        label: Peran Saya
+        label: Peran saya
         widget: string
         hint: Maks. 80 karakter
         required: false
@@ -4742,13 +4742,13 @@ collections:
               - ^(https?://)?(www\.|m\.)?(youtube\.com|youtu\.be|youtube-nocookie\.com)/.+
               - Harus link YouTube
           - name: title
-            label: Judul Video
+            label: Judul video
             widget: string
             hint: Maks. 100 karakter
             required: true
             maxlength: 100
       - name: externalUrl
-        label: Link Live
+        label: Link live
         widget: string
         hint: Opsional. Memunculkan tombol "Lihat live".
         required: false
@@ -4760,7 +4760,7 @@ collections:
         required: false
         hint: Proyek draft tidak diterbitkan.
       - name: body
-        label: Isi Studi Kasus
+        label: Isi studi kasus
         widget: markdown
         hint: Ceritakan masalah, proses, dan hasil.
         required: false

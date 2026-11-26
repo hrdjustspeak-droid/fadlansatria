@@ -961,13 +961,20 @@ textarea.e-input {
 
 /* Modal, toast, status */
 .e-modal-bg {
-  position: fixed;
-  inset: 0;
-  z-index: 50;
+  /* <dialog> modal: kotak transparan selebar layar, backdrop dari ::backdrop */
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  max-height: none;
+  margin: 0;
+  border: 0;
+  background: none;
   display: grid;
   place-items: center;
-  background: rgb(24 24 27 / 0.4);
   padding: 16px;
+}
+.e-modal-bg::backdrop {
+  background: rgb(24 24 27 / 0.4);
   animation: e-fade 0.18s ease-out;
 }
 .e-modal {
@@ -1096,4 +1103,7 @@ textarea.e-input {
     animation-duration: 0.01ms !important;
     transition-duration: 0.01ms !important;
   }
+}
+.e-change-detail {
+  color: var(--e-muted);
 }

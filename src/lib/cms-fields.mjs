@@ -32,11 +32,11 @@ const BUILTIN = [
 
 /** Field link: jenis + 3 kemungkinan tujuan. Sveltia belum punya field kondisional, jadi dijelaskan lewat hint. */
 const linkFields = () => [
-  select('linkType', 'Jenis Link', [['builtin', 'Halaman bawaan'], ['custom', 'Halaman custom'], ['external', 'Link luar (URL)'], ['none', 'Tanpa link (hanya membuka dropdown)']], 'builtin', 'Pilih jenisnya, lalu isi SATU field tujuan di bawah yang sesuai. "Tanpa link" hanya untuk item menu navbar yang punya submenu.'),
-  select('builtinPage', 'Halaman Bawaan', BUILTIN, undefined, 'Isi bila Jenis Link = Halaman bawaan.', false),
+  select('linkType', 'Jenis link', [['builtin', 'Halaman bawaan'], ['custom', 'Halaman custom'], ['external', 'Link luar (URL)'], ['none', 'Tanpa link (hanya membuka dropdown)']], 'builtin', 'Pilih jenisnya, lalu isi SATU field tujuan di bawah yang sesuai. "Tanpa link" hanya untuk item menu navbar yang punya submenu.'),
+  select('builtinPage', 'Halaman bawaan', BUILTIN, undefined, 'Isi bila Jenis link = Halaman bawaan.', false),
   {
     name: 'customPage',
-    label: 'Halaman Custom',
+    label: 'Halaman custom',
     widget: 'relation',
     collection: 'custom_pages',
     value_field: '{{fields.slug}}',
@@ -44,11 +44,11 @@ const linkFields = () => [
     search_fields: ['title', 'slug'],
     filters: [{ field: 'draft', values: [false] }],
     required: false,
-    hint: 'Isi bila Jenis Link = Halaman custom. Halaman draft tidak muncul di sini.',
+    hint: 'Isi bila Jenis link = Halaman custom. Halaman draft tidak muncul di sini.',
   },
-  optString('url', 'URL Eksternal', 'Isi bila Jenis Link = Link luar. Contoh: https://instagram.com/nama'),
+  optString('url', 'URL eksternal', 'Isi bila Jenis link = Link luar. Contoh: https://instagram.com/nama'),
 ];
-const cta = (name, label, hint) => object(name, label, `${hint} Kosongkan Teks Tombol untuk menyembunyikan.`, [optString('label', 'Teks Tombol', 'Maks. 30 karakter', { max: 30 }), ...linkFields()]);
+const cta = (name, label, hint) => object(name, label, `${hint} Kosongkan teks tombol untuk menyembunyikan.`, [optString('label', 'Teks tombol', 'Maks. 30 karakter', { max: 30 }), ...linkFields()]);
 
 const EDGES = [
   ['none', 'Tanpa efek: gambar tampil penuh'],
@@ -60,12 +60,12 @@ const EDGES = [
   ['fade-left', 'Gelap dari kiri: sisi kiri menyatu ke latar supaya teks di atasnya terbaca'],
 ];
 const edgeFields = (hint = '') => [
-  select('imageEdge', 'Efek Tepi Gambar', EDGES, undefined, `Cara tepi gambar ditampilkan. ${hint}`.trim(), false),
-  select('edgeIntensity', 'Intensitas Efek', [['soft', 'Halus'], ['medium', 'Sedang'], ['strong', 'Kuat']], 'medium', 'Seberapa kuat efek tepi. Tidak berpengaruh bila Efek Tepi = Tanpa efek atau Bingkai.', false),
+  select('imageEdge', 'Efek tepi gambar', EDGES, undefined, `Cara tepi gambar ditampilkan. ${hint}`.trim(), false),
+  select('edgeIntensity', 'Intensitas efek', [['soft', 'Halus'], ['medium', 'Sedang'], ['strong', 'Kuat']], 'medium', 'Seberapa kuat efek tepi. Tidak berpengaruh bila Efek tepi = Tanpa efek atau Bingkai.', false),
 ];
 
-const base = (variants, def, hint) => [bool('enabled', 'Tampilkan', true, 'Matikan untuk menyembunyikan section tanpa menghapusnya.'), select('variant', 'Gaya Tampilan', variants, def, hint)];
-const imageAlt = () => optString('imageAlt', 'Deskripsi Gambar (alt)', 'Jelaskan isi gambar untuk pembaca layar & Google. Wajib bila ada gambar. Maks. 160 karakter', { max: 160 });
+const base = (variants, def, hint) => [bool('enabled', 'Tampilkan', true, 'Matikan untuk menyembunyikan section tanpa menghapusnya.'), select('variant', 'Gaya tampilan', variants, def, hint)];
+const imageAlt = () => optString('imageAlt', 'Deskripsi gambar (alt)', 'Jelaskan isi gambar untuk pembaca layar & Google. Wajib bila ada gambar. Maks. 160 karakter', { max: 160 });
 
 // ---------- section (dipakai ulang di Beranda, About, Halaman Custom) ----------
 export const sectionTypes = [
@@ -86,31 +86,31 @@ export const sectionTypes = [
         'split',
         'Tata letak hero.',
       ),
-      optString('eyebrow', 'Teks Kecil di Atas Judul', 'Contoh: "Desainer · Yogyakarta". Maks. 40 karakter (Showcase: 32)', { max: 40 }),
-      optString('headline', 'Judul Besar', 'Kalimat utama. Maks. 80 karakter (Showcase: 60). Tidak dipakai Spotlight & Cutout, yang menampilkan nama raksasa.', { max: 80 }),
+      optString('eyebrow', 'Teks kecil di atas judul', 'Contoh: "Desainer · Yogyakarta". Maks. 40 karakter (Showcase: 32)', { max: 40 }),
+      optString('headline', 'Judul besar', 'Kalimat utama. Maks. 80 karakter (Showcase: 60). Tidak dipakai Spotlight & Cutout, yang menampilkan nama raksasa.', { max: 80 }),
       text('subheadline', 'Sub-judul', 'Penjelasan singkat di bawah judul. Maks. 160 karakter', { max: 160, required: false }),
       image('image', 'Gambar', 'Rasio 16:9 (Split: 4:5). Untuk Layar penuh, teks otomatis diberi overlay gelap supaya tetap terbaca.', false),
       imageAlt(),
-      { name: 'videoMp4', label: 'Video Latar MP4 (opsional)', widget: 'file', required: false, hint: 'Hanya untuk gaya Layar penuh. Maks. 10 MB, tanpa suara. Gambar di atas wajib diisi sebagai poster.' },
+      { name: 'videoMp4', label: 'Video latar MP4 (opsional)', widget: 'file', required: false, hint: 'Hanya untuk gaya Layar penuh. Maks. 10 MB, tanpa suara. Gambar di atas wajib diisi sebagai poster.' },
       ...edgeFields('Layar penuh: default Tanpa efek, Bingkai diabaikan. Gaya lain: default Bingkai.'),
-      cta('primaryCta', 'Tombol Utama', 'Tombol berwarna aksen.'),
-      cta('secondaryCta', 'Tombol Kedua', 'Tombol bergaris. Showcase: dipakai bila Link Video Hero kosong.'),
-      optString('displayName', 'Nama Raksasa', 'Hanya dipakai varian Spotlight & Cutout. Kosong = nama di Pengaturan Situs. Maks. 40 karakter', { max: 40 }),
+      cta('primaryCta', 'Tombol utama', 'Tombol berwarna aksen.'),
+      cta('secondaryCta', 'Tombol kedua', 'Tombol bergaris. Showcase: dipakai bila Link video hero kosong.'),
+      optString('displayName', 'Nama raksasa', 'Hanya dipakai varian Spotlight & Cutout. Kosong = nama di Pengaturan Situs. Maks. 40 karakter', { max: 40 }),
       list(
         'serviceColumns',
-        'Kolom Layanan',
+        'Kolom layanan',
         'Hanya dipakai varian Spotlight & Showcase. Maks. 3 kolom.',
-        [optString('label', 'Label Kecil', 'Opsional, mis. "01". Maks. 24 karakter', { max: 24 }), string('title', 'Judul', 'Maks. 40 karakter', { max: 40 }), text('description', 'Deskripsi', 'Maks. 90 karakter (2 baris)', { max: 90 })],
+        [optString('label', 'Label kecil', 'Opsional, mis. "01". Maks. 24 karakter', { max: 24 }), string('title', 'Judul', 'Maks. 40 karakter', { max: 40 }), text('description', 'Deskripsi', 'Maks. 90 karakter (2 baris)', { max: 90 })],
         { max: 3, summary: '{{title}}' },
       ),
-      number('focusX', 'Titik Fokus Foto (horizontal)', 'Hanya dipakai varian Showcase. 0 = kiri, 100 = kanan.', { min: 0, max: 100, default: 70, required: false }),
-      optString('heroVideoUrl', 'Link Video Hero', 'Hanya dipakai varian Showcase. Link YouTube untuk tombol "Tonton Video".', { pattern: [YOUTUBE, 'Harus link YouTube'] }),
+      number('focusX', 'Titik fokus foto (horizontal)', 'Hanya dipakai varian Showcase. 0 = kiri, 100 = kanan.', { min: 0, max: 100, default: 70, required: false }),
+      optString('heroVideoUrl', 'Link video hero', 'Hanya dipakai varian Showcase. Link YouTube untuk tombol "Tonton Video".', { pattern: [YOUTUBE, 'Harus link YouTube'] }),
       image('cutoutImage', 'Foto Cutout', 'Hanya dipakai varian Cutout. Pakai foto tanpa latar (PNG transparan). Bisa dibuat gratis lewat fitur hapus latar di Canva atau remove.bg. Potong rapat di sekitar subjek supaya kepala menimpa nama.', false),
-      text('intro', 'Intro Singkat', 'Hanya dipakai varian Cutout. Maks. 120 karakter', { max: 120, required: false }),
-      cta('textCta', 'Ajakan Teks', 'Hanya dipakai varian Cutout. Contoh: "// HIRE ME".'),
-      { name: 'rotatingServices', label: 'Layanan Bergantian', widget: 'list', required: false, max: 6, hint: 'Hanya dipakai varian Cutout. 3–6 item, maks. 28 karakter per item.', field: string('service', 'Layanan', '', { max: 28 }) },
-      optString('watermarkText', 'Teks Watermark', 'Hanya dipakai varian Cutout. Kosong = kata pertama nama. Maks. 16 karakter', { max: 16 }),
-      select('nameLayer', 'Posisi Nama', [['behind', 'Di belakang subjek'], ['front', 'Di depan subjek']], 'behind', 'Hanya dipakai varian Cutout.', false),
+      text('intro', 'Intro singkat', 'Hanya dipakai varian Cutout. Maks. 120 karakter', { max: 120, required: false }),
+      cta('textCta', 'Ajakan teks', 'Hanya dipakai varian Cutout. Contoh: "// HIRE ME".'),
+      { name: 'rotatingServices', label: 'Layanan bergantian', widget: 'list', required: false, max: 6, hint: 'Hanya dipakai varian Cutout. 3–6 item, maks. 28 karakter per item.', field: string('service', 'Layanan', '', { max: 28 }) },
+      optString('watermarkText', 'Teks watermark', 'Hanya dipakai varian Cutout. Kosong = kata pertama nama. Maks. 16 karakter', { max: 16 }),
+      select('nameLayer', 'Posisi nama', [['behind', 'Di belakang subjek'], ['front', 'Di depan subjek']], 'behind', 'Hanya dipakai varian Cutout.', false),
     ],
   },
   {
@@ -119,10 +119,10 @@ export const sectionTypes = [
     summary: '{{title}}',
     fields: [
       ...base([['grid', 'Grid: kartu 2–3 kolom'], ['list', 'Daftar: baris besar, preview gambar saat hover'], ['masonry', 'Masonry: kartu bertumpuk mengikuti rasio gambar']], 'grid', 'Tata letak daftar proyek.'),
-      optString('eyebrow', 'Teks Kecil di Atas Judul', 'Maks. 40 karakter', { max: 40 }),
-      optString('title', 'Judul Section', 'Maks. 80 karakter', { max: 80 }),
-      number('count', 'Jumlah Proyek', 'Antara 3 sampai 9', { min: 3, max: 9, default: 6 }),
-      select('source', 'Sumber Proyek', [['featured', 'Yang ditandai Unggulan'], ['latest', 'Terbaru'], ['category', 'Kategori tertentu']], 'featured', 'Proyek mana yang ditampilkan.'),
+      optString('eyebrow', 'Teks kecil di atas judul', 'Maks. 40 karakter', { max: 40 }),
+      optString('title', 'Judul section', 'Maks. 80 karakter', { max: 80 }),
+      number('count', 'Jumlah proyek', 'Antara 3 sampai 9', { min: 3, max: 9, default: 6 }),
+      select('source', 'Sumber proyek', [['featured', 'Yang ditandai Unggulan'], ['latest', 'Terbaru'], ['category', 'Kategori tertentu']], 'featured', 'Proyek mana yang ditampilkan.'),
       select('category', 'Kategori', CATEGORIES.map((c) => [c, c]), undefined, 'Isi bila Sumber = Kategori tertentu.', false),
     ],
   },
@@ -143,7 +143,7 @@ export const sectionTypes = [
     fields: [
       ...base([['wide', 'Lebar penuh'], ['framed', 'Di dalam kotak']], 'framed', 'Tata letak video.'),
       string('youtubeUrl', 'Link YouTube', 'Tempel link apa pun dari YouTube (watch, youtu.be, shorts, embed). Video harus Public atau Unlisted.', { pattern: [YOUTUBE, 'Harus link YouTube'] }),
-      string('title', 'Judul Video', 'Maks. 100 karakter', { max: 100 }),
+      string('title', 'Judul video', 'Maks. 100 karakter', { max: 100 }),
       text('caption', 'Keterangan', 'Opsional. Maks. 200 karakter', { max: 200, required: false }),
     ],
   },
@@ -153,7 +153,7 @@ export const sectionTypes = [
     summary: '{{title}}',
     fields: [
       ...base([['split', 'Split: foto di samping teks'], ['stacked', 'Bertumpuk: foto di atas teks']], 'split', 'Tata letak.'),
-      optString('eyebrow', 'Teks Kecil di Atas Judul', 'Maks. 40 karakter', { max: 40 }),
+      optString('eyebrow', 'Teks kecil di atas judul', 'Maks. 40 karakter', { max: 40 }),
       optString('title', 'Judul', 'Maks. 80 karakter', { max: 80 }),
       md('text', 'Teks', 'Perkenalan singkat, 2–3 paragraf.'),
       image('image', 'Foto', 'Rasio 4:5 (potret).', false),
@@ -179,8 +179,8 @@ export const sectionTypes = [
     fields: [
       ...base([['row', 'Baris statis'], ['marquee', 'Berjalan terus (berhenti saat disentuh)'], ['tiles', 'Tile: kotak abu bersudut membulat']], 'row', 'Cara logo ditampilkan.'),
       optString('title', 'Judul', 'Contoh: "Dipercaya oleh". Maks. 80 karakter', { max: 80 }),
-      select('logoTone', 'Warna Logo', [['mono', 'Monokrom (berwarna saat disentuh)'], ['color', 'Warna asli']], 'mono', 'Monokrom membuat logo yang beragam terlihat seragam.', false),
-      list('items', 'Logo', 'Pakai SVG atau PNG transparan. Logo otomatis dibuat abu-abu.', [image('logo', 'Logo', 'SVG atau PNG transparan'), string('name', 'Nama Klien', 'Dipakai sebagai alt text. Maks. 60 karakter', { max: 60 })], { min: 1, required: true, summary: '{{name}}' }),
+      select('logoTone', 'Warna logo', [['mono', 'Monokrom (berwarna saat disentuh)'], ['color', 'Warna asli']], 'mono', 'Monokrom membuat logo yang beragam terlihat seragam.', false),
+      list('items', 'Logo', 'Pakai SVG atau PNG transparan. Logo otomatis dibuat abu-abu.', [image('logo', 'Logo', 'SVG atau PNG transparan'), string('name', 'Nama klien', 'Dipakai sebagai alt text. Maks. 60 karakter', { max: 60 })], { min: 1, required: true, summary: '{{name}}' }),
     ],
   },
   {
@@ -190,7 +190,7 @@ export const sectionTypes = [
     fields: [
       ...base([['carousel', 'Carousel: geser ke samping'], ['grid', 'Grid kartu']], 'grid', 'Tata letak testimoni.'),
       optString('title', 'Judul', 'Maks. 80 karakter', { max: 80 }),
-      list('items', 'Testimoni', '', [text('quote', 'Kutipan', 'Maks. 400 karakter', { max: 400 }), string('name', 'Nama', 'Maks. 60 karakter', { max: 60 }), optString('role', 'Jabatan / Perusahaan', 'Maks. 80 karakter', { max: 80 }), image('photo', 'Foto', 'Rasio 1:1 (persegi).', false)], { min: 1, required: true, summary: '{{name}}' }),
+      list('items', 'Testimoni', '', [text('quote', 'Kutipan', 'Maks. 400 karakter', { max: 400 }), string('name', 'Nama', 'Maks. 60 karakter', { max: 60 }), optString('role', 'Jabatan / perusahaan', 'Maks. 80 karakter', { max: 80 }), image('photo', 'Foto', 'Rasio 1:1 (persegi).', false)], { min: 1, required: true, summary: '{{name}}' }),
     ],
   },
   {
@@ -199,10 +199,10 @@ export const sectionTypes = [
     summary: '{{title}}',
     fields: [
       ...base([['cards', 'Kartu'], ['numbered', 'Daftar bernomor (cocok untuk proses kerja)']], 'cards', 'Tata letak layanan.'),
-      optString('eyebrow', 'Teks Kecil di Atas Judul', 'Maks. 40 karakter', { max: 40 }),
+      optString('eyebrow', 'Teks kecil di atas judul', 'Maks. 40 karakter', { max: 40 }),
       optString('title', 'Judul', 'Maks. 80 karakter', { max: 80 }),
       text('intro', 'Pengantar', 'Opsional. Maks. 240 karakter', { max: 240, required: false }),
-      list('items', 'Daftar Layanan', '', [string('title', 'Nama Layanan', 'Maks. 60 karakter', { max: 60 }), text('description', 'Deskripsi', 'Maks. 300 karakter', { max: 300 }), optString('price', 'Harga', 'Opsional. Contoh: "Mulai Rp5 juta". Maks. 40 karakter', { max: 40 }), cta('cta', 'Tombol', 'Opsional.')], { min: 1, required: true, summary: '{{title}}' }),
+      list('items', 'Daftar layanan', '', [string('title', 'Nama layanan', 'Maks. 60 karakter', { max: 60 }), text('description', 'Deskripsi', 'Maks. 300 karakter', { max: 300 }), optString('price', 'Harga', 'Opsional. Contoh: "Mulai Rp5 juta". Maks. 40 karakter', { max: 40 }), cta('cta', 'Tombol', 'Opsional.')], { min: 1, required: true, summary: '{{title}}' }),
     ],
   },
   {
@@ -222,7 +222,7 @@ export const sectionTypes = [
     fields: [
       ...base([['grid', 'Grid rapi (rasio 4:3)'], ['masonry', 'Masonry (rasio asli tiap gambar)']], 'grid', 'Tata letak galeri. Gambar bisa diklik untuk diperbesar.'),
       optString('title', 'Judul', 'Maks. 80 karakter', { max: 80 }),
-      list('items', 'Gambar', '', [image('image', 'Gambar', ''), string('alt', 'Deskripsi Gambar (alt)', 'Jelaskan isi gambar. Maks. 160 karakter', { max: 160 }), optString('caption', 'Keterangan', 'Opsional. Maks. 160 karakter', { max: 160 })], { min: 1, required: true, summary: '{{alt}}' }),
+      list('items', 'Gambar', '', [image('image', 'Gambar', ''), string('alt', 'Deskripsi gambar (alt)', 'Jelaskan isi gambar. Maks. 160 karakter', { max: 160 }), optString('caption', 'Keterangan', 'Opsional. Maks. 160 karakter', { max: 160 })], { min: 1, required: true, summary: '{{alt}}' }),
     ],
   },
   {
@@ -232,9 +232,9 @@ export const sectionTypes = [
     fields: [
       ...base([['full', 'Peta lebar penuh'], ['split', 'Info kiri, peta kanan']], 'split', 'Tata letak peta.'),
       optString('title', 'Judul', 'Maks. 80 karakter', { max: 80 }),
-      string('embedUrl', 'Link Embed Google Maps', 'Di Google Maps: Bagikan → Sematkan peta → salin link di dalam src="...".', { pattern: [MAPS, 'Harus link embed Google Maps'] }),
+      string('embedUrl', 'Link embed Google Maps', 'Di Google Maps: Bagikan → Sematkan peta → salin link di dalam src="...".', { pattern: [MAPS, 'Harus link embed Google Maps'] }),
       text('address', 'Alamat', 'Maks. 240 karakter', { max: 240, required: false }),
-      text('hours', 'Jam Buka', 'Maks. 240 karakter', { max: 240, required: false }),
+      text('hours', 'Jam buka', 'Maks. 240 karakter', { max: 240, required: false }),
     ],
   },
   {
@@ -243,8 +243,8 @@ export const sectionTypes = [
     summary: '{{headline}}',
     fields: [
       ...base([['default', 'Banner berwarna aksen']], 'default', 'Hanya satu gaya.'),
-      string('headline', 'Kalimat Ajakan', 'Maks. 100 karakter', { max: 100 }),
-      object('button', 'Tombol', 'Wajib diisi.', [string('label', 'Teks Tombol', 'Maks. 30 karakter', { max: 30 }), ...linkFields()], true),
+      string('headline', 'Kalimat ajakan', 'Maks. 100 karakter', { max: 100 }),
+      object('button', 'Tombol', 'Wajib diisi.', [string('label', 'Teks tombol', 'Maks. 30 karakter', { max: 30 }), ...linkFields()], true),
     ],
   },
   {
@@ -255,8 +255,8 @@ export const sectionTypes = [
       ...base([['simple', 'Sederhana: rata tengah'], ['split', 'Split: teks kiri, form kanan']], 'split', 'Tata letak kontak.'),
       string('title', 'Judul', 'Maks. 80 karakter', { max: 80 }),
       text('text', 'Teks', 'Opsional. Maks. 300 karakter', { max: 300, required: false }),
-      bool('showForm', 'Tampilkan Form', true, 'Pesan masuk ke email lewat Netlify Forms.'),
-      bool('showDirect', 'Tampilkan Email & WhatsApp', true, 'Diambil dari Pengaturan Situs.'),
+      bool('showForm', 'Tampilkan form', true, 'Pesan masuk ke email lewat Netlify Forms.'),
+      bool('showDirect', 'Tampilkan email & WhatsApp', true, 'Diambil dari Pengaturan Situs.'),
     ],
   },
 ];
@@ -276,10 +276,10 @@ const seoFields = (pageLevel) =>
   pageLevel
     ? object('seo', 'SEO', 'Tampilan di Google & saat link dibagikan.', [
         text('description', 'Deskripsi', 'Maks. 160 karakter. Kosongkan untuk memakai deskripsi situs.', { max: 160, required: false }),
-        image('ogImage', 'Gambar Preview Link', '1200×630 px. Kosongkan untuk memakai gambar situs.', false),
+        image('ogImage', 'Gambar preview link', '1200×630 px. Kosongkan untuk memakai gambar situs.', false),
         bool('noindex', 'Sembunyikan dari Google', false, 'Nyalakan untuk halaman seperti "Terima kasih".'),
       ])
-    : object('seo', 'SEO', 'Tampilan di Google & saat link dibagikan.', [text('description', 'Deskripsi Situs', 'Muncul di Google. Maks. 160 karakter', { max: 160 }), image('ogImage', 'Gambar Preview Link', '1200×630 px. Muncul saat link dibagikan di WhatsApp/LinkedIn.')], true);
+    : object('seo', 'SEO', 'Tampilan di Google & saat link dibagikan.', [text('description', 'Deskripsi situs', 'Muncul di Google. Maks. 160 karakter', { max: 160 }), image('ogImage', 'Gambar preview link', '1200×630 px. Muncul saat link dibagikan di WhatsApp/LinkedIn.')], true);
 
 export const collections = [
   {
@@ -298,14 +298,14 @@ export const collections = [
           image('favicon', 'Favicon', 'PNG persegi minimal 512 px.', false),
           string('email', 'Email', 'Dipakai di section Kontak & tombol salin email.', { type: 'email' }),
           optString('whatsapp', 'Nomor WhatsApp', 'Format 62xxx tanpa + atau spasi. Contoh: 6281234567890', { pattern: ['^62\\d{8,14}$', 'Format: 62 diikuti nomor, tanpa spasi'] }),
-          list('socials', 'Sosial Media', '', [select('platform', 'Platform', SOCIALS.map((s) => [s, s]), undefined, ''), string('url', 'Link Profil', 'Link lengkap, diawali https://', { type: 'url' })], { summary: '{{platform}}' }),
+          list('socials', 'Sosial media', '', [select('platform', 'Platform', SOCIALS.map((s) => [s, s]), undefined, ''), string('url', 'Link profil', 'Link lengkap, diawali https://', { type: 'url' })], { summary: '{{platform}}' }),
           { name: 'cvFile', label: 'File CV (PDF)', widget: 'file', required: false, accept: 'application/pdf', hint: 'Opsional. Memunculkan tombol "Download CV" di footer.' },
           seoFields(false),
-          optString('footerText', 'Teks Footer', 'Maks. 160 karakter', { max: 160 }),
-          select('language', 'Bahasa Situs', [['id', 'Bahasa Indonesia'], ['en', 'English']], 'id', 'Bahasa teks tombol, label form, dan menu bawaan di situs. Konten tetap Anda tulis sendiri.', false),
+          optString('footerText', 'Teks footer', 'Maks. 160 karakter', { max: 160 }),
+          select('language', 'Bahasa situs', [['id', 'Bahasa Indonesia'], ['en', 'English']], 'id', 'Bahasa teks tombol, label form, dan menu bawaan di situs. Konten tetap Anda tulis sendiri.', false),
           text('address', 'Alamat', 'Tampil di footer. Maks. 200 karakter', { max: 200, required: false }),
-          select('nameSuffix', 'Simbol di Belakang Nama', [['none', 'Tanpa simbol'], ['®', '®'], ['™', '™'], ['*', '*']], 'none', 'Tampil kecil di belakang nama (navbar Pill, hero Spotlight & Cutout).', false),
-          object('availability', 'Status Ketersediaan', 'Badge berisi titik hijau, mis. "Available" atau "Terima proyek".', [bool('enabled', 'Tampilkan', false), optString('label', 'Teks Status', 'Maks. 24 karakter', { max: 24 })], true),
+          select('nameSuffix', 'Simbol di belakang nama', [['none', 'Tanpa simbol'], ['®', '®'], ['™', '™'], ['*', '*']], 'none', 'Tampil kecil di belakang nama (navbar Pill, hero Spotlight & Cutout).', false),
+          object('availability', 'Status ketersediaan', 'Badge berisi titik hijau, mis. "Available" atau "Terima proyek".', [bool('enabled', 'Tampilkan', false), optString('label', 'Teks status', 'Maks. 24 karakter', { max: 24 })], true),
         ],
       },
       {
@@ -313,10 +313,10 @@ export const collections = [
         label: 'Tema & Animasi',
         file: 'src/content/settings/theme.json',
         fields: [
-          select('preset', 'Preset Tema', [['editorial', 'Editorial: majalah, hangat, elegan'], ['mono', 'Minimal Mono: bersih, banyak ruang'], ['midnight', 'Dark Studio: gelap, kontras, teknis'], ['soft', 'Soft Pastel: lembut, ramah'], ['brutal', 'Bold Brutalist: berani, grafis'], ['nusantara', 'Jakarta Modern: modern, lokal'], ['noir', 'Noir Spotlight: hitam pekat, foto dari kegelapan'], ['rouge', 'Rouge: putih bersih, aksen merah tua']], 'editorial', 'Menentukan font, sudut, bayangan, dan warna awal.'),
-          { name: 'backgroundColor', label: 'Warna Latar (opsional)', widget: 'color', allowInput: true, required: false, pattern: [HEX, 'Format hex, contoh #F5F1EA'], hint: 'Kosongkan untuk memakai warna preset. Warna bisa digeser sedikit otomatis demi keterbacaan.' },
-          { name: 'textColor', label: 'Warna Teks (opsional)', widget: 'color', allowInput: true, required: false, pattern: [HEX, 'Format hex, contoh #1A1A1A'], hint: 'Kosongkan untuk memakai warna preset. Bila kurang kontras dengan latar, otomatis digelapkan/diterangkan.' },
-          { name: 'accentColor', label: 'Warna Aksen (opsional)', widget: 'color', allowInput: true, required: false, pattern: ['^(#[0-9a-fA-F]{6}|auto)$', 'Format hex (contoh #C2410C) atau ketik auto'], hint: 'Warna tombol & link. Kosongkan untuk memakai warna preset. Ketik "auto" untuk mengambil warna dari foto hero Beranda. Bisa digeser sedikit demi keterbacaan.' },
+          select('preset', 'Preset tema', [['editorial', 'Editorial: majalah, hangat, elegan'], ['mono', 'Minimal Mono: bersih, banyak ruang'], ['midnight', 'Dark Studio: gelap, kontras, teknis'], ['soft', 'Soft Pastel: lembut, ramah'], ['brutal', 'Bold Brutalist: berani, grafis'], ['nusantara', 'Jakarta Modern: modern, lokal'], ['noir', 'Noir Spotlight: hitam pekat, foto dari kegelapan'], ['rouge', 'Rouge: putih bersih, aksen merah tua']], 'editorial', 'Menentukan font, sudut, bayangan, dan warna awal.'),
+          { name: 'backgroundColor', label: 'Warna latar (opsional)', widget: 'color', allowInput: true, required: false, pattern: [HEX, 'Format hex, contoh #F5F1EA'], hint: 'Kosongkan untuk memakai warna preset. Warna bisa digeser sedikit otomatis demi keterbacaan.' },
+          { name: 'textColor', label: 'Warna teks (opsional)', widget: 'color', allowInput: true, required: false, pattern: [HEX, 'Format hex, contoh #1A1A1A'], hint: 'Kosongkan untuk memakai warna preset. Bila kurang kontras dengan latar, otomatis digelapkan/diterangkan.' },
+          { name: 'accentColor', label: 'Warna aksen (opsional)', widget: 'color', allowInput: true, required: false, pattern: ['^(#[0-9a-fA-F]{6}|auto)$', 'Format hex (contoh #C2410C) atau ketik auto'], hint: 'Warna tombol & link. Kosongkan untuk memakai warna preset. Ketik "auto" untuk mengambil warna dari foto hero Beranda. Bisa digeser sedikit demi keterbacaan.' },
           select('motion', 'Animasi', [['full', 'Penuh'], ['subtle', 'Halus (fade saja)'], ['off', 'Mati']], 'full', 'Level animasi seluruh situs.'),
         ],
       },
@@ -325,10 +325,10 @@ export const collections = [
         label: 'Navigasi (Menu)',
         file: 'src/content/settings/navigation.json',
         fields: [
-          select('navStyle', 'Gaya Navbar', [['default', 'Standar: nama, menu, tombol'], ['pill', 'Pill: nama + status, tombol Menu'], ['glass-center', 'Kaca tengah: menu di pill kaca (cocok dengan hero Showcase)']], 'default', 'Tampilan navbar di semua halaman.', false),
-          list('mainMenu', 'Menu Navbar', 'Maks. 6 item. Seret untuk mengubah urutan. Menautkan halaman custom: buat halamannya dulu di menu Halaman Custom.', [string('label', 'Teks Menu', 'Maks. 30 karakter', { max: 30 }), ...linkFields(), bool('openNewTab', 'Buka di Tab Baru', false), list('children', 'Submenu (dropdown)', 'Opsional. Bila diisi, item ini membuka daftar dropdown. Maks. 12 item.', [string('label', 'Teks Submenu', 'Maks. 40 karakter', { max: 40 }), ...linkFields()], { max: 12, summary: '{{label}}' })], { max: 6, summary: '{{label}}' }),
-          object('ctaButton', 'Tombol CTA Navbar', 'Tombol menonjol di kanan navbar, contoh "Hubungi Saya".', [bool('enabled', 'Tampilkan', false), optString('label', 'Teks Tombol', 'Maks. 30 karakter', { max: 30 }), ...linkFields()], true),
-          list('footerMenu', 'Menu Footer', 'Maks. 10 item, untuk halaman sekunder seperti FAQ.', [string('label', 'Teks Menu', 'Maks. 30 karakter', { max: 30 }), ...linkFields()], { max: 10, summary: '{{label}}' }),
+          select('navStyle', 'Gaya navbar', [['default', 'Standar: nama, menu, tombol'], ['pill', 'Pill: nama + status, tombol Menu'], ['glass-center', 'Kaca tengah: menu di pill kaca (cocok dengan hero Showcase)']], 'default', 'Tampilan navbar di semua halaman.', false),
+          list('mainMenu', 'Menu navbar', 'Maks. 6 item. Seret untuk mengubah urutan. Halaman custom harus dibuat dulu sebelum bisa ditautkan.', [string('label', 'Teks menu', 'Maks. 30 karakter', { max: 30 }), ...linkFields(), bool('openNewTab', 'Buka di tab baru', false), list('children', 'Submenu (dropdown)', 'Opsional. Bila diisi, item ini membuka daftar dropdown. Maks. 12 item.', [string('label', 'Teks submenu', 'Maks. 40 karakter', { max: 40 }), ...linkFields()], { max: 12, summary: '{{label}}' })], { max: 6, summary: '{{label}}' }),
+          object('ctaButton', 'Tombol CTA navbar', 'Tombol menonjol di kanan navbar, contoh "Hubungi Saya".', [bool('enabled', 'Tampilkan', false), optString('label', 'Teks tombol', 'Maks. 30 karakter', { max: 30 }), ...linkFields()], true),
+          list('footerMenu', 'Menu footer', 'Maks. 10 item, untuk halaman sekunder seperti FAQ.', [string('label', 'Teks menu', 'Maks. 30 karakter', { max: 30 }), ...linkFields()], { max: 10, summary: '{{label}}' }),
         ],
       },
     ],
@@ -344,7 +344,7 @@ export const collections = [
         file: 'src/content/pages/about.json',
         fields: [
           image('photo', 'Foto', 'Rasio 4:5 (potret).'),
-          string('photoAlt', 'Deskripsi Foto (alt)', 'Maks. 160 karakter', { max: 160 }),
+          string('photoAlt', 'Deskripsi foto (alt)', 'Maks. 160 karakter', { max: 160 }),
           ...edgeFields('Default: Bingkai.'),
           string('headline', 'Judul', 'Maks. 80 karakter', { max: 80 }),
           md('bio', 'Bio', 'Cerita tentang Anda.'),
@@ -357,7 +357,7 @@ export const collections = [
   },
   {
     name: 'custom_pages',
-    label: 'Halaman Custom',
+    label: 'Halaman custom',
     label_singular: 'Halaman',
     description: 'Halaman tambahan seperti Layanan, Harga, atau FAQ. Setelah dibuat, tambahkan ke menu di Pengaturan Situs → Navigasi.',
     folder: 'src/content/custom-pages',
@@ -370,9 +370,9 @@ export const collections = [
     summary: '{{title}} — /{{fields.slug}}',
     sortable_fields: ['title'],
     fields: [
-      string('title', 'Judul Halaman', 'Tampil di tab browser dan sebagai judul besar. Maks. 80 karakter', { max: 80 }),
+      string('title', 'Judul halaman', 'Tampil di tab browser dan sebagai judul besar. Maks. 80 karakter', { max: 80 }),
       string('slug', 'Alamat URL', 'Huruf kecil, angka, dan tanda hubung. Contoh: layanan → namaweb.com/layanan. Tidak boleh: admin, projects, about, dev, uploads, 404.', { pattern: [SLUG, 'Huruf kecil, angka, dan tanda hubung saja'] }),
-      object('pageHeader', 'Header Halaman', 'Judul + sub-judul di atas konten. Matikan bila section pertama adalah Hero.', [bool('enabled', 'Tampilkan', true), optString('eyebrow', 'Teks Kecil di Atas Judul', 'Maks. 40 karakter', { max: 40 }), text('subtitle', 'Sub-judul', 'Maks. 200 karakter', { max: 200, required: false }), image('image', 'Gambar', 'Opsional. Rasio 12:5 (lebar).', false), imageAlt(), ...edgeFields('Default: Bingkai.')]),
+      object('pageHeader', 'Header halaman', 'Judul + sub-judul di atas konten. Matikan bila section pertama adalah Hero.', [bool('enabled', 'Tampilkan', true), optString('eyebrow', 'Teks kecil di atas judul', 'Maks. 40 karakter', { max: 40 }), text('subtitle', 'Sub-judul', 'Maks. 200 karakter', { max: 200, required: false }), image('image', 'Gambar', 'Opsional. Rasio 12:5 (lebar).', false), imageAlt(), ...edgeFields('Default: Bingkai.')]),
       sections(true),
       seoFields(true),
       bool('draft', 'Sembunyikan (draft)', false, 'Halaman draft tidak diterbitkan. Hapus dulu dari menu sebelum menjadikannya draft, kalau tidak build akan gagal.'),
@@ -395,19 +395,19 @@ export const collections = [
       string('title', 'Judul', 'Alamat halaman dibuat otomatis dari judul. Maks. 80 karakter', { max: 80 }),
       select('category', 'Kategori', CATEGORIES.map((c) => [c, c]), undefined, ''),
       number('year', 'Tahun', 'Contoh: 2026', { min: 1990, max: 2100 }),
-      image('cover', 'Gambar Cover', 'Rasio 4:3. Tampil di kartu proyek.'),
-      string('coverAlt', 'Deskripsi Cover (alt)', 'Maks. 160 karakter', { max: 160 }),
+      image('cover', 'Gambar cover', 'Rasio 4:3. Tampil di kartu proyek.'),
+      string('coverAlt', 'Deskripsi cover (alt)', 'Maks. 160 karakter', { max: 160 }),
       text('summary', 'Ringkasan', 'Tampil di kartu proyek, maks. 160 karakter', { max: 160 }),
-      optString('role', 'Peran Saya', 'Maks. 80 karakter', { max: 80 }),
+      optString('role', 'Peran saya', 'Maks. 80 karakter', { max: 80 }),
       optString('client', 'Klien', 'Maks. 80 karakter', { max: 80 }),
       { name: 'tools', label: 'Tools', widget: 'list', required: false, hint: 'Contoh: Figma, Illustrator. Ditampilkan sebagai badge.', field: string('tool', 'Tool', '', { max: 30 }) },
       bool('featured', 'Unggulan', false, 'Muncul di section Proyek Unggulan.'),
       number('order', 'Urutan', 'Opsional. Angka kecil tampil lebih dulu; kosong = urut tahun terbaru.', { required: false }),
       list('gallery', 'Galeri', 'Bisa diklik untuk diperbesar.', [image('image', 'Gambar', ''), string('alt', 'Deskripsi (alt)', 'Maks. 160 karakter', { max: 160 }), optString('caption', 'Keterangan', 'Maks. 160 karakter', { max: 160 })], { summary: '{{alt}}' }),
-      list('videos', 'Video YouTube', 'Tempel link YouTube apa pun.', [string('youtubeUrl', 'Link YouTube', 'Video harus Public atau Unlisted.', { pattern: [YOUTUBE, 'Harus link YouTube'] }), string('title', 'Judul Video', 'Maks. 100 karakter', { max: 100 })], { summary: '{{title}}' }),
-      optString('externalUrl', 'Link Live', 'Opsional. Memunculkan tombol "Lihat live".', { type: 'url' }),
+      list('videos', 'Video YouTube', 'Tempel link YouTube apa pun.', [string('youtubeUrl', 'Link YouTube', 'Video harus Public atau Unlisted.', { pattern: [YOUTUBE, 'Harus link YouTube'] }), string('title', 'Judul video', 'Maks. 100 karakter', { max: 100 })], { summary: '{{title}}' }),
+      optString('externalUrl', 'Link live', 'Opsional. Memunculkan tombol "Lihat live".', { type: 'url' }),
       bool('draft', 'Sembunyikan (draft)', false, 'Proyek draft tidak diterbitkan.'),
-      md('body', 'Isi Studi Kasus', 'Ceritakan masalah, proses, dan hasil.', false),
+      md('body', 'Isi studi kasus', 'Ceritakan masalah, proses, dan hasil.', false),
     ],
   },
 ];

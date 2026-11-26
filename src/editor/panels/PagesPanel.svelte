@@ -1,7 +1,5 @@
 <script lang="ts">
   import { ed, type PageRef } from '../state.svelte';
-  import FieldForm from '../fields/FieldForm.svelte';
-  import { fileFields } from '../paths';
   import Icon from '../Icon.svelte';
 
   let newTitle = $state('');
@@ -11,7 +9,6 @@
     Object.entries(ed.content?.projects ?? {}).sort(([, a]: any, [, b]: any) => (a.data.order ?? 1e9) - (b.data.order ?? 1e9) || b.data.year - a.data.year),
   );
   const active = (p: PageRef) => ed.pageKey(p) === ed.pageKey();
-  const navFields = fileFields('settings', 'navigation');
 
   function create() {
     const t = newTitle.trim();
@@ -66,11 +63,3 @@
   </ul>
   <button type="button" class="e-btn e-add" onclick={() => ed.addProject()}><Icon name="plus" size={14} />Proyek baru</button>
 </section>
-
-{#if ed.content}
-  <section class="e-sec">
-    <h3>Menu navigasi</h3>
-    <p class="e-hint">Atur menu navbar, tombol CTA, dan menu footer. Halaman custom juga bisa dimasukkan lewat Pengaturan halaman.</p>
-    <FieldForm fields={navFields} value={ed.content.navigation} path="navigation" />
-  </section>
-{/if}

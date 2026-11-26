@@ -61,7 +61,7 @@
   {#if shown}
     {#if withLabel}
       <label class="e-label" for={`l-${path}`}>
-        Teks {optional ? 'tombol' : 'menu'}
+        {labelDef?.label ?? 'Teks'}
         {#if labelDef?.maxlength}<span class="e-count">{String(value.label ?? '').length}/{labelDef.maxlength}</span>{/if}
       </label>
       <input id={`l-${path}`} class="e-input" value={value.label ?? ''} maxlength={labelDef?.maxlength} oninput={(e) => setLabel(e.currentTarget.value)} />
