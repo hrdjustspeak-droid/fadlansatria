@@ -94,3 +94,28 @@ Astro 7 (`output: static`) + TypeScript strict, Tailwind CSS 4 (lewat `@tailwind
 - Mobile menu & lightbox memakai `<dialog>` native (focus trap + Esc bawaan). FAQ memakai `<details>`.
 - `backend.repo` di config CMS diambil dari `REPOSITORY_URL` (Netlify) atau `CMS_REPO`; tanpa `base_url` sehingga Sveltia memakai OAuth Netlify.
 - Kategori proyek (placeholder PRD): Branding, UI/UX, Ilustrasi, Video — ada di `schemas.ts` dan `cms-config.mjs`.
+
+## Repo ini = situs Fadlan Satria (bukan template)
+
+Dua repo terpisah, riwayat tidak terhubung:
+
+| Folder lokal | Remote | Isi |
+| --- | --- | --- |
+| `c:\laragon\www\portobuilder` (repo ini) | `github.com/hrdjustspeak-droid/fadlansatria` (privat) | Konten asli Fadlan, riwayat lengkap |
+| `c:\laragon\www\portobuilder-template` | `github.com/reinaldyauliakurniawan-arch/portobuilder` (public, *template repository*) | Kode sama + konten contoh dari commit `bd83fb7`, riwayat baru tanpa data Fadlan. Panduan awam: `BUKU-PANDUAN.md` |
+
+Perbaikan kode tidak otomatis menyebar: kerjakan di satu repo, bawa ke yang lain dengan `git format-patch` / `git am`. Jangan pernah memasukkan konten `src/content` Fadlan ke repo template.
+
+Hosting saat ini (dipasang 26 Nov 2026):
+- Netlify tim "Hrd Justspeak Indonesia" (akun hrd, paket Free), project `fadlansatria` → https://fadlansatria.netlify.app. Visibility dijadikan **Public** manual (project baru default Private → 401 untuk pengunjung).
+- GitHub OAuth App "Fadlan Satria Editor" milik akun hrdjustspeak-droid, callback `https://api.netlify.com/auth/done`, *Expire user access tokens* dimatikan (Netlify tidak me-refresh token). Secret sempat terlihat di screenshot sesi; ganti bila belum.
+- Akses tulis repo: hrdjustspeak-droid (pemilik) + reinaldyauliakurniawan-arch (collaborator). Editor `/edit` menerima akun GitHub mana pun dengan akses Write; disarankan Fadlan pakai akun sendiri sebagai collaborator.
+- **Badge "Powered by Netlify"** muncul (script `/.netlify/scripts/hud?variant=public` disisipkan Netlify, bukan kode kita). Hanya bisa dimatikan di paket berbayar. Diuji: deploy HTML murni lewat Drop di akun hrd tetap kena badge, sedangkan project baru di akun lama reinaldy (`reinaldy-va`) tidak → tampaknya bergantung umur akun/tim. Pemilik menolak memakai akun pribadi reinaldy dan menolak menyembunyikan badge lewat CSS (melanggar aturan paket Free).
+- Alternatif yang sedang dipertimbangkan: InfinityFree (HTML statis, tanpa editor online/form/OG preview andal) atau editor tetap di Netlify + situs publik ke Cloudflare Pages/InfinityFree via GitHub Actions. Remake ke PHP dinilai tidak sepadan (dua codebase).
+
+Ekspor HTML statis (untuk InfinityFree / hosting biasa), di luar repo, jangan di-commit:
+1. `SITE_URL=https://<alamat-tujuan> node scripts/real-cwd.mjs astro build` (lewati `npm run build`: `astro check` segfault di laptop ini; tipe sudah lolos sebelumnya).
+2. `git checkout -- public/admin/config.yml` (build lokal menimpanya dengan repo placeholder).
+3. Salin `dist/` ke `c:\laragon\www\fadlansatria-html`, hapus `edit/`, `admin/`, `dev/` (+ entri `/dev/` di `sitemap-0.xml`), tambah `.htaccess` berisi `ErrorDocument 404 /404.html`.
+4. Form kontak (Netlify Forms) tidak jalan di luar Netlify: buang kolom form di section `#kontak` `index.html` dan ganti layout ke varian tanpa form (`container-x grid gap-10 max-w-3xl`, kolom `text-center`, `ul` + `items-center`). Atau ganti ke Formspree bila pemilik memberi form ID.
+5. Upload **isi** folder ke `htdocs`. Video YouTube tetap jalan (dimuat dari YouTube di browser).
