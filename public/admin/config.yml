@@ -270,7 +270,7 @@ collections:
           - name: mainMenu
             label: Menu navbar
             widget: list
-            hint: "Maks. 6 item. Seret untuk mengubah urutan. Menautkan halaman custom: buat halamannya dulu di menu Halaman custom."
+            hint: Maks. 6 item. Seret untuk mengubah urutan. Halaman custom harus dibuat dulu sebelum bisa ditautkan.
             required: false
             max: 6
             summary: "{{label}}"
