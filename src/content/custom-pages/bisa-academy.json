@@ -4,7 +4,7 @@
   "pageHeader": {
     "enabled": true,
     "eyebrow": "Project",
-    "subtitle": "A self-development academy built on one belief: with the right training, everyone can.",
+    "subtitle": "A platform empowering SMEs and enterprises across every organizational level: technicians, managers, and strategists.",
     "image": "/uploads/sample/project-2.webp",
     "imageAlt": "Placeholder photo for BISA Academy",
     "imageEdge": "frame",
@@ -16,7 +16,7 @@
       "enabled": true,
       "variant": "two-column",
       "title": "The problem",
-      "body": "Soft skills such as communication, leadership, and career readiness decide who gets ahead, yet most young people only meet them as one-off seminars. Quality, structured programs are rare and often priced out of reach.\n\nBISA Academy (*bisa* means \"can\" in Indonesian) packages these skills into short, hands-on programs with real practice and follow-up."
+      "body": "SMEs and enterprises need practical mindset and skill development, yet lack a single, all-in-one solution.\n\nBISA Academy (*bisa* means \"can\" in Indonesian) packages these skills into short, hands-on programs with real practice and one-on-one-s."
     },
     {
       "type": "services",
@@ -26,16 +26,21 @@
       "title": "Key activities",
       "items": [
         {
-          "title": "Career readiness bootcamps",
-          "description": "CV writing, interview practice, and personal branding in intensive weekend formats."
+          "title": "Technicians",
+          "description": "Classes for those aspiring to or currently working in technical roles, such as salespeople, accountants, bookkeepers, and administrators.",
+          "cta": {
+            "label": "",
+            "linkType": "builtin",
+            "builtinPage": "home"
+          }
         },
         {
-          "title": "Leadership classes",
-          "description": "Practical sessions on running teams, meetings, and projects for student leaders and young professionals."
+          "title": "Managerials",
+          "description": "Practical sessions on running teams, meetings, and projects for future leaders and young professionals."
         },
         {
-          "title": "Affordable pricing tiers",
-          "description": "Scholarship seats and community pricing so cost is not the reason someone misses out."
+          "title": "Strategists",
+          "description": "A chance for business owners or c-level leaders to "
         }
       ]
     },
